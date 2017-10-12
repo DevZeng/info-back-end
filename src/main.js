@@ -3,9 +3,10 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import ElementUI from './element-ui'
-import axios from './axios'
-import qs from './qs'
+import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-default/index.css'
+import axios from 'axios'
+import qs from 'qs'
 
 /*
   配置 axios
@@ -21,6 +22,27 @@ axios.interceptors.request.use(config => {
 }, error => {
   console.log('错误的传参！')
   return Promise.reject(error)
+})
+
+/**
+ * 全局钩子
+ */
+router.beforeEach((to, from, next) => {
+  if (sessionStorage.username) {
+    if (to.name === 'Login') {
+      next(from.path)
+    } else {
+      next()
+    }
+  } else {
+    if (to.name !== 'Login') {
+      next({
+        path: '/login'
+      })
+    } else {
+      next()
+    }
+  }
 })
 
 Vue.prototype.$http = axios
