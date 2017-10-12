@@ -1,12 +1,209 @@
 <style scoped>
-div {
-  color: red;
+#root {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+
+
+
+
+
+
+
+
+
+
+/* 头部样式 */
+
+#header {
+  height: 64px;
+  padding-left: 30px;
+  padding-right: 30px;
+  background-color: #324157;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-staff {
+  cursor: pointer;
+  color: #fff;
+}
+
+.header-staff .welcome {
+  margin-right: 20px;
+}
+
+
+
+
+
+
+
+
+
+
+
+/* 内容样式 */
+
+#content {
+  flex: 1;
+  position: relative;
+}
+
+.flex-bug {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  display: flex;
+}
+
+.nav-wrap {
+  height: 100%;
+  width: 200px;
+  background-color: #324157;
+}
+
+.content-router {
+  height: 100%;
+  flex: 1;
+  padding: 15px;
+}
+
+
+
+
+
+
+
+
+
+/* 底部样式 */
+
+#footer {
+  background-color: #324157;
+  color: #fff;
+  text-align: center;
+  font-size: 14px;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 </style>
 
 <template>
-  <div>hello</div>
+  <div id="root">
+
+    <!-- 头部 -->
+    <header id="header">
+      <div class="header-logo">Logo</div>
+      <el-dropdown class="header-staff">
+        <span class="el-dropdown-link">
+          <i class="welcome">欢迎</i> SHINING</span>
+        <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item @click.native="logout">退出</el-dropdown-item>
+        </el-dropdown-menu>
+      </el-dropdown>
+    </header>
+    <!-- /头部 -->
+
+    <!-- 内容 -->
+    <section id="content">
+      <div class="flex-bug">
+        <!-- 导航 -->
+        <nav class="nav-wrap">
+          <el-menu default-active="2" class="el-menu-vertical-demo" theme="dark" :unique-opened="true">
+            <el-submenu index="1">
+              <template slot="title">
+                <i class="el-icon-document"></i>首页
+              </template>
+              <el-menu-item-group>
+                <el-menu-item index="1-1">LOGO</el-menu-item>
+                <el-menu-item index="1-2">广告位</el-menu-item>
+                <el-menu-item index="1-3">文本表</el-menu-item>
+                <el-menu-item index="1-4">用户指南</el-menu-item>
+                <el-menu-item index="1-5">支付</el-menu-item>
+                <el-menu-item index="1-6">城市地图</el-menu-item>
+                <el-menu-item index="1-7">举报与投诉</el-menu-item>
+                <el-menu-item index="1-8">后台管理</el-menu-item>
+              </el-menu-item-group>
+              <el-submenu index="1-4">
+                <template slot="title">选项4</template>
+                <el-menu-item index="1-4-1">选项1</el-menu-item>
+              </el-submenu>
+            </el-submenu>
+            <el-submenu index="2">
+              <template slot="title">
+                <i class="el-icon-star-on"></i>会员
+              </template>
+              <el-menu-item-group>
+                <el-menu-item index="2-1">会员等级</el-menu-item>
+                <el-menu-item index="2-2">二维码开关</el-menu-item>
+                <el-menu-item index="2-3">会员功能</el-menu-item>
+                <el-menu-item index="2-4">申请兼职</el-menu-item>
+                <el-menu-item index="2-5">用户列表</el-menu-item>
+              </el-menu-item-group>
+              <el-submenu index="2-4">
+                <template slot="title">选项4</template>
+                <el-menu-item index="2-4-1">选项1</el-menu-item>
+              </el-submenu>
+            </el-submenu>
+            <el-submenu index="3">
+              <template slot="title">
+                <i class="el-icon-message"></i>信息处理
+              </template>
+              <el-menu-item-group>
+                <el-menu-item index="3-1">种类和细节</el-menu-item>
+                <el-menu-item index="3-4">未审核列表</el-menu-item>
+                <el-menu-item index="3-5">审核通过列表</el-menu-item>
+                <el-menu-item index="3-2">审核条件</el-menu-item>
+                <el-menu-item index="3-3">信息收费管理</el-menu-item>
+                <el-menu-item index="3-6">短信反馈</el-menu-item>
+                <el-menu-item index="3-7">启动页面</el-menu-item>
+              </el-menu-item-group>
+              <el-submenu index="3-4">
+                <template slot="title">选项4</template>
+                <el-menu-item index="3-4-1">选项1</el-menu-item>
+              </el-submenu>
+            </el-submenu>
+          </el-menu>
+        </nav>
+        <!-- /导航 -->
+
+        <!-- 正文内容 -->
+        <section class="content-router">
+          <router-view></router-view>
+        </section>
+        <!-- /正文内容 -->
+      </div>
+    </section>
+    <!-- /内容 -->
+
+    <!-- 底部 -->
+    <footer id="footer"> 2017 &copy; Sennki All Rights Reserved</footer>
+    <!-- /底部 -->
+  </div>
 </template>
 
 <script>
+export default {
+  data() {
+    return {
+
+    }
+  },
+
+  methods: {
+
+    /*
+      退出登录
+    */
+    logout() {
+      sessionStorage.clear('username')
+      this.$router.push('/login')
+    }
+  }
+}
 </script>
