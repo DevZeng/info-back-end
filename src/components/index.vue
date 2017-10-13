@@ -71,15 +71,8 @@
   height: 100%;
   flex: 1;
   padding: 15px;
+  overflow-y: scroll;
 }
-
-
-
-
-
-
-
-
 
 /* 底部样式 */
 
