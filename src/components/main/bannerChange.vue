@@ -1,5 +1,4 @@
 <style>
-
 .breadcrumb {
   margin-bottom: 20px;
 }
@@ -10,16 +9,16 @@
   padding: 15px;
 }
 
-.logo-wrap {
+.banner-wrap {
   width: 500px;
   margin: 60px auto 0;
 }
 
-.logo-uploader {
+.banner-uploader {
   text-align: center;
 }
 
-.logo-uploader .el-upload {
+.banner-uploader .el-upload {
   border: 1px dashed #d9d9d9;
   border-radius: 6px;
   cursor: pointer;
@@ -28,11 +27,11 @@
   margin-bottom: 20px;
 }
 
-.logo-uploader .el-upload:hover {
+.banner-uploader .el-upload:hover {
   border-color: #20a0ff;
 }
 
-.logo-uploader .logo-uploader-icon {
+.banner-uploader .banner-uploader-icon {
   font-size: 28px;
   color: #8c939d;
   width: 178px;
@@ -41,9 +40,8 @@
   text-align: center;
 }
 
-.logo {
-  width: 178px;
-  height: 178px;
+.banner {
+  width: 100%;
   display: block;
 }
 </style>
@@ -52,16 +50,17 @@
   <section class="logo-father">
     <el-breadcrumb separator="/" class="breadcrumb">
       <el-breadcrumb-item>首页</el-breadcrumb-item>
-      <el-breadcrumb-item>LOGO</el-breadcrumb-item>
+      <el-breadcrumb-item :to="{'path': '/bannerlist'}">广告位</el-breadcrumb-item>
+      <el-breadcrumb-item>广告修改</el-breadcrumb-item>
     </el-breadcrumb>
-    <div class="logo-wrap">
-      <el-upload class="logo-uploader" action="https://jsonplaceholder.typicode.com/posts/" :multiple="false" accept="image/jpg,image/png,image/jpeg" :show-file-list="false" :on-success="handleSuccess" :before-upload="beforeUpload">
-        <img v-if="logoForm.url" :src="logoForm.url" class="logo">
-        <i v-else class="el-icon-plus logo-uploader-icon"></i>
+    <div class="banner-wrap">
+      <el-upload class="banner-uploader" action="https://jsonplaceholder.typicode.com/posts/" :multiple="false" accept="image/jpg,image/png,image/jpeg" :show-file-list="false" :on-success="handleSuccess" :before-upload="beforeUpload">
+        <img v-if="bannerForm.url" :src="bannerForm.url" class="banner">
+        <i v-else class="el-icon-plus banner-uploader-icon"></i>
       </el-upload>
-      <el-form label-position="top" label-width="80px" :rules="rules" :model="logoForm">
-        <el-form-item label="LOGO 名称" prop="name">
-          <el-input v-model="logoForm.name"></el-input>
+      <el-form label-position="top" label-width="80px" :rules="rules" :model="bannerForm">
+        <el-form-item label="Banner 名称" prop="name">
+          <el-input v-model="bannerForm.name"></el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="onSubmit()" style="width: 100%;margin-top: 20px;">确定</el-button>
@@ -75,7 +74,7 @@
 export default {
   data() {
     return {
-      logoForm: {
+      bannerForm: {
         name: '',
         url: ''
       },
@@ -85,6 +84,14 @@ export default {
           { required: true, message: '不能为空', trigger: 'blur' }
         ]
       }
+    }
+  },
+
+  created(){
+    const img = this.$route.params.img
+    if(img){
+      this.bannerForm.name = img.name
+      this.bannerForm.url = img.url
     }
   },
 
@@ -105,14 +112,14 @@ export default {
       上传成功
     */
     handleSuccess(res, file) {
-      this.logoForm.url = URL.createObjectURL(file.raw)
+      this.bannerForm.url = URL.createObjectURL(file.raw)
     },
 
     /*
       提交
     */
     onSubmit() {
-      if (this.logoForm.name) {
+      if (this.bannerForm.name) {
         this.$message({
           message: '提交成功！',
           showClose: true,
@@ -127,6 +134,6 @@ export default {
       }
     }
   }
+
 }
 </script>
-

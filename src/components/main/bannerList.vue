@@ -1,4 +1,9 @@
 <style scoped>
+
+.breadcrumb {
+  margin-bottom: 20px;
+}
+
 .banner-list {
   padding: 15px;
   height: 100%;
@@ -23,8 +28,12 @@
 
 <template>
   <section class="banner-list">
+    <el-breadcrumb separator="/" class="breadcrumb">
+      <el-breadcrumb-item>首页</el-breadcrumb-item>
+      <el-breadcrumb-item>广告位</el-breadcrumb-item>
+    </el-breadcrumb>
     <div class="banner-operation">
-      <el-button type="primary">新增广告</el-button>
+      <el-button type="primary" @click="addAD">新增广告</el-button>
       <el-button type="primary" @click="openAD">开启</el-button>
       <el-button type="warning" @click="closeAD">关闭</el-button>
     </div>
@@ -94,6 +103,13 @@ export default {
     },
 
     /*
+      新增广告
+    */
+    addAD(){
+      this.$router.push({name: 'bannerchange', params: {img: null}})
+    },
+
+    /*
       多选
     */
     handleSelection(selection) {
@@ -124,8 +140,8 @@ export default {
     /* 
       广告名称、图片修改
     */
-    handleChange() {
-
+    handleChange(index, row) {
+      this.$router.push({name: 'bannerchange', params: {img: row}})
     },
 
     /*

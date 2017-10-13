@@ -5,16 +5,6 @@
   flex-direction: column;
 }
 
-
-
-
-
-
-
-
-
-
-
 /* 头部样式 */
 
 #header {
