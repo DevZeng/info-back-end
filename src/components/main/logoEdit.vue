@@ -1,4 +1,10 @@
 <style>
+.logo-father {
+  overflow-y: scroll;
+  height: 100%;
+  padding: 15px;
+}
+
 .logo-wrap {
   width: 500px;
   margin: 60px auto 0;
@@ -38,7 +44,8 @@
 </style>
 
 <template>
-  <section class="logo-wrap">
+<section class="logo-father">
+  <div class="logo-wrap">
     <el-upload class="logo-uploader" action="https://jsonplaceholder.typicode.com/posts/" :multiple="false" accept="image/jpg,image/png,image/jpeg" :show-file-list="false" :on-success="handleSuccess" :before-upload="beforeUpload">
       <img v-if="logoForm.url" :src="logoForm.url" class="logo">
       <i v-else class="el-icon-plus logo-uploader-icon"></i>
@@ -51,7 +58,8 @@
         <el-button type="primary" @click="onSubmit()" style="width: 100%;margin-top: 20px;">确定</el-button>
       </el-form-item>
     </el-form>
-  </section>
+  </div>
+</section>
 </template>
 
 <script>

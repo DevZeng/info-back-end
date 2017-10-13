@@ -62,8 +62,6 @@
 .content-router {
   height: 100%;
   flex: 1;
-  padding: 15px;
-  overflow-y: scroll;
 }
 
 /* 底部样式 */
@@ -106,7 +104,7 @@
               </template>
               <el-menu-item-group>
                 <el-menu-item index="/logoedit">LOGO</el-menu-item>
-                <el-menu-item index="1-2">广告位</el-menu-item>
+                <el-menu-item index="/bannerlist">广告位</el-menu-item>
                 <el-menu-item index="1-3">文本表</el-menu-item>
                 <el-menu-item index="1-4">用户指南</el-menu-item>
                 <el-menu-item index="1-5">支付</el-menu-item>

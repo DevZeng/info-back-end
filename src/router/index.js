@@ -4,6 +4,7 @@ import Login from '@/components/login'
 import Index from '@/components/index'
 import IndexContent from '@/components/IndexContent'
 import LogoEdit from '@/components/main/logoEdit'
+import BannerList from '@/components/main/bannerList'
 
 Vue.use(Router)
 
@@ -24,6 +25,10 @@ export default new Router({
         path: 'logoedit',
         name: 'logoedit',
         component: LogoEdit
+      }, {
+        path: 'bannerlist',
+        name: 'bannerlist',
+        component: BannerList
       }]
     }
   ]
