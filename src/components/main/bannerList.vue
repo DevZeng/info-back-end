@@ -121,8 +121,16 @@ export default {
       广告打开
     */
     openAD() {
+      const length = this.waittingData.length
+      if (!length) {
+        this.$message({
+          message: '请先选择！',
+          showClose: true,
+          type: 'warning'
+        })
+      }
       let idGroup = []
-      for (let i = 0; i < this.waittingData.length; i++) {
+      for (let i = 0; i < length; i++) {
         idGroup.push(this.waittingData[i].id)
       }
       console.log(idGroup)
@@ -132,8 +140,16 @@ export default {
       广告关闭
     */
     closeAD() {
+      const length = this.waittingData.length
+      if (!length) {
+        this.$message({
+          message: '请先选择！',
+          showClose: true,
+          type: 'warning'
+        })
+      }
       let idGroup = []
-      for (let i = 0; i < this.waittingData.length; i++) {
+      for (let i = 0; i < length; i++) {
         idGroup.push(this.waittingData[i].id)
       }
       console.log(idGroup)
