@@ -1,5 +1,4 @@
 <style scoped>
-
 .breadcrumb {
   margin-bottom: 20px;
 }
@@ -43,9 +42,11 @@
         </el-table-column>
         <el-table-column label="名称" prop="name">
         </el-table-column>
-        <el-table-column prop="img" label="图片">
+        <el-table-column label="图片">
+          <template scope="scope">{{scope.row.img || '暂无'}}</template>
         </el-table-column>
-        <el-table-column prop="link" label="跳转链接" show-overflow-tooltip>
+        <el-table-column label="跳转链接" show-overflow-tooltip>
+          <template scope="scope">{{scope.row.link || '暂无'}}</template>
         </el-table-column>
         <el-table-column prop="status" label="状态" :formatter="statusFnc">
         </el-table-column>
@@ -105,8 +106,8 @@ export default {
     /*
       新增广告
     */
-    addAD(){
-      this.$router.push({name: 'bannerchange', params: {img: null}})
+    addAD() {
+      this.$router.push({ name: 'bannerchange', params: { img: null } })
     },
 
     /*
@@ -141,21 +142,36 @@ export default {
       广告名称、图片修改
     */
     handleChange(index, row) {
-      this.$router.push({name: 'bannerchange', params: {img: row}})
+      this.$router.push({ name: 'bannerchange', params: { img: row } })
     },
 
     /*
       广告文本编辑
     */
     handleEdit(index, row) {
-      this.$router.push({name: 'banneredit', params: {id: row.id}})
+      this.$router.push({ name: 'banneredit', params: { id: row.id } })
     },
 
     /*
       广告删除
     */
-    handleDelete() {
-
+    handleDelete(index, row) {
+      this.$confirm('此操作将删除该 Banner, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.bannerList.splice(index, 1)
+        this.$message({
+          type: 'success',
+          message: '删除成功!'
+        })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消删除'
+        })
+      })
     },
 
     /*

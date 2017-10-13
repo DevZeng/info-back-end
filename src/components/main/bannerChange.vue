@@ -62,6 +62,9 @@
         <el-form-item label="Banner 名称" prop="name">
           <el-input v-model="bannerForm.name"></el-input>
         </el-form-item>
+        <el-form-item label="跳转链接" prop="redirect">
+          <el-input v-model="bannerForm.redirect"></el-input>
+        </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="onSubmit()" style="width: 100%;margin-top: 20px;">确定</el-button>
         </el-form-item>
@@ -76,7 +79,8 @@ export default {
     return {
       bannerForm: {
         name: '',
-        url: ''
+        url: '',
+        redirect: ''
       },
 
       rules: {
@@ -87,9 +91,9 @@ export default {
     }
   },
 
-  created(){
+  created() {
     const img = this.$route.params.img
-    if(img){
+    if (img) {
       this.bannerForm.name = img.name
       this.bannerForm.url = img.url
     }
