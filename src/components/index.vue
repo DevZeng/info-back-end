@@ -37,16 +37,6 @@
   margin-right: 20px;
 }
 
-
-
-
-
-
-
-
-
-
-
 /* 内容样式 */
 
 #content {
@@ -65,6 +55,8 @@
   height: 100%;
   width: 200px;
   background-color: #324157;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 .content-router {
@@ -107,13 +99,13 @@
       <div class="flex-bug">
         <!-- 导航 -->
         <nav class="nav-wrap">
-          <el-menu default-active="2" class="el-menu-vertical-demo" theme="dark" :unique-opened="true">
-            <el-submenu index="1">
+          <el-menu :default-active="routerActive" class="el-menu-vertical-demo" theme="dark" :unique-opened="true" :router="true">
+            <el-submenu index="/">
               <template slot="title">
                 <i class="el-icon-document"></i>首页
               </template>
               <el-menu-item-group>
-                <el-menu-item index="1-1">LOGO</el-menu-item>
+                <el-menu-item index="/logoedit">LOGO</el-menu-item>
                 <el-menu-item index="1-2">广告位</el-menu-item>
                 <el-menu-item index="1-3">文本表</el-menu-item>
                 <el-menu-item index="1-4">用户指南</el-menu-item>
@@ -184,8 +176,11 @@
 export default {
   data() {
     return {
-
+      routerActive: this.$route.path
     }
+  },
+
+  created(){
   },
 
   methods: {

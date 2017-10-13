@@ -3,13 +3,14 @@ import Router from 'vue-router'
 import Login from '@/components/login'
 import Index from '@/components/index'
 import IndexContent from '@/components/IndexContent'
+import LogoEdit from '@/components/main/logoEdit'
 
 Vue.use(Router)
 
 export default new Router({
   routes: [{
       path: '/login',
-      name: 'Login',
+      name: 'login',
       component: Login
     },
     {
@@ -17,8 +18,12 @@ export default new Router({
       component: Index,
       children: [{
         path: '',
-        name: 'IndexContent',
+        name: 'indexcontent',
         component: IndexContent
+      }, {
+        path: 'logoedit',
+        name: 'logoedit',
+        component: LogoEdit
       }]
     }
   ]

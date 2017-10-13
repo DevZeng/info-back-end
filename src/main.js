@@ -29,13 +29,13 @@ axios.interceptors.request.use(config => {
  */
 router.beforeEach((to, from, next) => {
   if (sessionStorage.username) {
-    if (to.name === 'Login') {
+    if (to.name === 'login') {
       next(from.path)
     } else {
       next()
     }
   } else {
-    if (to.name !== 'Login') {
+    if (to.name !== 'login') {
       next({
         path: '/login'
       })
