@@ -147,8 +147,8 @@ export default {
     /*
       广告文本编辑
     */
-    handleEdit() {
-
+    handleEdit(index, row) {
+      this.$router.push({name: 'banneredit', params: {id: row.id}})
     },
 
     /*

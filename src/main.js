@@ -7,6 +7,7 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-default/index.css'
 import axios from 'axios'
 import qs from 'qs'
+import VueQuillEditor from 'vue-quill-editor'
 
 /*
   配置 axios
@@ -47,6 +48,7 @@ router.beforeEach((to, from, next) => {
 
 Vue.prototype.$http = axios
 Vue.use(ElementUI)
+Vue.use(VueQuillEditor)
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

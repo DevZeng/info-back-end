@@ -5,7 +5,8 @@ import Index from '@/components/index'
 import IndexContent from '@/components/IndexContent'
 import LogoEdit from '@/components/main/logoEdit'
 import BannerList from '@/components/main/bannerList'
-import BanneChange from '@/components/main/bannerChange'
+import BannerChange from '@/components/main/bannerChange'
+import BannerEdit from '@/components/main/bannerEdit'
 
 Vue.use(Router)
 
@@ -33,7 +34,11 @@ export default new Router({
       }, {
         path: 'bannerchange',
         name: 'bannerchange',
-        component: BanneChange
+        component: BannerChange
+      }, {
+        path: 'banneredit',
+        name: 'banneredit',
+        component: BannerEdit
       }]
     }
   ]
