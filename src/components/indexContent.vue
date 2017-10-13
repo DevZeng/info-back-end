@@ -11,7 +11,7 @@
     background-color: #eee;
     padding-left: 60px;
     padding-right: 60px;
-    width: 60%;
+    width: 90%;
     height: 300px;
     margin-top: 50px;
     display: flex;
@@ -21,12 +21,13 @@
 
   h1 {
     margin: 0;
-    font-size: 60px;
+    font-size: 55px;
+    font-weight: normal;
   }
   p {
     margin-top: 20px;
     margin-bottom: 0;
-    font-size: 48px;
+    font-size: 36px;
   }
 </style>
 
