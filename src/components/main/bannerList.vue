@@ -43,15 +43,15 @@
         <el-table-column label="名称" prop="name">
         </el-table-column>
         <el-table-column label="图片">
-          <template scope="scope">{{scope.row.img || '暂无'}}</template>
+          <template slot-scope="scope">{{scope.row.img || '暂无'}}</template>
         </el-table-column>
         <el-table-column label="跳转链接" show-overflow-tooltip>
-          <template scope="scope">{{scope.row.link || '暂无'}}</template>
+          <template slot-scope="scope">{{scope.row.link || '暂无'}}</template>
         </el-table-column>
         <el-table-column prop="status" label="状态" :formatter="statusFnc">
         </el-table-column>
         <el-table-column label="操作">
-          <template scope="scope">
+          <template slot-scope="scope">
             <el-button size="small" @click="handleChange(scope.$index, scope.row)">修改</el-button>
             <el-button size="small" type="primary" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
             <el-button size="small" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>

@@ -7,6 +7,7 @@ import LogoEdit from '@/components/main/logoEdit'
 import BannerList from '@/components/main/bannerList'
 import BannerChange from '@/components/main/bannerChange'
 import BannerEdit from '@/components/main/bannerEdit'
+import textList from '@/components/main/textList'
 
 Vue.use(Router)
 
@@ -39,6 +40,10 @@ export default new Router({
         path: 'banneredit',
         name: 'banneredit',
         component: BannerEdit
+      }, {
+        path: 'textlist',
+        name: 'textlist',
+        component: textList
       }]
     }
   ]
