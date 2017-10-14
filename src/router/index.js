@@ -9,6 +9,7 @@ import BannerChange from '@/components/main/bannerChange'
 import BannerEdit from '@/components/main/bannerEdit'
 import textList from '@/components/main/textList'
 import textEdit from '@/components/main/textEdit'
+import guideList from '@/components/main/guideList'
 
 Vue.use(Router)
 
@@ -50,12 +51,16 @@ export default new Router({
         name: 'textedit',
         component: textEdit,
         beforeEnter: (to, from, next) => {
-          if(from.path === '/'){
+          if (from.path === '/') {
             next('/')
           }
           next()
         }
-      }]
+      }, {
+        path: 'guidelist',
+        name: 'guidelist',
+        component: guideList
+      }, ]
     }
   ]
 })

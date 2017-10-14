@@ -97,7 +97,7 @@
                 <el-menu-item index="/logoedit">LOGO</el-menu-item>
                 <el-menu-item index="/bannerlist">广告位</el-menu-item>
                 <el-menu-item index="/textlist">文本表</el-menu-item>
-                <el-menu-item index="1-4">用户指南</el-menu-item>
+                <el-menu-item index="/guidelist">用户指南</el-menu-item>
                 <el-menu-item index="1-5">支付</el-menu-item>
                 <el-menu-item index="1-6">城市地图</el-menu-item>
                 <el-menu-item index="1-7">举报与投诉</el-menu-item>
