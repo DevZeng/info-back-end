@@ -10,6 +10,7 @@ import BannerEdit from '@/components/main/bannerEdit'
 import textList from '@/components/main/textList'
 import textEdit from '@/components/main/textEdit'
 import guideList from '@/components/main/guideList'
+import guideEdit from '@/components/main/guideEdit'
 
 Vue.use(Router)
 
@@ -60,6 +61,10 @@ export default new Router({
         path: 'guidelist',
         name: 'guidelist',
         component: guideList
+      }, {
+        path: 'guideedit',
+        name: 'guideedit',
+        component: guideEdit
       }, ]
     }
   ]
