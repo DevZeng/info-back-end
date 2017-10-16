@@ -11,6 +11,7 @@ import textList from '@/components/main/textList'
 import textEdit from '@/components/main/textEdit'
 import guideList from '@/components/main/guideList'
 import guideEdit from '@/components/main/guideEdit'
+import payList from '@/components/main/payList'
 import reportList from '@/components/main/reportList'
 
 Vue.use(Router)
@@ -66,6 +67,10 @@ export default new Router({
         path: 'guideedit',
         name: 'guideedit',
         component: guideEdit
+      }, {
+        path: 'paylist',
+        name: 'paylist',
+        component: payList
       }, {
         path: 'reportlist',
         name: 'reportlist',

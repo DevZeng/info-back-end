@@ -22,6 +22,41 @@
 .pages {
   text-align: right;
 }
+
+.pre-img-wrap {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, .5);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.sub-wrap {
+  width: 70%;
+  text-align: center;
+}
+
+.sub-wrap>img {
+  max-width: 100%;
+}
+
+.sub-wrap>span {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  color: #fff;
+  font-size: 30px;
+  cursor: pointer;
+}
+
+.pre-img-wrap.active {
+  display: flex;
+}
 </style>
 
 
@@ -42,8 +77,11 @@
         </el-table-column>
         <el-table-column label="名称" prop="name">
         </el-table-column>
-        <el-table-column label="图片">
-          <template slot-scope="scope">{{scope.row.img || '暂无'}}</template>
+        <el-table-column label="图片" align="center">
+          <template slot-scope="scope">
+            <img v-if="scope.row.img" :src="scope.row.img" alt="点击预览" title="点击预览" style="height: 40px; vertical-align: middle; cursor: pointer;" @click="preImgFnc(scope.row.img)">
+            <span v-else>暂无</span>
+          </template>
         </el-table-column>
         <el-table-column label="跳转链接" show-overflow-tooltip>
           <template slot-scope="scope">{{scope.row.link || '暂无'}}</template>
@@ -63,6 +101,15 @@
       <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="page" :page-size="eachPage" layout="total, prev, pager, next" :total="count">
       </el-pagination>
     </div>
+
+    <!-- 图片预览 -->
+    <div class="pre-img-wrap" :class="{'active': isPre}">
+      <div class="sub-wrap">
+        <img :src="preImg" alt="图片">
+        <span @click="closePreImg">关闭</span>
+      </div>
+    </div>
+    <!-- /图片预览 -->
   </section>
 </template>
 
@@ -71,6 +118,10 @@ export default {
   data() {
     return {
 
+      //图片预览
+      isPre: false,
+      preImg: '',
+
       //开启、关闭 暂存
       waittingData: [],
 
@@ -78,8 +129,8 @@ export default {
       bannerList: [{
         id: 1,
         name: '首页',
-        img: '',
-        link: '',
+        img: 'http://h.hiphotos.baidu.com/image/pic/item/58ee3d6d55fbb2fbecdc13d2464a20a44723dc7f.jpg',
+        link: 'https://www.baidu.com',
         status: 0
       }, {
         id: 2,
@@ -154,6 +205,23 @@ export default {
       }
       console.log(idGroup)
     },
+
+    /*
+    * 图片预览
+    */
+    preImgFnc(img) {
+      console.log(img)
+      this.isPre = true
+      this.preImg = img
+    },
+
+    /*
+    * 预览关闭
+    */
+    closePreImg() {
+      this.isPre = false
+    },
+
     /* 
       广告名称、图片修改
     */
