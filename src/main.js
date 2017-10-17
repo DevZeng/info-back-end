@@ -8,6 +8,7 @@ import 'element-ui/lib/theme-default/index.css'
 import axios from 'axios'
 import qs from 'qs'
 import VueQuillEditor from 'vue-quill-editor'
+import commonData from '@/assets/common.js'
 
 /*
   配置 axios
@@ -46,6 +47,7 @@ router.beforeEach((to, from, next) => {
   }
 })
 
+Vue.prototype.$common = commonData._data
 Vue.prototype.$http = axios
 Vue.use(ElementUI)
 Vue.use(VueQuillEditor)

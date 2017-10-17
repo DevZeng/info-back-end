@@ -13,6 +13,7 @@ import guideList from '@/components/main/guideList'
 import guideEdit from '@/components/main/guideEdit'
 import payList from '@/components/main/payList'
 import reportList from '@/components/main/reportList'
+import backList from '@/components/main/backList'
 
 Vue.use(Router)
 
@@ -75,7 +76,11 @@ export default new Router({
         path: 'reportlist',
         name: 'reportlist',
         component: reportList
-      }, ]
+      }, {
+        path: 'backlist',
+        name: 'backlist',
+        component: backList
+      }]
     }
   ]
 })
