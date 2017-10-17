@@ -2,15 +2,25 @@
 .check-in-wrap {
   height: 100%;
   padding: 15px;
+  overflow-y: scroll;
 }
 
 .breadcrumb {
-  margin-bottom: 60px;
+  margin-bottom: 20px;
 }
 
-.check-in-form {
-  width: 500px;
-  margin: 0 auto;
+.ql-container .ql-editor {
+  min-height: 20em;
+  padding-bottom: 1em;
+  max-height: 25em;
+}
+
+.html {
+  height: 9em;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  border-top: none;
+  resize: vertical;
 }
 </style>
 
@@ -22,27 +32,33 @@
     <el-breadcrumb separator="/" class="breadcrumb">
       <el-breadcrumb-item>会员</el-breadcrumb-item>
       <el-breadcrumb-item>会员功能</el-breadcrumb-item>
-      <el-breadcrumb-item>签到</el-breadcrumb-item>
+      <el-breadcrumb-item>分享</el-breadcrumb-item>
     </el-breadcrumb>
     <div class="check-in-form">
-      <el-form label-position="top" label-width="80px" :model="checkInForm" :rules="rules" ref="checkInForm">
-        <el-form-item label="签到开关" prop="status">
-          <el-tooltip :content="'当前状态：' + checkSwitchText[checkInForm.status]" placement="top">
-            <el-switch v-model="checkInForm.status" on-color="#13ce66" off-color="#ff4949" on-value="1" off-value="0" on-text="打开" off-text="关闭" @change="checkInFnc">
+      <el-form label-position="top" label-width="80px" :model="shareForm" :rules="rules" ref="shareForm">
+        <el-form-item label="分享开关" prop="status">
+          <el-tooltip :content="'当前状态：' + checkSwitchText[shareForm.status]" placement="top">
+            <el-switch v-model="shareForm.status" on-color="#13ce66" off-color="#ff4949" on-value="1" off-value="0" on-text="打开" off-text="关闭" @change="sacnSwitchFnc">
             </el-switch>
           </el-tooltip>
         </el-form-item>
         <el-form-item label="活动时间" prop="region">
-          <el-date-picker v-model.number="checkInForm.region" type="datetimerange" :picker-options="dateRangeOption" placeholder="选择活动时间" align="left" :disabled="checkInForm.status == 0">
+          <el-date-picker v-model.number="shareForm.region" type="datetimerange" :picker-options="dateRangeOption" placeholder="选择活动时间" align="left" :disabled="shareForm.status == 0">
           </el-date-picker>
         </el-form-item>
-        <el-form-item label="签到积分" prop="point">
-          <el-input v-model.number="checkInForm.point" placeholder="请输入每次签到积分" :disabled="checkInForm.status == 0">
+        <el-form-item label="分享积分" prop="point">
+          <el-input v-model.number="shareForm.point" placeholder="请输入每次分享积分" :disabled="shareForm.status == 0">
             <template slot="append">分</template>
           </el-input>
         </el-form-item>
+        <div class="quill-editor-example">
+          <!-- quill-editor -->
+          <quill-editor ref="myTextEditor" v-model="shareForm.content" :options="editorOption">
+          </quill-editor>
+          <div class="html ql-editor" v-html="shareForm.content"></div>
+        </div>
         <el-form-item>
-          <el-button type="primary" @click="onSubmit('checkInForm')" style="width: 100%;margin-top: 20px;">确定</el-button>
+          <el-button type="primary" @click="onSubmit('shareForm')" style="width: 100%;margin-top: 20px;">确定</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -55,16 +71,20 @@ export default {
     return {
       loading: true,
       checkSwitchText: ['关闭', '打开'],
-      checkInForm: {
+      shareForm: {
         status: '1',
         region: '',
         point: null,
+        content: ''
+      },
+      editorOption: {
+        placeholder: '在这里输入，下面会同步显示...'
       },
 
       rules: {
         point: [
-          { required: true, message: '签到积分不能为空' },
-          { type: 'number', message: '签到积分必须为数字' }
+          { required: true, message: '分析积分不能为空' },
+          { type: 'number', message: '分析积分必须为数字' }
         ]
       },
 
@@ -109,7 +129,7 @@ export default {
     /*
     * 开关切换
     */
-    checkInFnc(value){
+    sacnSwitchFnc(value) {
 
     },
 
@@ -134,6 +154,7 @@ export default {
         }
       })
     },
+
   },
 }
 </script>

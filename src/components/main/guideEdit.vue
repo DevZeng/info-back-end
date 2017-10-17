@@ -57,7 +57,6 @@ export default {
                 name: '',
                 content: '',
             },
-            name: 'base-example',
             editorOption: {
                 placeholder: '在这里输入，下面会同步显示...'
             }

@@ -19,6 +19,8 @@ import memberLevelList from '@/components/member/memberLevelList'
 import memberLevelEdit from '@/components/member/memberLevelEdit'
 import QRControl from '@/components/member/QRControl'
 import memberCheckIn from '@/components/member/memberCheckIn'
+import memberScan from '@/components/member/memberScan'
+import memberShare from '@/components/member/memberShare'
 
 Vue.use(Router)
 
@@ -105,6 +107,14 @@ export default new Router({
         path: 'membercheckin',
         name: 'membercheckin',
         component: memberCheckIn
+      }, {
+        path: 'memberscan',
+        name: 'memberscan',
+        component: memberScan
+      }, {
+        path: 'membershare',
+        name: 'membershare',
+        component: memberShare
       }]
     }
   ]

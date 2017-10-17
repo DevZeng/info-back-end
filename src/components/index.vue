@@ -142,8 +142,8 @@
               <el-submenu index="2-1">
                 <template slot="title">会员功能</template>
                 <el-menu-item index="/membercheckin">签到</el-menu-item>
-                <el-menu-item index="2-4-1">扫一扫</el-menu-item>
-                <el-menu-item index="2-4-1">分享</el-menu-item>
+                <el-menu-item index="/memberscan">扫一扫</el-menu-item>
+                <el-menu-item index="/membershare">分享</el-menu-item>
               </el-submenu>
             </el-submenu>
             <el-submenu index="3">

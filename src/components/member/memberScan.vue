@@ -22,27 +22,27 @@
     <el-breadcrumb separator="/" class="breadcrumb">
       <el-breadcrumb-item>会员</el-breadcrumb-item>
       <el-breadcrumb-item>会员功能</el-breadcrumb-item>
-      <el-breadcrumb-item>签到</el-breadcrumb-item>
+      <el-breadcrumb-item>扫一扫</el-breadcrumb-item>
     </el-breadcrumb>
     <div class="check-in-form">
-      <el-form label-position="top" label-width="80px" :model="checkInForm" :rules="rules" ref="checkInForm">
-        <el-form-item label="签到开关" prop="status">
-          <el-tooltip :content="'当前状态：' + checkSwitchText[checkInForm.status]" placement="top">
-            <el-switch v-model="checkInForm.status" on-color="#13ce66" off-color="#ff4949" on-value="1" off-value="0" on-text="打开" off-text="关闭" @change="checkInFnc">
+      <el-form label-position="top" label-width="80px" :model="scanForm" :rules="rules" ref="scanForm">
+        <el-form-item label="扫一扫开关" prop="status">
+          <el-tooltip :content="'当前状态：' + checkSwitchText[scanForm.status]" placement="top">
+            <el-switch v-model="scanForm.status" on-color="#13ce66" off-color="#ff4949" on-value="1" off-value="0" on-text="打开" off-text="关闭" @change="sacnSwitchFnc">
             </el-switch>
           </el-tooltip>
         </el-form-item>
         <el-form-item label="活动时间" prop="region">
-          <el-date-picker v-model.number="checkInForm.region" type="datetimerange" :picker-options="dateRangeOption" placeholder="选择活动时间" align="left" :disabled="checkInForm.status == 0">
+          <el-date-picker v-model.number="scanForm.region" type="datetimerange" :picker-options="dateRangeOption" placeholder="选择活动时间" align="left" :disabled="scanForm.status == 0">
           </el-date-picker>
         </el-form-item>
-        <el-form-item label="签到积分" prop="point">
-          <el-input v-model.number="checkInForm.point" placeholder="请输入每次签到积分" :disabled="checkInForm.status == 0">
+        <el-form-item label="扫一扫积分" prop="point">
+          <el-input v-model.number="scanForm.point" placeholder="请输入每次扫一扫积分" :disabled="scanForm.status == 0">
             <template slot="append">分</template>
           </el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="onSubmit('checkInForm')" style="width: 100%;margin-top: 20px;">确定</el-button>
+          <el-button type="primary" @click="onSubmit('scanForm')" style="width: 100%;margin-top: 20px;">确定</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -55,7 +55,7 @@ export default {
     return {
       loading: true,
       checkSwitchText: ['关闭', '打开'],
-      checkInForm: {
+      scanForm: {
         status: '1',
         region: '',
         point: null,
@@ -63,8 +63,8 @@ export default {
 
       rules: {
         point: [
-          { required: true, message: '签到积分不能为空' },
-          { type: 'number', message: '签到积分必须为数字' }
+          { required: true, message: '扫一扫积分不能为空' },
+          { type: 'number', message: '扫一扫积分必须为数字' }
         ]
       },
 
@@ -109,7 +109,7 @@ export default {
     /*
     * 开关切换
     */
-    checkInFnc(value){
+    sacnSwitchFnc(value){
 
     },
 
@@ -134,6 +134,7 @@ export default {
         }
       })
     },
+    
   },
 }
 </script>
