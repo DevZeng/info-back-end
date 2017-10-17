@@ -157,7 +157,7 @@
                 <el-menu-item index="3-2">审核条件</el-menu-item>
                 <el-menu-item index="3-3">信息收费管理</el-menu-item>
                 <el-menu-item index="3-6">短信反馈</el-menu-item>
-                <el-menu-item index="3-7">启动页面</el-menu-item>
+                <el-menu-item index="/startpage">启动页面</el-menu-item>
               </el-menu-item-group>
               <el-submenu index="3-4">
                 <template slot="title">选项4</template>

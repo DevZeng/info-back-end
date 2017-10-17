@@ -21,6 +21,7 @@ import QRControl from '@/components/member/QRControl'
 import memberCheckIn from '@/components/member/memberCheckIn'
 import memberScan from '@/components/member/memberScan'
 import memberShare from '@/components/member/memberShare'
+import startPage from '@/components/info/startPage'
 
 Vue.use(Router)
 
@@ -115,6 +116,10 @@ export default new Router({
         path: 'membershare',
         name: 'membershare',
         component: memberShare
+      }, {
+        path: 'startpage',
+        name: 'startpage',
+        component: startPage
       }]
     }
   ]
