@@ -16,6 +16,7 @@ import reportList from '@/components/main/reportList'
 import backList from '@/components/main/backList'
 import backEdit from '@/components/main/backEdit'
 import memberLevelList from '@/components/member/memberLevelList'
+import memberLevelEdit from '@/components/member/memberLevelEdit'
 
 Vue.use(Router)
 
@@ -90,6 +91,10 @@ export default new Router({
         path: 'memberlevellist',
         name: 'memberlevellist',
         component: memberLevelList
+      }, {
+        path: 'memberleveledit',
+        name: 'memberleveledit',
+        component: memberLevelEdit
       }]
     }
   ]

@@ -37,7 +37,7 @@
           <el-checkbox v-for="authority in authorities" :label="authority.id" :key="authority.id" style="margin: 10px;">{{authority.name}}</el-checkbox>
         </el-checkbox-group>
         <el-form-item>
-          <el-button type="primary" @click="submitForm('adminUser')" style="width: 100%;margin-top: 10px;">新建用户</el-button>
+          <el-button type="primary" @click="submitForm('adminUser')" style="width: 100%;margin-top: 10px;">确定</el-button>
         </el-form-item>
       </el-form>
     </div>
