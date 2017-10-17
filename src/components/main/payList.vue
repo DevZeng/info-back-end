@@ -45,7 +45,7 @@
 
     <div class="pay-operation">
       <el-tooltip :content="'当前选项: ' + payType" placement="top" style="margin-bottom: 20px;">
-        <el-switch v-model="payType" on-color="" off-color="#13ce66" on-value="支付宝" off-value="微信" on-text="支付宝" off-text="微信" :width="80">
+        <el-switch v-model="payType" off-color="#13ce66" on-value="支付宝" off-value="微信" on-text="支付宝" off-text="微信" :width="80">
         </el-switch>
       </el-tooltip>
       <div class="pay-picker">

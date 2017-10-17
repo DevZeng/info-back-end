@@ -117,7 +117,7 @@
               </template>
               <el-menu-item-group>
                 <el-menu-item index="/memberlevellist">会员等级</el-menu-item>
-                <el-menu-item index="2-2">二维码开关</el-menu-item>
+                <el-menu-item index="/qrcontrol">二维码开关</el-menu-item>
                 <el-menu-item index="2-3">会员功能</el-menu-item>
                 <el-menu-item index="2-4">申请兼职</el-menu-item>
                 <el-menu-item index="2-5">用户列表</el-menu-item>
