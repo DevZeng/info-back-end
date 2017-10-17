@@ -94,7 +94,7 @@ export default {
     */
     formatAuthority(row, column, cellValue) {
       const str = cellValue.reduce((sum, value) => {
-        return sum + this.$common.authorities[value] + '、'
+        return sum + this.$common.authorities[value].name + '、'
       }, '')
       return str
     },
@@ -103,7 +103,7 @@ export default {
       新增
     */
     addUser() {
-      this.$router.push({ name: 'guideedit', params: { guide: null } })
+      this.$router.push({ name: 'backedit', params: { user: null } })
     },
 
     deleteUser() {

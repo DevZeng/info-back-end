@@ -10,20 +10,18 @@
   margin-bottom: 20px;
 }
 
-.report-operation {
+.pay-operation {
   margin-bottom: 20px;
-  /* text-align: right; */
 }
 
-.report-picker {
-  /* text-align: right; */
+.pay-picker {
   display: flex;
   justify-content: flex-end;
   align-items: flex-start;
 }
 
 
-.report-picker>div {
+.pay-picker>div {
   margin-right: 20px;
 }
 
@@ -45,12 +43,12 @@
       <el-breadcrumb-item>举报与申诉</el-breadcrumb-item>
     </el-breadcrumb>
 
-    <div class="report-operation">
+    <div class="pay-operation">
       <el-tooltip :content="'当前选项: ' + payType" placement="top" style="margin-bottom: 20px;">
         <el-switch v-model="payType" on-color="" off-color="#13ce66" on-value="支付宝" off-value="微信" on-text="支付宝" off-text="微信" :width="80">
         </el-switch>
       </el-tooltip>
-      <div class="report-picker">
+      <div class="pay-picker">
         <el-date-picker v-model="dateRange" type="daterange" align="right" placeholder="选择日期范围" :picker-options="dateOptions">
         </el-date-picker>
         <el-select v-model="level" multiple filterable placeholder="请选择会员等级">
