@@ -52,10 +52,10 @@
         <el-date-picker v-model="dateRange" type="daterange" align="right" placeholder="选择日期范围" :picker-options="dateOptions">
         </el-date-picker>
         <el-select v-model="level" multiple filterable placeholder="请选择会员等级">
-          <el-option v-for="item in levels" :key="item" :label="levels[item]" :value="item">
+          <el-option v-for="item in levels" :key="item.id" :label="item.name" :value="item.id">
           </el-option>
         </el-select>
-        <el-transfer filterable :filter-method="filterMethod" filter-placeholder="请输入城市名称" :titles="['已开放城市', '已选择城市']" :button-texts="['取消', '添加']" v-model="city" :data="cities" >
+        <el-transfer filterable :filter-method="filterMethod" filter-placeholder="请输入城市名称" :titles="['已开放城市', '已选择城市']" :button-texts="['取消', '添加']" v-model="city" :data="cities">
         </el-transfer>
         <el-button type="primary" icon="search" @click="pickerSearch">搜索</el-button>
       </div>
@@ -84,12 +84,10 @@ export default {
     const generateCities = _ => {
       const data = []
       const cities = ['上海', '北京', '广州', '深圳', '南京', '西安', '成都']
-      // const pinyin = ['shanghai', 'beijing', 'guangzhou', 'shenzhen', 'nanjing', 'xian', 'chengdu'];
       cities.forEach((city, index) => {
         data.push({
           label: city,
           key: index,
-          // pinyin: pinyin[index]
           cities: cities[index]
         })
       })
@@ -98,13 +96,7 @@ export default {
     return {
 
       //等级
-      levels: {
-        1: '一星会员',
-        2: '二星会员',
-        3: '三星会员',
-        4: '四星会员',
-        5: '五星会员',
-      },
+      levels: this.$common.memberLevels,
 
       level: '',
       city: '',

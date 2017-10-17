@@ -5,6 +5,7 @@
   flex-direction: column;
 }
 
+
 /* 头部样式 */
 
 #header {
@@ -26,6 +27,7 @@
 .header-staff .welcome {
   margin-right: 20px;
 }
+
 
 /* 内容样式 */
 
@@ -54,6 +56,7 @@
   flex: 1;
   overflow: hidden;
 }
+
 
 /* 底部样式 */
 
@@ -89,7 +92,7 @@
         <!-- 导航 -->
         <nav class="nav-wrap">
           <el-menu :default-active="routerActive" class="el-menu-vertical-demo" theme="dark" :unique-opened="true" :router="true">
-            <el-submenu index="/">
+            <el-submenu index="1">
               <template slot="title">
                 <i class="el-icon-document"></i>首页
               </template>
@@ -104,16 +107,16 @@
                 <el-menu-item index="/backlist">后台管理</el-menu-item>
               </el-menu-item-group>
               <!-- <el-submenu index="/">
-                <template slot="title">后台管理</template>
-                <el-menu-item index="1-4-1">选项1</el-menu-item>
-              </el-submenu> -->
+                  <template slot="title">后台管理</template>
+                  <el-menu-item index="1-4-1">选项1</el-menu-item>
+                </el-submenu> -->
             </el-submenu>
             <el-submenu index="2">
               <template slot="title">
                 <i class="el-icon-star-on"></i>会员
               </template>
               <el-menu-item-group>
-                <el-menu-item index="2-1">会员等级</el-menu-item>
+                <el-menu-item index="/memberlevellist">会员等级</el-menu-item>
                 <el-menu-item index="2-2">二维码开关</el-menu-item>
                 <el-menu-item index="2-3">会员功能</el-menu-item>
                 <el-menu-item index="2-4">申请兼职</el-menu-item>
@@ -169,7 +172,7 @@ export default {
     }
   },
 
-  created(){
+  created() {
   },
 
   methods: {

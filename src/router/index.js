@@ -15,6 +15,7 @@ import payList from '@/components/main/payList'
 import reportList from '@/components/main/reportList'
 import backList from '@/components/main/backList'
 import backEdit from '@/components/main/backEdit'
+import memberLevelList from '@/components/member/memberLevelList'
 
 Vue.use(Router)
 
@@ -85,6 +86,10 @@ export default new Router({
         path: 'backedit',
         name: 'backedit',
         component: backEdit
+      }, {
+        path: 'memberlevellist',
+        name: 'memberlevellist',
+        component: memberLevelList
       }]
     }
   ]
