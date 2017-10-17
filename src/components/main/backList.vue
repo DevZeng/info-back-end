@@ -26,7 +26,10 @@
 
 
 <template>
-  <section class="banner-list">
+  <section v-if="loading" class="loading">
+    <i class="el-icon-loading"></i>
+  </section>
+  <section v-else class="banner-list">
     <el-breadcrumb separator="/" class="breadcrumb">
       <el-breadcrumb-item>首页</el-breadcrumb-item>
       <el-breadcrumb-item>后台管理</el-breadcrumb-item>
@@ -66,6 +69,7 @@
 export default {
   data() {
     return {
+      loading: true,
       //全选等待操作
       waittingData: [],
 
@@ -85,6 +89,12 @@ export default {
       eachPage: 100,
       count: 1000,
     }
+  },
+
+  created() {
+    setTimeout(() => {
+      this.loading = false
+    }, 200)
   },
 
   methods: {

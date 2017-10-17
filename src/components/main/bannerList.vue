@@ -61,7 +61,10 @@
 
 
 <template>
-  <section class="banner-list">
+  <section v-if="loading" class="loading">
+    <i class="el-icon-loading"></i>
+  </section>
+  <section v-else class="banner-list">
     <el-breadcrumb separator="/" class="breadcrumb">
       <el-breadcrumb-item>首页</el-breadcrumb-item>
       <el-breadcrumb-item>广告位</el-breadcrumb-item>
@@ -117,6 +120,7 @@
 export default {
   data() {
     return {
+      loading: true,
 
       //图片预览
       isPre: false,
@@ -143,6 +147,12 @@ export default {
       eachPage: 100,
       count: 1000,
     }
+  },
+
+  created() {
+    setTimeout(() => {
+      this.loading = false
+    }, 200)
   },
 
   methods: {

@@ -37,7 +37,10 @@
 
 
 <template>
-  <section class="report-wrap">
+  <section v-if="loading" class="loading">
+    <i class="el-icon-loading"></i>
+  </section>
+  <section v-else class="report-wrap">
     <el-breadcrumb separator="/" class="breadcrumb">
       <el-breadcrumb-item>首页</el-breadcrumb-item>
       <el-breadcrumb-item>举报与申诉</el-breadcrumb-item>
@@ -66,7 +69,7 @@
         <el-table-column prop="id" label="ID">
         </el-table-column>
         <el-table-column label="等级" prop="level" sortable>
-          <template slot-scope="scope">{{levels[scope.row.level]}}</template>
+          <template slot-scope="scope">{{levels[scope.row.level].name}}</template>
         </el-table-column>
         <el-table-column prop="city" label="城市">
         </el-table-column>
@@ -94,6 +97,7 @@ export default {
       return data
     }
     return {
+      loading: true,
 
       //等级
       levels: this.$common.memberLevels,
@@ -162,6 +166,12 @@ export default {
         cost: 2500
       }]
     }
+  },
+
+  created() {
+    setTimeout(() => {
+      this.loading = false
+    }, 200)
   },
 
   methods: {

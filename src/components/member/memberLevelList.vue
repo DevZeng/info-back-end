@@ -25,7 +25,10 @@
 </style>
 
 <template>
-  <section class="member-level-wrap">
+  <section v-if="loading" class="loading">
+    <i class="el-icon-loading"></i>
+  </section>
+  <section v-else class="member-level-wrap">
     <el-breadcrumb separator="/" class="breadcrumb">
       <el-breadcrumb-item>会员</el-breadcrumb-item>
       <el-breadcrumb-item>会员等级</el-breadcrumb-item>
@@ -77,6 +80,7 @@
 export default {
   data() {
     return {
+      loading: true,
       levelSwitchText: ['关闭', '打开'],
       levelSwitch: '1',
 
@@ -108,6 +112,12 @@ export default {
       }
       ],
     }
+  },
+
+  created() {
+    setTimeout(() => {
+      this.loading = false
+    }, 200)
   },
   methods: {
 

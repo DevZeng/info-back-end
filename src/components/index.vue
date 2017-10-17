@@ -6,6 +6,7 @@
 }
 
 
+
 /* 头部样式 */
 
 #header {
@@ -27,6 +28,7 @@
 .header-staff .welcome {
   margin-right: 20px;
 }
+
 
 
 /* 内容样式 */
@@ -57,6 +59,16 @@
   overflow: hidden;
 }
 
+.loading {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loading i {
+  font-size: 30px;
+}
 
 /* 底部样式 */
 
@@ -107,9 +119,9 @@
                 <el-menu-item index="/backlist">后台管理</el-menu-item>
               </el-menu-item-group>
               <!-- <el-submenu index="/">
-                  <template slot="title">后台管理</template>
-                  <el-menu-item index="1-4-1">选项1</el-menu-item>
-                </el-submenu> -->
+                    <template slot="title">后台管理</template>
+                    <el-menu-item index="1-4-1">选项1</el-menu-item>
+                  </el-submenu> -->
             </el-submenu>
             <el-submenu index="2">
               <template slot="title">

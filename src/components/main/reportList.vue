@@ -35,7 +35,10 @@
 
 
 <template>
-  <section class="report-wrap">
+  <section v-if="loading" class="loading">
+    <i class="el-icon-loading"></i>
+  </section>
+  <section v-else class="report-wrap">
     <el-breadcrumb separator="/" class="breadcrumb">
       <el-breadcrumb-item>首页</el-breadcrumb-item>
       <el-breadcrumb-item>举报与申诉</el-breadcrumb-item>
@@ -117,6 +120,7 @@
 export default {
   data() {
     return {
+      loading: true,
       //搜索
       selectInput: '',
       select: "1",
@@ -226,6 +230,12 @@ export default {
         },
       ]
     }
+  },
+
+  created() {
+    setTimeout(() => {
+      this.loading = false
+    }, 200)
   },
 
   methods: {
