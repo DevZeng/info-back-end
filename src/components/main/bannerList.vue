@@ -14,6 +14,7 @@
 .table-list {
   overflow: auto;
   flex: 1;
+  min-height: 250px;
 }
 
 .banner-operation {

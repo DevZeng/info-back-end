@@ -173,7 +173,7 @@
               <el-submenu index="3-1">
                 <template slot="title">审核相关</template>
                 <el-menu-item index="/auditList">未审核列表</el-menu-item>
-                <el-menu-item index="3-4-1">审核通过列表</el-menu-item>
+                <el-menu-item index="/auditpasslist">审核通过列表</el-menu-item>
                 <el-menu-item index="/auditcondition">审核条件</el-menu-item>
               </el-submenu>
             </el-submenu>
