@@ -305,6 +305,7 @@ export default {
                 message: '回复不能为空',
                 showClose: true
               })
+              return false
             }
             this.partTimeList[index].replay_content = instance.inputValue
             done()

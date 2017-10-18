@@ -23,6 +23,7 @@ import userList from '@/components/member/userList'
 import memberCheckIn from '@/components/member/memberCheckIn'
 import memberScan from '@/components/member/memberScan'
 import memberShare from '@/components/member/memberShare'
+import auditList from '@/components/info/auditList'
 import auditCondition from '@/components/info/auditCondition'
 import auditConditionEdit from '@/components/info/auditConditionEdit'
 import startPage from '@/components/info/startPage'
@@ -128,6 +129,10 @@ export default new Router({
         path: 'membershare',
         name: 'membershare',
         component: memberShare
+      }, {
+        path: 'auditlist',
+        name: 'auditlist',
+        component: auditList
       }, {
         path: 'auditcondition',
         name: 'auditcondition',
