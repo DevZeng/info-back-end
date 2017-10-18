@@ -4,7 +4,7 @@
 }
 
 .logo-father {
-  overflow-y: scroll;
+  overflow: auto;
   height: 100%;
   padding: 15px;
 }

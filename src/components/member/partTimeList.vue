@@ -4,6 +4,7 @@
   padding: 15px;
   display: flex;
   flex-direction: column;
+  overflow: auto;
 }
 
 .breadcrumb {
@@ -39,7 +40,7 @@
 
 .table-list {
   flex: 1;
-  overflow-y: scroll;
+  overflow: auto;
 }
 
 .pages {
@@ -103,7 +104,7 @@
     <div class="table-list">
       <el-table :data="partTimeList" style="width: 100%" @selection-change="handleSelectionChange">
         <el-table-column type="expand">
-          <template scope="props">
+          <template slot-scope="props">
             <el-form label-position="left" inline class="demo-table-expand">
               <el-form-item label="昵称">
                 <span>{{ props.row.nickname }}</span>
@@ -142,7 +143,7 @@
           <template slot-scope="scope">{{chooseText[scope.row.status]}}</template>
         </el-table-column>
         <el-table-column label="操作" width="150">
-          <template scope="scope">
+          <template slot-scope="scope">
             <el-button size="small" type="primary" @click="handleReplay(scope.$index, scope.row)">回复</el-button>
             <el-button size="small" type="primary" @click="handleChoose(scope.$index, scope.row)">选中</el-button>
           </template>

@@ -2,6 +2,7 @@
 .check-in-wrap {
   height: 100%;
   padding: 15px;
+  overflow: auto;
 }
 
 .breadcrumb {

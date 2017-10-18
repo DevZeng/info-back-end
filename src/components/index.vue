@@ -53,10 +53,12 @@
 
 .nav-wrap {
   height: 100%;
-  width: 200px;
   background-color: #324157;
-  overflow-y: scroll;
-  overflow-x: hidden;
+  overflow: auto;
+}
+
+.nav-wrap-ul {
+  width: 200px;
 }
 
 .content-router {
@@ -112,7 +114,7 @@
       <div class="flex-bug">
         <!-- 导航 -->
         <nav class="nav-wrap">
-          <el-menu :default-active="routerActive" class="el-menu-vertical-demo" theme="dark" :unique-opened="true" :router="true">
+          <el-menu :default-active="routerActive" class="nav-wrap-ul" theme="dark" :unique-opened="true" :router="true">
             <el-submenu index="1">
               <template slot="title">
                 <i class="el-icon-document"></i>首页
@@ -140,7 +142,7 @@
                 <el-menu-item index="/memberlevellist">会员等级</el-menu-item>
                 <el-menu-item index="/qrcontrol">二维码开关</el-menu-item>
                 <el-menu-item index="/parttimelist">申请兼职</el-menu-item>
-                <el-menu-item index="2-5">用户列表</el-menu-item>
+                <el-menu-item index="/userlist">用户列表</el-menu-item>
               </el-menu-item-group>
               <el-submenu index="2-1">
                 <template slot="title">会员功能</template>

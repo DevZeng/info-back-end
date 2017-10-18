@@ -8,10 +8,11 @@
   height: 100%;
   display: flex;
   flex-direction: column;
+  overflow: auto;
 }
 
 .table-list {
-  overflow-y: scroll;
+  overflow: auto;
   flex: 1;
 }
 

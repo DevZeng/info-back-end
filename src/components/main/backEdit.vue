@@ -2,7 +2,7 @@
 .back-edit-wrap {
   height: 100%;
   padding: 15px;
-  overflow-y: scroll;
+  overflow: auto;
 }
 
 .breadcrumb {

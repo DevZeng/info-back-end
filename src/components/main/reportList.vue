@@ -4,6 +4,7 @@
   padding: 15px;
   display: flex;
   flex-direction: column;
+  overflow: auto;
 }
 
 .breadcrumb {
@@ -21,7 +22,7 @@
 
 .report-wrap .table-list {
   flex: 1;
-  overflow-y: scroll;
+  overflow: auto;
 }
 
 .pages {

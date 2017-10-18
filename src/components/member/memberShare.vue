@@ -2,7 +2,7 @@
 .check-in-wrap {
   height: 100%;
   padding: 15px;
-  overflow-y: scroll;
+  overflow: auto;
 }
 
 .breadcrumb {
@@ -51,6 +51,7 @@
             <template slot="append">分</template>
           </el-input>
         </el-form-item>
+        <div style="font-size: 14px;padding-bottom: 10px;color:#48576a;">分享模版</div>
         <div class="quill-editor-example">
           <!-- quill-editor -->
           <quill-editor ref="myTextEditor" v-model="shareForm.content" :options="editorOption">
@@ -78,7 +79,7 @@ export default {
         content: ''
       },
       editorOption: {
-        placeholder: '在这里输入，下面会同步显示...'
+        placeholder: '在这里输入分享模版，下面会同步显示...'
       },
 
       rules: {
