@@ -9,6 +9,7 @@
 
 
 
+
 /* 头部样式 */
 
 #header {
@@ -30,6 +31,7 @@
 .header-staff .welcome {
   margin-right: 20px;
 }
+
 
 
 
@@ -73,6 +75,7 @@
 .loading i {
   font-size: 30px;
 }
+
 
 
 
@@ -125,9 +128,9 @@
                 <el-menu-item index="/backlist">后台管理</el-menu-item>
               </el-menu-item-group>
               <!-- <el-submenu index="/">
-                        <template slot="title">后台管理</template>
-                        <el-menu-item index="1-4-1">选项1</el-menu-item>
-                      </el-submenu> -->
+                          <template slot="title">后台管理</template>
+                          <el-menu-item index="1-4-1">选项1</el-menu-item>
+                        </el-submenu> -->
             </el-submenu>
             <el-submenu index="2">
               <template slot="title">
@@ -136,7 +139,7 @@
               <el-menu-item-group>
                 <el-menu-item index="/memberlevellist">会员等级</el-menu-item>
                 <el-menu-item index="/qrcontrol">二维码开关</el-menu-item>
-                <el-menu-item index="2-4">申请兼职</el-menu-item>
+                <el-menu-item index="/parttimelist">申请兼职</el-menu-item>
                 <el-menu-item index="2-5">用户列表</el-menu-item>
               </el-menu-item-group>
               <el-submenu index="2-1">
