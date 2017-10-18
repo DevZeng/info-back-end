@@ -1,0 +1,178 @@
+<style scoped>
+.breadcrumb {
+  margin-bottom: 20px;
+}
+
+.banner-list {
+  padding: 15px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+}
+
+.table-list {
+  overflow: auto;
+  flex: 1;
+}
+
+.banner-operation {
+  margin-bottom: 20px;
+}
+
+.pages {
+  text-align: right;
+}
+</style>
+
+
+<template>
+  <section v-if="loading" class="loading">
+    <i class="el-icon-loading"></i>
+  </section>
+  <section v-else class="banner-list">
+    <el-breadcrumb separator="/" class="breadcrumb">
+      <el-breadcrumb-item>信息处理</el-breadcrumb-item>
+      <el-breadcrumb-item>审核相关</el-breadcrumb-item>
+      <el-breadcrumb-item>审核条件</el-breadcrumb-item>
+    </el-breadcrumb>
+    <div class="banner-operation">
+      <el-button type="primary" @click="addCondition">添加</el-button>
+      <el-button type="danger" @click="deleteAll">删除</el-button>
+    </div>
+    <div class="table-list">
+      <el-table ref="multipleTable" :data="conditionList" border stripe tooltip-effect="dark" style="width: 100%" @selection-change="handleSelection">
+        <el-table-column type="selection">
+        </el-table-column>
+        <el-table-column label="ID" prop="id">
+        </el-table-column>
+        <el-table-column label="名称" prop="name">
+        </el-table-column>
+        <el-table-column label="操作">
+          <template slot-scope="scope">
+            <el-button size="small" type="primary" @click="handleEdit(scope.$index, scope.row)">修改</el-button>
+            <el-button size="small" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+    </div>
+    <div class="pages">
+      <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="page" :page-size="eachPage" layout="total, prev, pager, next" :total="count">
+      </el-pagination>
+    </div>
+  </section>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      loading: true,
+
+      //图片预览
+      isPre: false,
+      preImg: '',
+
+      //开启、关闭 暂存
+      waittingData: [],
+
+      //数据
+      conditionList: [{
+        id: 1,
+        name: '条件一',
+        content: ''
+      }, {
+        id: 2,
+        name: '条件二',
+        content: ''
+      }],
+      page: 1,
+      eachPage: 100,
+      count: 1000,
+    }
+  },
+
+  created() {
+    setTimeout(() => {
+      this.loading = false
+    }, 200)
+  },
+
+  methods: {
+
+    /*
+      新增
+    */
+    addCondition() {
+      this.$router.push({ name: 'auditconditionedit', params: { condition: null } })
+    },
+
+    /*
+      多选
+    */
+    handleSelection(selection) {
+      this.waittingData = selection
+    },
+
+    /*
+      删除所有
+    */
+    deleteAll() {
+      const length = this.waittingData.length
+      if (!length) {
+        this.$message({
+          message: '请先选择！',
+          showClose: true,
+          type: 'warning'
+        })
+      }
+      let idGroup = []
+      for (let i = 0; i < length; i++) {
+        idGroup.push(this.waittingData[i].id)
+      }
+    },
+    /*
+      编辑
+    */
+    handleEdit(index, row) {
+      this.$router.push({ name: 'auditconditionedit', params: { condition: row } })
+    },
+
+    /*
+      删除
+    */
+    handleDelete(index, row) {
+      this.$confirm('此操作将删除该审核条件, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.conditionList.splice(index, 1)
+        this.$message({
+          type: 'success',
+          message: '删除成功!'
+        })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消删除'
+        })
+      })
+    },
+
+    /*
+      页数改变
+    */
+    handleCurrentChange() {
+
+    },
+
+    /*
+      每页显示数量改变
+    */
+    handleSizeChange() {
+
+    },
+  }
+}
+</script>

@@ -10,6 +10,8 @@
 
 
 
+
+
 /* 头部样式 */
 
 #header {
@@ -31,6 +33,8 @@
 .header-staff .welcome {
   margin-right: 20px;
 }
+
+
 
 
 
@@ -77,6 +81,8 @@
 .loading i {
   font-size: 30px;
 }
+
+
 
 
 
@@ -130,9 +136,9 @@
                 <el-menu-item index="/backlist">后台管理</el-menu-item>
               </el-menu-item-group>
               <!-- <el-submenu index="/">
-                          <template slot="title">后台管理</template>
-                          <el-menu-item index="1-4-1">选项1</el-menu-item>
-                        </el-submenu> -->
+                              <template slot="title">后台管理</template>
+                              <el-menu-item index="1-4-1">选项1</el-menu-item>
+                            </el-submenu> -->
             </el-submenu>
             <el-submenu index="2">
               <template slot="title">
@@ -157,16 +163,15 @@
               </template>
               <el-menu-item-group>
                 <el-menu-item index="3-1">种类和细节</el-menu-item>
-                <el-menu-item index="3-4">未审核列表</el-menu-item>
-                <el-menu-item index="3-5">审核通过列表</el-menu-item>
-                <el-menu-item index="3-2">审核条件</el-menu-item>
                 <el-menu-item index="3-3">信息收费管理</el-menu-item>
                 <el-menu-item index="3-6">短信反馈</el-menu-item>
                 <el-menu-item index="/startpage">启动页面</el-menu-item>
               </el-menu-item-group>
-              <el-submenu index="3-4">
-                <template slot="title">选项4</template>
-                <el-menu-item index="3-4-1">选项1</el-menu-item>
+              <el-submenu index="3-1">
+                <template slot="title">审核相关</template>
+                <el-menu-item index="3-4-1">未审核列表</el-menu-item>
+                <el-menu-item index="3-4-1">审核通过列表</el-menu-item>
+                <el-menu-item index="/auditcondition">审核条件</el-menu-item>
               </el-submenu>
             </el-submenu>
           </el-menu>

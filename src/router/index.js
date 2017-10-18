@@ -23,6 +23,7 @@ import userList from '@/components/member/userList'
 import memberCheckIn from '@/components/member/memberCheckIn'
 import memberScan from '@/components/member/memberScan'
 import memberShare from '@/components/member/memberShare'
+import auditCondition from '@/components/info/auditCondition'
 import startPage from '@/components/info/startPage'
 
 Vue.use(Router)
@@ -126,6 +127,10 @@ export default new Router({
         path: 'membershare',
         name: 'membershare',
         component: memberShare
+      }, {
+        path: 'auditcondition',
+        name: 'auditcondition',
+        component: auditCondition
       }, {
         path: 'startpage',
         name: 'startpage',
