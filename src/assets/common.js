@@ -84,6 +84,18 @@ export default {
         id: 14,
         name: '三个广告位修改权利',
       }
-    ]
+    ],
+
+    //收费模式
+    chargeMode: [{
+      id: 0,
+      name: '一次性付费'
+    }, {
+      id: 1,
+      name: '一次性付积分'
+    }, {
+      id: 2,
+      name: '按时收费 / 每时'
+    }]
   }
 }
