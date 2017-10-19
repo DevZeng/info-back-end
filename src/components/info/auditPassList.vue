@@ -255,7 +255,7 @@ export default {
     * 举报列表跳转
     */
     handleReoprt(index, row) {
-
+      this.$router.push({ name: 'reportsingle', params: { report: row } })
     },
 
     /*

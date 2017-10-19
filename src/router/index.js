@@ -25,6 +25,7 @@ import memberScan from '@/components/member/memberScan'
 import memberShare from '@/components/member/memberShare'
 import auditList from '@/components/info/auditList'
 import auditPassList from '@/components/info/auditPassList'
+import reportSingle from '@/components/info/reportSingle'
 import auditCondition from '@/components/info/auditCondition'
 import auditConditionEdit from '@/components/info/auditConditionEdit'
 import startPage from '@/components/info/startPage'
@@ -138,6 +139,10 @@ export default new Router({
         path: 'auditpasslist',
         name: 'auditpasslist',
         component: auditPassList
+      }, {
+        path: 'reportsingle',
+        name: 'reportsingle',
+        component: reportSingle
       }, {
         path: 'auditcondition',
         name: 'auditcondition',

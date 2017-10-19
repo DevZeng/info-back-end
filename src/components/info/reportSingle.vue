@@ -43,6 +43,7 @@
     <el-breadcrumb separator="/" class="breadcrumb">
       <el-breadcrumb-item>首页</el-breadcrumb-item>
       <el-breadcrumb-item>举报与申诉</el-breadcrumb-item>
+      <el-breadcrumb-item>{{currentReport.name}}</el-breadcrumb-item>
     </el-breadcrumb>
 
     <div class="report-operation">
@@ -54,17 +55,9 @@
         <el-button slot="append" icon="search" @click="selectSearch"></el-button>
       </el-input>
       <div class="report-picker">
-        <el-select v-model="searchFrom.city" multiple filterable placeholder="请选择城市">
-          <el-option v-for="item in cities" :key="item.id" :label="item.name" :value="item.id">
-          </el-option>
-        </el-select>
-        <el-select v-model="searchFrom.category" multiple filterable placeholder="请选择种类">
-          <el-option v-for="item in categories" :key="item.id" :label="item.name" :value="item.id">
-          </el-option>
-        </el-select>
-        <el-date-picker v-model="searchFrom.dateRange" type="daterange" align="right" placeholder="选择日期范围" :picker-options="dateOptions">
+        <el-date-picker v-model="searchForm.dateRange" type="daterange" align="right" placeholder="选择日期范围" :picker-options="dateOptions">
         </el-date-picker>
-        <el-select v-model="searchFrom.reportType" multiple filterable placeholder="请选择申诉情况">
+        <el-select v-model="searchForm.reportType" multiple filterable placeholder="请选择申诉情况">
           <el-option v-for="item in reportTypes" :key="item.id" :label="item.name" :value="item.id">
           </el-option>
         </el-select>
@@ -126,33 +119,10 @@ export default {
       selectInput: '',
       select: "1",
 
-      searchFrom: {
-        city: [],
-        category: [],
+      searchForm: {
         dateRange: '',
         reportType: '',
       },
-      cities: [{
-        id: 1,
-        name: '广州市',
-      }, {
-        id: 2,
-        name: '北京市'
-      }, {
-        id: 3,
-        name: '上海市'
-      }],
-
-      categories: [{
-        id: 1,
-        name: '种类一',
-      }, {
-        id: 2,
-        name: '种类二'
-      }, {
-        id: 3,
-        name: '种类三'
-      }],
 
       dateOptions: {
         shortcuts: [{
@@ -199,6 +169,8 @@ export default {
       count: 1000,
 
       reportStatus: ['未处理', '已处理', '已延期'],
+
+      currentReport: this.$route.params.report,
       //数据
       reportList: [
         {
