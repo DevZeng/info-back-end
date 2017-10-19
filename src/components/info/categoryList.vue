@@ -49,8 +49,13 @@
         </el-table-column>
         <el-table-column label="种类细节" prop="content" show-overflow-tooltip>
         </el-table-column>
+        <el-table-column label="状态" prop="status">
+          <template slot-scope="scope">{{scope.row.status == 1 ? '打开':'关闭'}}</template>
+        </el-table-column>
         <el-table-column label="操作">
           <template slot-scope="scope">
+            <el-button size="small" v-if="scope.row.status == 1" type="warning" @click="handleClose(scope.$index, scope.row)">关闭</el-button>
+            <el-button size="small" v-else type="success" @click="handleOpen(scope.$index, scope.row)">打开</el-button>
             <el-button size="small" type="primary" @click="handleEdit(scope.$index, scope.row)">修改</el-button>
             <el-button size="small" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
           </template>
@@ -82,12 +87,14 @@ export default {
         {
           id: 1,
           name: "条件一",
-          content: "这是细节一·····"
+          content: "这是细节一·····",
+          status: 1
         },
         {
           id: 2,
           name: "条件二",
-          content: "这是细节二········"
+          content: "这是细节二········",
+          status: 0
         }
       ],
       page: 1,
@@ -144,6 +151,26 @@ export default {
       this.$router.push({
         name: "categoryedit",
         params: { category: row }
+      });
+    },
+
+    //关闭
+    handleClose(index, row) {
+      this.categoryList[index].status = 0;
+      this.$message({
+        type: "info",
+        message: "已关闭",
+        showClose: true
+      });
+    },
+
+    //打开
+    handleOpen(index, row) {
+      this.categoryList[index].status = 1;
+      this.$message({
+        type: "info",
+        message: "已打开",
+        showClose: true
       });
     },
 

@@ -24,6 +24,7 @@ import memberCheckIn from '@/components/member/memberCheckIn'
 import memberScan from '@/components/member/memberScan'
 import memberShare from '@/components/member/memberShare'
 import categoryList from '@/components/info/categoryList'
+import categoryEdit from '@/components/info/categoryEdit'
 import auditList from '@/components/info/auditList'
 import auditPassList from '@/components/info/auditPassList'
 import reportSingle from '@/components/info/reportSingle'
@@ -137,6 +138,10 @@ export default new Router({
         path: 'categorylist',
         name: 'categorylist',
         component: categoryList
+      }, {
+        path: 'categoryedit',
+        name: 'categoryedit',
+        component: categoryEdit
       }, {
         path: 'auditlist',
         name: 'auditlist',

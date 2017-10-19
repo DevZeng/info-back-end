@@ -5,15 +5,6 @@
   flex-direction: column;
 }
 
-
-
-
-
-
-
-
-
-
 /* 头部样式 */
 
 #header {
@@ -35,15 +26,6 @@
 .header-staff .welcome {
   margin-right: 20px;
 }
-
-
-
-
-
-
-
-
-
 
 /* 内容样式 */
 
@@ -86,12 +68,9 @@
   font-size: 30px;
 }
 
-
-
-
-
-
-
+.el-table__body-wrapper {
+  overflow: hidden;
+}
 
 /* 底部样式 */
 
@@ -204,21 +183,19 @@ export default {
   data() {
     return {
       routerActive: this.$route.path
-    }
+    };
   },
 
-  created() {
-  },
+  created() {},
 
   methods: {
-
     /*
       退出登录
     */
     logout() {
-      sessionStorage.clear('username')
-      this.$router.push('/login')
+      sessionStorage.clear("username");
+      this.$router.push("/login");
     }
   }
-}
+};
 </script>
