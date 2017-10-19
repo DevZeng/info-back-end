@@ -67,6 +67,7 @@
 export default {
   data() {
     return {
+      loading: true,
       currentIndex: null,
       chargeMode: this.$common.chargeMode,
 
@@ -87,6 +88,13 @@ export default {
       }]
     }
   },
+
+  created() {
+    setTimeout(() => {
+      this.loading = false
+    }, 200)
+  },
+
   methods: {
 
     /*

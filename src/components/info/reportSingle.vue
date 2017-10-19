@@ -42,7 +42,7 @@
   <section v-else class="report-wrap">
     <el-breadcrumb separator="/" class="breadcrumb">
       <el-breadcrumb-item>首页</el-breadcrumb-item>
-      <el-breadcrumb-item>举报与申诉</el-breadcrumb-item>
+      <el-breadcrumb-item :to="{path: '/reportlist'}">举报与申诉</el-breadcrumb-item>
       <el-breadcrumb-item>{{currentReport.name}}</el-breadcrumb-item>
     </el-breadcrumb>
 
