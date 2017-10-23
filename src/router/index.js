@@ -9,6 +9,7 @@ import BannerChange from '@/components/main/bannerChange'
 import BannerEdit from '@/components/main/bannerEdit'
 import textList from '@/components/main/textList'
 import textEdit from '@/components/main/textEdit'
+import cityList from '@/components/main/cityList'
 import guideList from '@/components/main/guideList'
 import guideEdit from '@/components/main/guideEdit'
 import payList from '@/components/main/payList'
@@ -32,6 +33,7 @@ import auditCondition from '@/components/info/auditCondition'
 import auditConditionEdit from '@/components/info/auditConditionEdit'
 import chargeMode from '@/components/info/chargeMode'
 import startPage from '@/components/info/startPage'
+import sms from '@/components/info/sms'
 
 Vue.use(Router)
 
@@ -78,6 +80,10 @@ export default new Router({
           }
           next()
         }
+      }, {
+        path: 'citylist',
+        name: 'citylist',
+        component: cityList
       }, {
         path: 'guidelist',
         name: 'guidelist',
@@ -170,6 +176,10 @@ export default new Router({
         path: 'startpage',
         name: 'startpage',
         component: startPage
+      }, {
+        path: 'sms',
+        name: 'sms',
+        component: sms
       }]
     }
   ]

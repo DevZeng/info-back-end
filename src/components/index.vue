@@ -116,7 +116,7 @@
                 <el-menu-item index="/textlist">文本表</el-menu-item>
                 <el-menu-item index="/guidelist">用户指南</el-menu-item>
                 <el-menu-item index="/paylist">支付</el-menu-item>
-                <el-menu-item index="1-6">城市地图</el-menu-item>
+                <el-menu-item index="/citylist">城市列表</el-menu-item>
                 <el-menu-item index="/reportlist">举报与投诉</el-menu-item>
                 <el-menu-item index="/backlist">后台管理</el-menu-item>
               </el-menu-item-group>
@@ -149,7 +149,7 @@
               <el-menu-item-group>
                 <el-menu-item index="/categorylist">种类和细节</el-menu-item>
                 <el-menu-item index="/chargemode">信息收费管理</el-menu-item>
-                <el-menu-item index="3-6">短信反馈</el-menu-item>
+                <el-menu-item index="/sms">短信反馈</el-menu-item>
                 <el-menu-item index="/startpage">启动页面</el-menu-item>
               </el-menu-item-group>
               <el-submenu index="3-1">
