@@ -52,7 +52,7 @@
         <el-table-column label="状态" prop="status">
           <template slot-scope="scope">{{scope.row.status == 1 ? '打开':'关闭'}}</template>
         </el-table-column>
-        <el-table-column label="操作">
+        <el-table-column label="操作" width="200">
           <template slot-scope="scope">
             <el-button size="small" v-if="scope.row.status == 1" type="warning" @click="handleClose(scope.$index, scope.row)">关闭</el-button>
             <el-button size="small" v-else type="success" @click="handleOpen(scope.$index, scope.row)">打开</el-button>

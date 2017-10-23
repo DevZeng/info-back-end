@@ -93,7 +93,7 @@
         </el-table-column>
         <el-table-column prop="status" label="状态" :formatter="statusFnc">
         </el-table-column>
-        <el-table-column label="操作">
+        <el-table-column label="操作" width="200">
           <template slot-scope="scope">
             <el-button size="small" @click="handleChange(scope.$index, scope.row)">修改</el-button>
             <el-button size="small" type="primary" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
