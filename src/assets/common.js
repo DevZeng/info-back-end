@@ -89,15 +89,11 @@ export default {
     //收费模式
     chargeMode: [{
         id: 0,
-        name: '一次性付费'
+        name: '金额付费'
       },
       {
         id: 1,
-        name: '一次性付积分'
-      },
-      {
-        id: 2,
-        name: '按时收费 / 每时'
+        name: '积分付费'
       }
     ],
 
