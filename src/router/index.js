@@ -34,7 +34,8 @@ import reportSingle from '@/components/info/reportSingle'
 import auditCondition from '@/components/info/auditCondition'
 import auditConditionEdit from '@/components/info/auditConditionEdit'
 import chargeMode from '@/components/info/chargeMode'
-import startPage from '@/components/info/startPage'
+import startPageList from '@/components/info/startPageList'
+import startPageEdit from '@/components/info/startPageEdit'
 import sms from '@/components/info/sms'
 
 Vue.use(Router)
@@ -183,9 +184,13 @@ export default new Router({
         name: 'chargemode',
         component: chargeMode
       }, {
-        path: 'startpage',
-        name: 'startpage',
-        component: startPage
+        path: 'startpagelist',
+        name: 'startpagelist',
+        component: startPageList
+      }, {
+        path: 'startpageedit',
+        name: 'startpageedit',
+        component: startPageEdit
       }, {
         path: 'sms',
         name: 'sms',

@@ -150,7 +150,7 @@
                 <el-menu-item index="/categorylist">种类和细节</el-menu-item>
                 <el-menu-item index="/chargemode">信息收费管理</el-menu-item>
                 <el-menu-item index="/sms">短信反馈</el-menu-item>
-                <el-menu-item index="/startpage">启动页面</el-menu-item>
+                <el-menu-item index="/startpagelist">启动页面</el-menu-item>
               </el-menu-item-group>
               <el-submenu index="3-1">
                 <template slot="title">审核相关</template>
