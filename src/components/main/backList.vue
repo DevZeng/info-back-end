@@ -34,6 +34,7 @@
     <el-breadcrumb separator="/" class="breadcrumb">
       <el-breadcrumb-item>首页</el-breadcrumb-item>
       <el-breadcrumb-item>后台管理</el-breadcrumb-item>
+      <el-breadcrumb-item>分工列表</el-breadcrumb-item>
     </el-breadcrumb>
     <div class="banner-operation">
       <el-button type="primary" @click="addUser">新增分工用户</el-button>
@@ -75,123 +76,125 @@ export default {
       waittingData: [],
 
       //数据
-      backList: [{
-        id: 1,
-        name: '用户一',
-        password: '123421',
-        authority: [1, 2, 3],
-      }, {
-        id: 2,
-        name: '用户二',
-        password: 'as1231',
-        authority: [1, 2, 6],
-      }],
+      backList: [
+        {
+          id: 1,
+          name: "用户一",
+          password: "123421",
+          authority: [1, 2, 3]
+        },
+        {
+          id: 2,
+          name: "用户二",
+          password: "as1231",
+          authority: [1, 2, 6]
+        }
+      ],
       page: 1,
       eachPage: 100,
-      count: 1000,
-    }
+      count: 1000
+    };
   },
 
   created() {
     setTimeout(() => {
-      this.loading = false
-    }, 200)
+      this.loading = false;
+    }, 200);
   },
 
   methods: {
-
     /*
     * 格式化权限输出
     */
     formatAuthority(row, column, cellValue) {
       const str = cellValue.reduce((sum, value) => {
-        return sum + this.$common.authorities[value].name + '、'
-      }, '')
-      return str
+        return sum + this.$common.authorities[value].name + "、";
+      }, "");
+      return str;
     },
 
     /*
       新增
     */
     addUser() {
-      this.$router.push({ name: 'backedit', params: { user: null } })
+      this.$router.push({ name: "backedit", params: { user: null } });
     },
 
     deleteUser() {
       if (!this.waittingData.length) {
         this.$message({
-          type: 'warning',
-          message: '请先选择！',
+          type: "warning",
+          message: "请先选择！",
           showClose: true
-        })
-        return false
+        });
+        return false;
       }
-      this.$confirm('此操作将删除选中的所有指南, 是否继续?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        this.$message({
-          type: 'success',
-          message: '删除成功!'
-        })
-      }).catch(() => {
-        this.$message({
-          type: 'info',
-          message: '已取消删除'
-        })
+      this.$confirm("此操作将删除选中的所有指南, 是否继续?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
       })
+        .then(() => {
+          this.$message({
+            type: "success",
+            message: "删除成功!"
+          });
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已取消删除"
+          });
+        });
     },
 
     /*
       多选
     */
     handleSelection(selection) {
-      this.waittingData = selection
+      this.waittingData = selection;
     },
 
     /*
       编辑
     */
     handleEdit(index, row) {
-      this.$router.push({ name: 'backedit', params: { user: row } })
+      this.$router.push({ name: "backedit", params: { user: row } });
     },
 
     /*
       删除
     */
     handleDelete(index, row) {
-      this.$confirm('此操作将删除该指南, 是否继续?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        this.backList.splice(index, 1)
-        this.$message({
-          type: 'success',
-          message: '删除成功!'
-        })
-      }).catch(() => {
-        this.$message({
-          type: 'info',
-          message: '已取消删除'
-        })
+      this.$confirm("此操作将删除该指南, 是否继续?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
       })
+        .then(() => {
+          this.backList.splice(index, 1);
+          this.$message({
+            type: "success",
+            message: "删除成功!"
+          });
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已取消删除"
+          });
+        });
     },
 
     /*
       页数改变
     */
-    handleCurrentChange() {
-
-    },
+    handleCurrentChange() {},
 
     /*
       每页显示数量改变
     */
-    handleSizeChange() {
-
-    },
+    handleSizeChange() {}
   }
-}
+};
 </script>

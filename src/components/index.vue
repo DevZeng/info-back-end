@@ -118,12 +118,12 @@
                 <el-menu-item index="/paylist">支付</el-menu-item>
                 <el-menu-item index="/citylist">城市列表</el-menu-item>
                 <el-menu-item index="/reportlist">举报与投诉</el-menu-item>
-                <el-menu-item index="/backlist">后台管理</el-menu-item>
               </el-menu-item-group>
-              <!-- <el-submenu index="/">
-                                  <template slot="title">后台管理</template>
-                                  <el-menu-item index="1-4-1">选项1</el-menu-item>
-                                </el-submenu> -->
+              <el-submenu index="1-1">
+                <template slot="title">后台管理</template>
+                <el-menu-item index="/backlist">分工列表</el-menu-item>
+                <el-menu-item index="/backcharacterlist">角色列表</el-menu-item>
+              </el-submenu>
             </el-submenu>
             <el-submenu index="2">
               <template slot="title">
