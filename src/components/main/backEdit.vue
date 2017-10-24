@@ -20,22 +20,35 @@
   <section class="back-edit-wrap">
     <el-breadcrumb separator="/" class="breadcrumb">
       <el-breadcrumb-item>首页</el-breadcrumb-item>
-      <el-breadcrumb-item :to="{'path': '/backlist'}">后台管理</el-breadcrumb-item>
+      <el-breadcrumb-item>后台管理</el-breadcrumb-item>
+      <el-breadcrumb-item :to="{'path': '/backlist'}">分工列表</el-breadcrumb-item>
       <el-breadcrumb-item>编辑</el-breadcrumb-item>
     </el-breadcrumb>
     <div class="back-edit-form">
       <el-form label-position="top" label-width="80px" :model="adminUser" :rules="rules" ref="adminUser">
-        <el-form-item label="分工用户名" prop="name">
-          <el-input v-model="adminUser.name" placeholder="请输入分工用户名"></el-input>
+        <el-form-item label="姓名" prop="name">
+          <el-input v-model="adminUser.name" placeholder="请输入分工姓名"></el-input>
+        </el-form-item>        
+        <el-form-item label="用户名" prop="username">
+          <el-input v-model="adminUser.username" placeholder="请输入分工用户名"></el-input>
+        </el-form-item>        
+        <el-form-item label="电话" prop="phone">
+          <el-input v-model.number="adminUser.phone" placeholder="请输入电话号码"></el-input>
         </el-form-item>
         <el-form-item label="密码" prop="password">
-          <el-input v-model="adminUser.password" placeholder="请输入密码（10个字符内）"></el-input>
+          <el-input v-model="adminUser.password" placeholder="请输入密码（不能短于6位）"></el-input>
         </el-form-item>
-        <el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">全选</el-checkbox>
+        <!-- <el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">全选</el-checkbox>
         <div style="margin: 15px 0;"></div>
         <el-checkbox-group v-model="adminUser.authorities" @change="handleCheckedCitiesChange">
           <el-checkbox v-for="authority in authorities" :label="authority.id" :key="authority.id" style="margin: 10px;">{{authority.name}}</el-checkbox>
-        </el-checkbox-group>
+        </el-checkbox-group> -->
+        <el-form-item label="权限角色" prop="character">
+            <el-select v-model="adminUser.character" placeholder="请选择权限角色">
+              <el-option label="角色一" value="1"></el-option>
+              <el-option label="角色二" value="2"></el-option>
+            </el-select>
+          </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="submitForm('adminUser')" style="width: 100%;margin-top: 10px;">确定</el-button>
         </el-form-item>
@@ -49,9 +62,12 @@ export default {
   data() {
     return {
       adminUser: {
-        name: '',
-        password: '',
+        name: "",
+        username: "",
+        phone: null,
+        password: "",
         authorities: [],
+        character: ""
       },
 
       //多选框
@@ -62,73 +78,80 @@ export default {
 
       rules: {
         name: [
-          { required: true, message: '分工用户名不能为空', trigger: 'blur' },
-          { min: 0, max: 10, message: '长度在 10 个字符内', trigger: 'blur' }
+          { required: true, message: "分工姓名不能为空" },
+          { min: 0, max: 10, message: "长度在 10 个字符内" }
+        ],
+        username: [{ required: true, message: "分工用户名不能为空" }],
+        phone: [
+          { required: true, message: "分工电话不能为空" },
+          { type: "number", message: "请输入数字" }
         ],
         password: [
-          { required: true, message: '密码不能为空', trigger: 'blur' },
-          { min: 0, max: 10, message: '长度在 10 个字符内', trigger: 'blur' }
-        ]
-      },
-    }
+          { required: true, message: "密码不能为空" },
+          { min: 6, message: "长度在 6 个字符以上" }
+        ],
+        character: [{ required: true, message: "请选择权限角色", trigger: "change" }]
+      }
+    };
   },
 
   created() {
-    const user = this.$route.params.user
+    const user = this.$route.params.user;
     if (user) {
-      this.adminUser.name = user.name
-      this.adminUser.password = user.password
-      this.adminUser.authorities = user.authority
+      this.adminUser.name = user.name;
+      this.adminUser.password = user.password;
+      this.adminUser.authorities = user.authority;
     }
 
-    let arr = []
+    let arr = [];
     for (let i = 0; i < this.$common.authorities.length; i++) {
-      arr.push(i)
+      arr.push(i);
     }
-    this.authoritiesArr = arr
-
+    this.authoritiesArr = arr;
   },
 
   methods: {
-
     /*
     * 全选
     */
-    handleCheckAllChange(event) {
-      this.adminUser.authorities = event.target.checked ? this.authoritiesArr : []
-      this.isIndeterminate = false
-    },
+    // handleCheckAllChange(event) {
+    //   this.adminUser.authorities = event.target.checked
+    //     ? this.authoritiesArr
+    //     : [];
+    //   this.isIndeterminate = false;
+    // },
 
     /*
     * 监听多选
     */
-    handleCheckedCitiesChange(value) {
-      let checkedCount = value.length
-      this.checkAll = checkedCount === this.authorities.length
-      this.isIndeterminate = checkedCount > 0 && checkedCount < this.authorities.length
-    },
+    // handleCheckedCitiesChange(value) {
+    //   let checkedCount = value.length;
+    //   this.checkAll = checkedCount === this.authorities.length;
+    //   this.isIndeterminate =
+    //     checkedCount > 0 && checkedCount < this.authorities.length;
+    // },
 
     /*
     * 表单提交
     */
     submitForm(formName) {
-      this.$refs[formName].validate((valid) => {
+      this.$refs[formName].validate(valid => {
         if (valid) {
           this.$message({
-            type: 'success',
-            message: '创建成功',
+            type: "success",
+            message: "保存成功",
             showClose: true
-          })
+          });
         } else {
           this.$message({
-            type: 'warning',
-            message: '信息填写不正确',
+            type: "warning",
+            message: "信息填写不正确",
             showClose: true
-          })
-          return false
+          });
+          return false;
         }
       });
-    },
+    }
   }
-}
+};
 </script>
