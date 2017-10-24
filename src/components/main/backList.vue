@@ -1,9 +1,9 @@
-<style scoped>
+<style>
 .breadcrumb {
   margin-bottom: 20px;
 }
 
-.banner-list {
+.back-list-wrap {
   padding: 15px;
   height: 100%;
   display: flex;
@@ -20,6 +20,14 @@
   margin-bottom: 20px;
 }
 
+.back-list-search {
+  margin-top: 20px;
+}
+
+.back-list-wrap .el-input-group__prepend {
+  width: 200px;
+}
+
 .pages {
   text-align: right;
 }
@@ -30,7 +38,7 @@
   <section v-if="loading" class="loading">
     <i class="el-icon-loading"></i>
   </section>
-  <section v-else class="banner-list">
+  <section v-else class="back-list-wrap">
     <el-breadcrumb separator="/" class="breadcrumb">
       <el-breadcrumb-item>首页</el-breadcrumb-item>
       <el-breadcrumb-item>后台管理</el-breadcrumb-item>
@@ -39,12 +47,27 @@
     <div class="banner-operation">
       <el-button type="primary" @click="addUser">新增分工用户</el-button>
       <el-button type="danger" @click="deleteUser">删除</el-button>
+      <div class="back-list-search">
+        <el-select v-model="currentCharacter" clearable placeholder="请选择权限角色进行搜素" @change="characterSelect">
+          <el-option v-for="item in characters" :key="item.id" :label="item.name" :value="item.id">
+          </el-option>
+        </el-select>
+        <el-input placeholder="请输入搜索内容" v-model="selectInput" style="margin-top: 20px;" @keyup.enter.native="selectSearch">
+          <el-select v-model="select" slot="prepend" placeholder="请选择">
+            <el-option label="用户名" value="1"></el-option>
+            <el-option label="用户编号" value="2"></el-option>
+          </el-select>
+          <el-button slot="append" icon="search" @click="selectSearch"></el-button>
+        </el-input>
+      </div>
     </div>
     <div class="table-list">
       <el-table ref="multipleTable" :data="backList" border stripe tooltip-effect="dark" style="width: 100%" @selection-change="handleSelection">
         <el-table-column type="selection">
         </el-table-column>
         <el-table-column label="ID" prop="id">
+        </el-table-column>
+        <el-table-column label="权限角色" prop="character">
         </el-table-column>
         <el-table-column label="名称" prop="name">
         </el-table-column>
@@ -75,17 +98,32 @@ export default {
       //全选等待操作
       waittingData: [],
 
+      currentCharacter: "",
+      selectInput: "",
+      characters: [
+        {
+          id: 1,
+          name: "角色一"
+        },
+        {
+          id: 2,
+          name: "角色二"
+        }
+      ],
+
       //数据
       backList: [
         {
           id: 1,
           name: "用户一",
+          character: "角色一",
           password: "123421",
           authority: [1, 2, 3]
         },
         {
           id: 2,
           name: "用户二",
+          character: "角色一",
           password: "as1231",
           authority: [1, 2, 6]
         }
@@ -147,6 +185,15 @@ export default {
           });
         });
     },
+
+    /*
+      权限搜索
+    */
+    characterSelect() {
+      console.log(this.currentCharacter);
+    },
+
+    selectSearch() {},
 
     /*
       多选
