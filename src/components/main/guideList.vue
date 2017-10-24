@@ -71,111 +71,102 @@ export default {
       waittingData: [],
 
       //数据
-      bannerList: [{
-        id: 1,
-        name: '指南一',
-        update_time: '2017-10-11'
-      }, {
-        id: 2,
-        name: '指南二',
-        update_time: '2017-10-11'
-      }],
+      bannerList: [
+        {
+          id: 1,
+          name: "指南一",
+          update_time: "2017-10-11"
+        },
+        {
+          id: 2,
+          name: "指南二",
+          update_time: "2017-10-11"
+        }
+      ],
       page: 1,
       eachPage: 100,
-      count: 1000,
-    }
+      count: 1000
+    };
   },
 
   created() {
     setTimeout(() => {
-      this.loading = false
-    }, 200)
+      this.loading = false;
+    }, 200);
   },
 
   methods: {
-
     /*
         新增
     */
     addGuide() {
-      this.$router.push({ name: 'guideedit', params: { guide: null } })
+      this.$router.push({ name: "guideedit", params: { guide: null } });
     },
 
     deleteGuide() {
       if (!this.waittingData.length) {
         this.$message({
-          type: 'warning',
-          message: '请先选择！',
+          type: "warning",
+          message: "请先选择！",
           showClose: true
-        })
-        return false
+        });
+        return false;
       }
-      this.$confirm('此操作将删除选中的所有指南, 是否继续?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        this.$message({
-          type: 'success',
-          message: '删除成功!'
-        })
-      }).catch(() => {
-        this.$message({
-          type: 'info',
-          message: '已取消删除'
-        })
+      this.$confirm("此操作将删除选中的所有指南, 是否继续?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
       })
+        .then(() => {
+          this.$message({
+            type: "success",
+            message: "删除成功!"
+          });
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已取消删除"
+          });
+        });
     },
 
     /*
         多选
     */
     handleSelection(selection) {
-      this.waittingData = selection
+      this.waittingData = selection;
     },
 
     /*
         编辑
     */
     handleEdit(index, row) {
-      this.$router.push({ name: 'guideedit', params: { guide: row } })
+      this.$router.push({ name: "guideedit", params: { guide: row } });
     },
 
     /*
         删除
     */
     handleDelete(index, row) {
-      this.$confirm('此操作将删除该指南, 是否继续?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        this.bannerList.splice(index, 1)
+      this.$operation.tableMessageBox("此操作将删除该指南", () => {
+        this.bannerList.splice(index, 1);
         this.$message({
-          type: 'success',
-          message: '删除成功!'
-        })
-      }).catch(() => {
-        this.$message({
-          type: 'info',
-          message: '已取消删除'
-        })
-      })
+          type: "success",
+          message: "删除成功!"
+        });
+      });
     },
 
     /*
         页数改变
     */
-    handleCurrentChange() {
-
-    },
+    handleCurrentChange() {},
 
     /*
         每页显示数量改变
     */
-    handleSizeChange() {
-
-    },
+    handleSizeChange() {}
   }
-}
+};
 </script>

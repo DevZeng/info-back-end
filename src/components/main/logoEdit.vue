@@ -1,5 +1,4 @@
 <style>
-
 .breadcrumb {
   margin-bottom: 20px;
 }
@@ -61,7 +60,7 @@
       </el-upload>
       <el-form label-position="top" label-width="80px" :rules="rules" :model="logoForm">
         <el-form-item label="LOGO 名称" prop="name">
-          <el-input v-model="logoForm.name"></el-input>
+          <el-input v-model="logoForm.name" placeholder="请输入 LOGO 名称"></el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="onSubmit()" style="width: 100%;margin-top: 20px;">确定</el-button>
@@ -76,27 +75,24 @@ export default {
   data() {
     return {
       logoForm: {
-        name: '',
-        url: ''
+        name: "",
+        url: ""
       },
 
       rules: {
-        name: [
-          { required: true, message: '不能为空', trigger: 'blur' }
-        ]
+        name: [{ required: true, message: "不能为空", trigger: "blur" }]
       }
-    }
+    };
   },
 
   methods: {
-
     /*
       上传之前
     */
     beforeUpload(file) {
       const isLt2M = file.size / 1024 / 1024 < 2;
       if (!isLt2M) {
-        this.$message.error('上传 logo 图片大小不能超过 2MB!');
+        this.$message.error("上传 logo 图片大小不能超过 2MB!");
       }
       return isLt2M;
     },
@@ -105,7 +101,7 @@ export default {
       上传成功
     */
     handleSuccess(res, file) {
-      this.logoForm.url = URL.createObjectURL(file.raw)
+      this.logoForm.url = URL.createObjectURL(file.raw);
     },
 
     /*
@@ -114,19 +110,19 @@ export default {
     onSubmit() {
       if (this.logoForm.name) {
         this.$message({
-          message: '提交成功！',
+          message: "提交成功！",
           showClose: true,
-          type: 'success'
-        })
+          type: "success"
+        });
       } else {
         this.$message({
-          message: '名称不能为空！',
+          message: "名称不能为空！",
           showClose: true,
-          type: 'warning'
-        })
+          type: "warning"
+        });
       }
     }
   }
-}
+};
 </script>
 

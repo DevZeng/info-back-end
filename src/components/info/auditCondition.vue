@@ -69,110 +69,101 @@ export default {
     return {
       loading: true,
 
-      //图片预览
-      isPre: false,
-      preImg: '',
-
       //开启、关闭 暂存
       waittingData: [],
 
       //数据
-      conditionList: [{
-        id: 1,
-        name: '条件一',
-        content: ''
-      }, {
-        id: 2,
-        name: '条件二',
-        content: ''
-      }],
+      conditionList: [
+        {
+          id: 1,
+          name: "条件一",
+          content: ""
+        },
+        {
+          id: 2,
+          name: "条件二",
+          content: ""
+        }
+      ],
       page: 1,
       eachPage: 100,
-      count: 1000,
-    }
+      count: 1000
+    };
   },
 
   created() {
     setTimeout(() => {
-      this.loading = false
-    }, 200)
+      this.loading = false;
+    }, 200);
   },
 
   methods: {
-
     /*
       新增
     */
     addCondition() {
-      this.$router.push({ name: 'auditconditionedit', params: { condition: null } })
+      this.$router.push({
+        name: "auditconditionedit",
+        params: { condition: null }
+      });
     },
 
     /*
       多选
     */
     handleSelection(selection) {
-      this.waittingData = selection
+      this.waittingData = selection;
     },
 
     /*
       删除所有
     */
     deleteAll() {
-      const length = this.waittingData.length
+      const length = this.waittingData.length;
       if (!length) {
         this.$message({
-          message: '请先选择！',
+          message: "请先选择！",
           showClose: true,
-          type: 'warning'
-        })
+          type: "warning"
+        });
       }
-      let idGroup = []
+      let idGroup = [];
       for (let i = 0; i < length; i++) {
-        idGroup.push(this.waittingData[i].id)
+        idGroup.push(this.waittingData[i].id);
       }
     },
     /*
       编辑
     */
     handleEdit(index, row) {
-      this.$router.push({ name: 'auditconditionedit', params: { condition: row } })
+      this.$router.push({
+        name: "auditconditionedit",
+        params: { condition: row }
+      });
     },
 
     /*
       删除
     */
     handleDelete(index, row) {
-      this.$confirm('此操作将删除该审核条件, 是否继续?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        this.conditionList.splice(index, 1)
+      this.$operation.tableMessageBox("此操作将删除该审核条件", () => {
+        this.conditionList.splice(index, 1);
         this.$message({
-          type: 'success',
-          message: '删除成功!'
-        })
-      }).catch(() => {
-        this.$message({
-          type: 'info',
-          message: '已取消删除'
-        })
-      })
+          type: "success",
+          message: "删除成功!"
+        });
+      });
     },
 
     /*
       页数改变
     */
-    handleCurrentChange() {
-
-    },
+    handleCurrentChange() {},
 
     /*
       每页显示数量改变
     */
-    handleSizeChange() {
-
-    },
+    handleSizeChange() {}
   }
-}
+};
 </script>

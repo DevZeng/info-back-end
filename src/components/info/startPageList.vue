@@ -148,24 +148,13 @@ export default {
       删除
     */
     handleDelete(index, row) {
-      this.$confirm("此操作将删除该启动页面条件, 是否继续?", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning"
-      })
-        .then(() => {
-          this.startPageList.splice(index, 1);
-          this.$message({
-            type: "success",
-            message: "删除成功!"
-          });
+      this.$operation.tableMessageBox("此操作将删除该启动页面", () => {
+        this.$message({
+          type: 'success',
+          message: '删除成功'
         })
-        .catch(() => {
-          this.$message({
-            type: "info",
-            message: "已取消删除"
-          });
-        });
+        this.startPageList.splice(index, 1);
+      });
     }
   }
 };

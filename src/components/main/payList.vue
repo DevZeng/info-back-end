@@ -21,8 +21,7 @@
   align-items: flex-start;
 }
 
-
-.pay-picker>div {
+.pay-picker > div {
   margin-right: 20px;
 }
 
@@ -86,25 +85,25 @@
 export default {
   data() {
     const generateCities = _ => {
-      const data = []
-      const cities = ['上海', '北京', '广州', '深圳', '南京', '西安', '成都']
+      const data = [];
+      const cities = ["上海", "北京", "广州", "深圳", "南京", "西安", "成都"];
       cities.forEach((city, index) => {
         data.push({
           label: city,
           key: index,
           cities: cities[index]
-        })
-      })
-      return data
-    }
+        });
+      });
+      return data;
+    };
     return {
       loading: true,
 
       //等级
       levels: this.$common.memberLevels,
 
-      level: '',
-      city: '',
+      level: "",
+      city: "",
 
       cities: generateCities(),
       city: [],
@@ -112,101 +111,76 @@ export default {
         return item.cities.indexOf(query) > -1;
       },
 
-      dateRange: '',
-      dateOptions: {
-        shortcuts: [{
-          text: '最近一周',
-          onClick(picker) {
-            const end = new Date();
-            const start = new Date();
-            start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
-            picker.$emit('pick', [start, end]);
-          }
-        }, {
-          text: '最近一个月',
-          onClick(picker) {
-            const end = new Date();
-            const start = new Date();
-            start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
-            picker.$emit('pick', [start, end]);
-          }
-        }, {
-          text: '最近三个月',
-          onClick(picker) {
-            const end = new Date();
-            const start = new Date();
-            start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
-            picker.$emit('pick', [start, end]);
-          }
-        }]
-      },
-
+      dateRange: "",
+      dateOptions: this.$common.dateOptions,
 
       //支付类型
-      payType: '支付宝',
+      payType: "支付宝",
 
-      payList: [{
-        id: 1,
-        level: 1,
-        city: '广州市',
-        cost: 1000
-      }, {
-        id: 1,
-        level: 2,
-        city: '上海市',
-        cost: 1000
-      }, {
-        id: 1,
-        level: 1,
-        city: '北京市',
-        cost: 10100
-      }, {
-        id: 1,
-        level: 3,
-        city: '南昌市',
-        cost: 2500
-      }]
-    }
+      payList: [
+        {
+          id: 1,
+          level: 1,
+          city: "广州市",
+          cost: 1000
+        },
+        {
+          id: 1,
+          level: 2,
+          city: "上海市",
+          cost: 1000
+        },
+        {
+          id: 1,
+          level: 1,
+          city: "北京市",
+          cost: 10100
+        },
+        {
+          id: 1,
+          level: 3,
+          city: "南昌市",
+          cost: 2500
+        }
+      ]
+    };
   },
 
   created() {
     setTimeout(() => {
-      this.loading = false
-    }, 200)
+      this.loading = false;
+    }, 200);
   },
 
   methods: {
-
     /*
     * 金额统计
     */
     getSummaries(param) {
       const { columns, data } = param;
-      const sums = []
+      const sums = [];
       columns.forEach((column, index) => {
         if (index === 0) {
-          sums[index] = '统计'
+          sums[index] = "统计";
           return;
-        } else if (column.property === 'cost') {
-          const values = data.map(item => Number(item.cost))
+        } else if (column.property === "cost") {
+          const values = data.map(item => Number(item.cost));
           sums[index] = values.reduce((sum, value) => {
-            return sum + value
-          }, 0)
-          sums[index] += ' 元'
+            return sum + value;
+          }, 0);
+          sums[index] += " 元";
         } else {
-          sums[index] = '/'
+          sums[index] = "/";
         }
-      })
+      });
 
-      return sums
+      return sums;
     },
 
     /*
     * 搜索
     */
-    pickerSearch() {
-
-    },
+    pickerSearch() {}
   }
-}
+};
 </script>

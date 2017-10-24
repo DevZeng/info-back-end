@@ -71,74 +71,67 @@ export default {
       currentIndex: null,
       chargeMode: this.$common.chargeMode,
 
-      statusText: ['关闭', '打开'],
+      statusText: ["关闭", "打开"],
 
-      chargeList: [{
-        id: 1,
-        name: '图片收费',
-        mode: 1,
-        money: 21,
-        status: 1,
-      }, {
-        id: 2,
-        name: '联系方式收费',
-        mode: 0,
-        money: 3,
-        status: 1,
-      }]
-    }
+      chargeList: [
+        {
+          id: 1,
+          name: "图片收费",
+          mode: 1,
+          money: 21,
+          status: 1
+        },
+        {
+          id: 2,
+          name: "联系方式收费",
+          mode: 0,
+          money: 3,
+          status: 1
+        }
+      ]
+    };
   },
 
   created() {
     setTimeout(() => {
-      this.loading = false
-    }, 200)
+      this.loading = false;
+    }, 200);
   },
 
   methods: {
-
     /*
     * 编辑
     */
     chargeEdit(index, row) {
-      this.currentIndex = index
+      this.currentIndex = index;
     },
 
     /*
     * 编辑完成
     */
     chargeFinish(index, row) {
-      this.currentIndex = null
+      this.currentIndex = null;
     },
 
     /*
     * 关闭
     */
     chargeClose(index, row) {
-      this.$confirm('此操作关闭收费, 是否继续?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
+      this.$operation.tableMessageBox("此操作关闭收费", () => {
         this.$message({
-          type: 'success',
-          message: '关闭成功!'
-        })
-        this.chargeList[index].status = 0
-      }).catch(() => {
-        this.$message({
-          type: 'info',
-          message: '已取消'
-        })
-      })
+          type: "success",
+          message: "关闭成功!"
+        });
+        this.chargeList[index].status = 0;
+      });
     },
 
     /*
     * 打开
     */
     chargeOpen(index, row) {
-      this.chargeList[index].status = 1
+      this.chargeList[index].status = 1;
     }
   }
-}
+};
 </script>

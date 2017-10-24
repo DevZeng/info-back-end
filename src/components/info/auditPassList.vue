@@ -33,7 +33,7 @@
   text-align: left;
 }
 
-.audit-pass-list-picker>div {
+.audit-pass-list-picker > div {
   margin-right: 20px;
 }
 
@@ -146,63 +146,37 @@
 export default {
   data() {
     const generateCities = _ => {
-      const data = []
-      const cities = ['上海', '北京', '广州', '深圳', '南京', '西安', '成都']
+      const data = [];
+      const cities = ["上海", "北京", "广州", "深圳", "南京", "西安", "成都"];
       cities.forEach((city, index) => {
         data.push({
           label: city,
           key: index,
           cities: cities[index]
-        })
-      })
-      return data
-    }
+        });
+      });
+      return data;
+    };
     return {
       loading: true,
 
-      editText: ['原始', '已修改'],
-      statusText: ['正常', '已推迟'],
+      editText: ["原始", "已修改"],
+      statusText: ["正常", "已推迟"],
 
-      selectInput: '',
-      select: '1',
+      selectInput: "",
+      select: "1",
 
       searchForm: {
-        status: '',
-        dateRange: '',
-        city: [],
+        status: "",
+        dateRange: "",
+        city: []
       },
       cities: generateCities(),
       filterMethod(query, item) {
         return item.cities.indexOf(query) > -1;
       },
 
-      dateOptions: {
-        shortcuts: [{
-          text: '最近一周',
-          onClick(picker) {
-            const end = new Date();
-            const start = new Date();
-            start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
-            picker.$emit('pick', [start, end]);
-          }
-        }, {
-          text: '最近一个月',
-          onClick(picker) {
-            const end = new Date();
-            const start = new Date();
-            start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
-            picker.$emit('pick', [start, end]);
-          }
-        }, {
-          text: '最近三个月',
-          onClick(picker) {
-            const end = new Date();
-            const start = new Date();
-            start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
-            picker.$emit('pick', [start, end]);
-          }
-        }]
-      },
+      dateOptions: this.$common.dateOptions,
 
       //页码
       page: 1,
@@ -210,117 +184,111 @@ export default {
       count: 100,
 
       //数据
-      auditPassList: [{
-        id: 1,
-        name: '信息一',
-        user: '小张',
-        type: '种类一',
-        create_time: '2017-10-01',
-        address: '广州市番禺市桥XX地址XX号',
-        edit: '1',
-        read: 11,
-        auditPerson: '管理员1',
-        report: 21,
-      }, {
-        id: 2,
-        name: '信息二',
-        user: '李四端',
-        type: '种类二',
-        create_time: '2017-10-21',
-        address: '广州市番禺市桥XX地址XX号',
-        edit: '0',
-        read: 421,
-        auditPerson: '管理员4',
-        report: 2,
-      }],
-    }
+      auditPassList: [
+        {
+          id: 1,
+          name: "信息一",
+          user: "小张",
+          type: "种类一",
+          create_time: "2017-10-01",
+          address: "广州市番禺市桥XX地址XX号",
+          edit: "1",
+          read: 11,
+          auditPerson: "管理员1",
+          report: 21
+        },
+        {
+          id: 2,
+          name: "信息二",
+          user: "李四端",
+          type: "种类二",
+          create_time: "2017-10-21",
+          address: "广州市番禺市桥XX地址XX号",
+          edit: "0",
+          read: 421,
+          auditPerson: "管理员4",
+          report: 2
+        }
+      ]
+    };
   },
 
   created() {
     setTimeout(() => {
-      this.loading = false
-    }, 200)
+      this.loading = false;
+    }, 200);
   },
 
   methods: {
-
     /*
     * 用户中心跳转
     */
-    handlePeople(index, row) {
-
-    },
+    handlePeople(index, row) {},
 
     /*
     * 举报列表跳转
     */
     handleReoprt(index, row) {
-      this.$router.push({ name: 'reportsingle', params: { report: row } })
+      this.$router.push({ name: "reportsingle", params: { report: row } });
     },
 
     /*
     * input 搜索
     */
-    selectSearch() {
-
-    },
+    selectSearch() {},
 
     /*
     * form 搜索
     */
-    pickerSearch() {
-
-    },
+    pickerSearch() {},
 
     /*
     * 拒绝
     */
     handleReject(index, row) {
-      this.$prompt('请输入不通过原因', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
+      this.$prompt("请输入不通过原因", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
         beforeClose: (action, instance, done) => {
-          if (action === 'confirm') {
+          if (action === "confirm") {
             if (!instance.inputValue) {
               this.$message({
-                type: 'warning',
-                message: '回复不能为空',
+                type: "warning",
+                message: "回复不能为空",
                 showClose: true
-              })
-              return false
+              });
+              return false;
             }
-            done()
+            done();
           } else {
-            done()
+            done();
           }
         }
-      }).then(() => {
-        this.auditPassList.splice(index, 1)
-        this.$message({
-          type: 'success',
-          message: '已拒绝'
-        })
-      }).catch(() => {
-        this.$message({
-          type: 'info',
-          message: '已取消'
-        })
       })
+        .then(() => {
+          this.auditPassList.splice(index, 1);
+          this.$message({
+            type: "success",
+            message: "已拒绝"
+          });
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已取消"
+          });
+        });
     },
 
     /*
     * 页码条数
     */
-    handleSizeChange() {
-
-    },
+    handleSizeChange() {},
 
     /*
     * 当前页数
     */
-    handleCurrentChange() {
-
-    },
+    handleCurrentChange() {}
   }
-}
+};
 </script>

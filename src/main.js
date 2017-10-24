@@ -9,6 +9,7 @@ import axios from 'axios'
 import qs from 'qs'
 import VueQuillEditor from 'vue-quill-editor'
 import commonData from '@/assets/common.js'
+import operation from '@/assets/operation.js'
 
 /*
   配置 axios
@@ -48,6 +49,7 @@ router.beforeEach((to, from, next) => {
 })
 
 Vue.prototype.$common = commonData._data
+Vue.prototype.$operation = operation
 Vue.prototype.$http = axios
 Vue.use(ElementUI)
 Vue.use(VueQuillEditor)

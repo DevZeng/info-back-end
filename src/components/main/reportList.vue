@@ -16,7 +16,7 @@
   text-align: right;
 }
 
-.report-picker>div {
+.report-picker > div {
   margin-right: 20px;
 }
 
@@ -98,11 +98,11 @@
         <el-table-column label="处理情况">
           <template slot-scope="scope">{{reportStatus[scope.row.status]}}</template>
         </el-table-column>
-        <el-table-column label="操作" width="200px;">
+        <el-table-column label="操作" width="200">
           <template slot-scope="scope">
             <el-button size="small" type="primary" @click="handleReplay(scope.$index, scope.row)">回复</el-button>
-            <el-button size="small" type="primary" @click="handle(scope.$index, scope.row)">处理</el-button>
-            <el-button size="small" type="primary" @click="handleDelay(scope.$index, scope.row)">延期</el-button>
+            <el-button v-if="scope.row.status != 1" size="small" type="primary" @click="handle(scope.$index, scope.row)">处理</el-button>
+            <el-button v-if="scope.row.status == 0" size="small" type="warning" @click="handleDelay(scope.$index, scope.row)">延期</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -123,137 +123,122 @@ export default {
     return {
       loading: true,
       //搜索
-      selectInput: '',
+      selectInput: "",
       select: "1",
 
       searchFrom: {
         city: [],
         category: [],
-        dateRange: '',
-        reportType: '',
+        dateRange: "",
+        reportType: ""
       },
-      cities: [{
-        id: 1,
-        name: '广州市',
-      }, {
-        id: 2,
-        name: '北京市'
-      }, {
-        id: 3,
-        name: '上海市'
-      }],
+      cities: [
+        {
+          id: 1,
+          name: "广州市"
+        },
+        {
+          id: 2,
+          name: "北京市"
+        },
+        {
+          id: 3,
+          name: "上海市"
+        }
+      ],
 
-      categories: [{
-        id: 1,
-        name: '种类一',
-      }, {
-        id: 2,
-        name: '种类二'
-      }, {
-        id: 3,
-        name: '种类三'
-      }],
+      categories: [
+        {
+          id: 1,
+          name: "种类一"
+        },
+        {
+          id: 2,
+          name: "种类二"
+        },
+        {
+          id: 3,
+          name: "种类三"
+        }
+      ],
 
-      dateOptions: {
-        shortcuts: [{
-          text: '最近一周',
-          onClick(picker) {
-            const end = new Date();
-            const start = new Date();
-            start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
-            picker.$emit('pick', [start, end]);
-          }
-        }, {
-          text: '最近一个月',
-          onClick(picker) {
-            const end = new Date();
-            const start = new Date();
-            start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
-            picker.$emit('pick', [start, end]);
-          }
-        }, {
-          text: '最近三个月',
-          onClick(picker) {
-            const end = new Date();
-            const start = new Date();
-            start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
-            picker.$emit('pick', [start, end]);
-          }
-        }]
-      },
+      dateOptions: this.$common.dateOptions,
 
-      reportTypes: [{
-        id: 1,
-        name: '未处理',
-      }, {
-        id: 2,
-        name: '已处理'
-      }, {
-        id: 3,
-        name: '已延期'
-      }],
+      reportTypes: [
+        {
+          id: 1,
+          name: "未处理"
+        },
+        {
+          id: 2,
+          name: "已处理"
+        },
+        {
+          id: 3,
+          name: "已延期"
+        }
+      ],
 
       //页码相关
       page: 1,
       eachPage: 10,
       count: 1000,
 
-      reportStatus: ['未处理', '已处理', '已延期'],
+      reportStatus: ["未处理", "已处理", "已延期"],
       //数据
       reportList: [
         {
           textID: 1,
-          name: '关于',
+          name: "关于",
           times: 21,
           read: 112,
-          create_time: '2017-10-02',
+          create_time: "2017-10-02",
           replay: 0,
-          report_name: '张先生',
-          status: 0,
+          report_name: "张先生",
+          status: 0
         },
         {
           textID: 2,
-          name: '信息二',
+          name: "信息二",
           times: 2,
           read: 1111,
-          create_time: '2017-10-06',
+          create_time: "2017-10-06",
           replay: 0,
-          report_name: '关羽',
-          status: 1,
+          report_name: "关羽",
+          status: 1
         },
         {
           textID: 3,
-          name: '信息三关于',
+          name: "信息三关于",
           times: 11,
           read: 21,
-          create_time: '2017-10-05',
+          create_time: "2017-10-05",
           replay: 1,
-          report_name: '刘备',
-          status: 2,
-        },
+          report_name: "刘备",
+          status: 2
+        }
       ]
-    }
+    };
   },
 
   created() {
     setTimeout(() => {
-      this.loading = false
-    }, 200)
+      this.loading = false;
+    }, 200);
   },
 
   methods: {
-
     /*
     * 第一个搜索
     */
     selectSearch() {
       if (this.selectInput) {
-        console.log(this.select)
+        console.log(this.select);
       } else {
         this.$message({
-          type: 'warning',
-          message: '请输入搜索内容！',
-        })
+          type: "warning",
+          message: "请输入搜索内容！"
+        });
       }
     },
 
@@ -261,7 +246,7 @@ export default {
     * 第二个搜索
     */
     pickerSearch() {
-      console.log('second search')
+      console.log("second search");
     },
 
     /*
@@ -276,46 +261,59 @@ export default {
     */
     checkReportUser(index, row) {
       this.$message({
-        type: 'success',
-        message: 'test'
-      })
+        type: "success",
+        message: "test"
+      });
     },
 
     /*
     * 回复举报者
     */
     handleReplay(index, row) {
-      console.log(222)
+      console.log(222);
     },
 
     /*
     * 处理举报信息
     */
     handle(index, row) {
-      console.log(333)
+      if (1 == this.reportList[index].status) {
+        return false;
+      }
+      this.$operation.tableMessageBox("此操作将处理该举报信息", () => {
+        this.reportList[index].status = 1;
+        this.$message({
+          type: "success",
+          message: "已处理"
+        });
+      });
     },
-
 
     /*
     * 延期处理
     */
     handleDelay(index, row) {
-      console.log(444)
+      if (2 == this.reportList[index].status) {
+        return false;
+      }
+      this.$operation.tableMessageBox("此操作将延期该举报信息", () => {
+        this.reportList[index].status = 2;
+        this.$message({
+          type: "success",
+          message: "已延期"
+        });
+      });
     },
 
     /*
     * 每页显示条数改变
     */
-    handleSizeChange() {
-
-    },
+    handleSizeChange() {},
 
     /*
     * 页数改变
     */
-    handleCurrentChange() {
-
-    },
+    handleCurrentChange() {}
   }
-}
+};
 </script>

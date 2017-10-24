@@ -75,10 +75,6 @@ export default {
     return {
       loading: true,
 
-      //图片预览
-      isPre: false,
-      preImg: "",
-
       //开启、关闭 暂存
       waittingData: [],
 
@@ -178,24 +174,13 @@ export default {
       删除
     */
     handleDelete(index, row) {
-      this.$confirm("此操作将删除该审核条件, 是否继续?", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning"
-      })
-        .then(() => {
-          this.categoryList.splice(index, 1);
-          this.$message({
-            type: "success",
-            message: "删除成功!"
-          });
-        })
-        .catch(() => {
-          this.$message({
-            type: "info",
-            message: "已取消删除"
-          });
+      this.$operation.tableMessageBox("此操作将删除该审核条件", () => {
+        this.categoryList.splice(index, 1);
+        this.$message({
+          type: "success",
+          message: "删除成功!"
         });
+      });
     },
 
     /*

@@ -20,7 +20,7 @@
   text-align: right;
 }
 
-.user-picker>div {
+.user-picker > div {
   margin-right: 20px;
 }
 
@@ -119,147 +119,99 @@ export default {
       eachPage: 10,
       count: 100,
 
-      select: '1',
-      selectInput: '',
+      select: "1",
+      selectInput: "",
 
       searchForm: {
-        level: '',
-        published: '',
-        dateRange: '',
+        level: "",
+        published: "",
+        dateRange: ""
       },
 
-      dateOptions: {
-        shortcuts: [{
-          text: '最近一周',
-          onClick(picker) {
-            const end = new Date();
-            const start = new Date();
-            start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
-            picker.$emit('pick', [start, end]);
-          }
-        }, {
-          text: '最近一个月',
-          onClick(picker) {
-            const end = new Date();
-            const start = new Date();
-            start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
-            picker.$emit('pick', [start, end]);
-          }
-        }, {
-          text: '最近三个月',
-          onClick(picker) {
-            const end = new Date();
-            const start = new Date();
-            start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
-            picker.$emit('pick', [start, end]);
-          }
-        }]
-      },
+      dateOptions: this.$common.dateOptions,
 
       //数据
-      userList: [{
-        id: 1,
-        name: '张毅',
-        nickname: '小猪',
-        points: 123,
-        memberLevel: 1,
-        phone: 13654165455,
-        register_time: '2017-10-01',
-        publish_times: 21,
-        status: 1,
-      }, {
-        id: 2,
-        name: '张毅',
-        nickname: '小猪',
-        points: 10,
-        memberLevel: 1,
-        phone: 13645916223,
-        register_time: '2017-10-01',
-        publish_times: 2,
-        status: 0,
-      }],
-    }
+      userList: [
+        {
+          id: 1,
+          name: "张毅",
+          nickname: "小猪",
+          points: 123,
+          memberLevel: 1,
+          phone: 13654165455,
+          register_time: "2017-10-01",
+          publish_times: 21,
+          status: 1
+        },
+        {
+          id: 2,
+          name: "张毅",
+          nickname: "小猪",
+          points: 10,
+          memberLevel: 1,
+          phone: 13645916223,
+          register_time: "2017-10-01",
+          publish_times: 2,
+          status: 0
+        }
+      ]
+    };
   },
 
   created() {
     setTimeout(() => {
-      this.loading = false
-    }, 200)
+      this.loading = false;
+    }, 200);
   },
 
   methods: {
-
     /*
     * 内容搜索
     */
-    selectSearch() {
-
-    },
+    selectSearch() {},
 
     /*
     * 表单搜索
     */
-    pickerSearch() {
-
-    },
+    pickerSearch() {},
 
     /*
     * 停用
     */
     handleStop(index, row) {
-      this.$confirm('此操作将切换用户状态, 是否继续?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        this.userList[index].status == 1 ? this.userList[index].status = 0 : this.userList[index].status = 1
+      this.$operation.tableMessageBox("此操作将切换用户状态", () => {
+        this.userList[index].status == 1
+          ? (this.userList[index].status = 0)
+          : (this.userList[index].status = 1);
         this.$message({
-          type: 'success',
-          message: '切换成功!'
-        })
-      }).catch(() => {
-        this.$message({
-          type: 'info',
-          message: '已取消操作'
-        })
-      })
+          type: "success",
+          message: "切换成功!"
+        });
+      });
     },
 
     /*
     * 删除
     */
     handleDelete(index, row) {
-      this.$confirm('此操作将删除该用户, 是否继续?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        this.userList.splice(index, 1)
+      this.$operation.tableMessageBox("此操作将删除该用户", () => {
+        this.userList.splice(index, 1);
         this.$message({
-          type: 'success',
-          message: '删除成功!'
-        })
-      }).catch(() => {
-        this.$message({
-          type: 'info',
-          message: '已取消删除'
-        })
-      })
+          type: "success",
+          message: "删除成功!"
+        });
+      });
     },
 
     /*
     * 页码条数
     */
-    handleSizeChange() {
-
-    },
+    handleSizeChange() {},
 
     /*
     * 页数
     */
-    handleCurrentChange() {
-
-    },
+    handleCurrentChange() {}
   }
-}
+};
 </script>

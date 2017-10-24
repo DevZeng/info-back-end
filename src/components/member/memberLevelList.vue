@@ -82,107 +82,96 @@ export default {
   data() {
     return {
       loading: true,
-      levelSwitchText: ['关闭', '打开'],
-      levelSwitch: '1',
+      levelSwitchText: ["关闭", "打开"],
+      levelSwitch: "1",
 
       page: 1,
       eachPage: 10,
       count: 100,
 
-      memberLevelList: [{
-        id: 1,
-        name: '等级一',
-        price: 3,
-        cycle: 30,
-        daily_publish: 10,
-        monthly_publish: 300,
-      }, {
-        id: 2,
-        name: '等级二',
-        price: 6,
-        cycle: 30,
-        daily_publish: 12,
-        monthly_publish: 320,
-      }, {
-        id: 2,
-        name: '等级三',
-        price: 9,
-        cycle: 30,
-        daily_publish: 15,
-        monthly_publish: 350,
-      }
-      ],
-    }
+      memberLevelList: [
+        {
+          id: 1,
+          name: "等级一",
+          price: 3,
+          cycle: 30,
+          daily_publish: 10,
+          monthly_publish: 300
+        },
+        {
+          id: 2,
+          name: "等级二",
+          price: 6,
+          cycle: 30,
+          daily_publish: 12,
+          monthly_publish: 320
+        },
+        {
+          id: 2,
+          name: "等级三",
+          price: 9,
+          cycle: 30,
+          daily_publish: 15,
+          monthly_publish: 350
+        }
+      ]
+    };
   },
 
   created() {
     setTimeout(() => {
-      this.loading = false
-    }, 200)
+      this.loading = false;
+    }, 200);
   },
   methods: {
-
     /*
     * 会员开关
     */
     memberLevelSwitchFnc(value) {
-      console.log(value)
+      console.log(value);
       this.$message({
-        type: 'info',
+        type: "info",
         message: `当前状态是：${this.levelSwitchText[value]}`,
-        showClose: true,
-      })
+        showClose: true
+      });
     },
 
     /*
     * 新增会员
     */
     addLevel() {
-      this.$router.push({ name: 'memberleveledit', params: { level: null } })
+      this.$router.push({ name: "memberleveledit", params: { level: null } });
     },
 
     /*
     * 页数变化
     */
-    handleCurrentChange(currentPage) {
-
-    },
+    handleCurrentChange(currentPage) {},
 
     /*
     * 每页展示数量
     */
-    handleSizeChange() {
-
-    },
+    handleSizeChange() {},
 
     /*
     * 编辑
     */
     handleEdit(index, row) {
-      this.$router.push({ name: 'memberleveledit', params: { level: row } })
+      this.$router.push({ name: "memberleveledit", params: { level: row } });
     },
 
     /*
     * 删除
     */
     handleDelete(index, row) {
-      this.$confirm('此操作将删除该等级设置, 是否继续?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        this.memberLevelList.splice(index, 1)
+      this.$operation.tableMessageBox("此操作将删除该等级设置", () => {
+        this.memberLevelList.splice(index, 1);
         this.$message({
-          type: 'success',
-          message: '删除成功!'
-        })
-      }).catch(() => {
-        this.$message({
-          type: 'info',
-          message: '已取消删除'
-        })
-      })
+          type: "success",
+          message: "删除成功!"
+        });
+      });
     }
   }
-}
+};
 </script>

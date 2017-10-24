@@ -28,7 +28,7 @@
 .pre-img-wrap {
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, .5);
+  background-color: rgba(0, 0, 0, 0.5);
   display: none;
   justify-content: center;
   align-items: center;
@@ -43,11 +43,11 @@
   text-align: center;
 }
 
-.sub-wrap>img {
+.sub-wrap > img {
   max-width: 100%;
 }
 
-.sub-wrap>span {
+.sub-wrap > span {
   position: absolute;
   top: 30px;
   right: 30px;
@@ -126,163 +126,153 @@ export default {
 
       //图片预览
       isPre: false,
-      preImg: '',
+      preImg: "",
 
       //开启、关闭 暂存
       waittingData: [],
 
       //数据
-      bannerList: [{
-        id: 1,
-        name: '首页',
-        img: 'http://h.hiphotos.baidu.com/image/pic/item/58ee3d6d55fbb2fbecdc13d2464a20a44723dc7f.jpg',
-        link: 'https://www.baidu.com',
-        status: 0
-      }, {
-        id: 2,
-        name: '签到页',
-        img: '',
-        link: '',
-        status: 1
-      }],
+      bannerList: [
+        {
+          id: 1,
+          name: "首页",
+          img:
+            "http://h.hiphotos.baidu.com/image/pic/item/58ee3d6d55fbb2fbecdc13d2464a20a44723dc7f.jpg",
+          link: "https://www.baidu.com",
+          status: 0
+        },
+        {
+          id: 2,
+          name: "签到页",
+          img: "",
+          link: "",
+          status: 1
+        }
+      ],
       page: 1,
       eachPage: 100,
-      count: 1000,
-    }
+      count: 1000
+    };
   },
 
   created() {
     setTimeout(() => {
-      this.loading = false
-    }, 200)
+      this.loading = false;
+    }, 200);
   },
 
   methods: {
-
     /*
       状态格式化函数
     */
     statusFnc(row, column, cellValue) {
-      return cellValue === 0 ? '开启' : '关闭'
+      return cellValue === 0 ? "开启" : "关闭";
     },
 
     /*
       新增广告
     */
     addAD() {
-      this.$router.push({ name: 'bannerchange', params: { img: null } })
+      this.$router.push({ name: "bannerchange", params: { img: null } });
     },
 
     /*
       多选
     */
     handleSelection(selection) {
-      this.waittingData = selection
+      this.waittingData = selection;
     },
 
     /*
       广告打开
     */
     openAD() {
-      const length = this.waittingData.length
+      const length = this.waittingData.length;
       if (!length) {
         this.$message({
-          message: '请先选择！',
+          message: "请先选择！",
           showClose: true,
-          type: 'warning'
-        })
+          type: "warning"
+        });
       }
-      let idGroup = []
+      let idGroup = [];
       for (let i = 0; i < length; i++) {
-        idGroup.push(this.waittingData[i].id)
+        idGroup.push(this.waittingData[i].id);
       }
-      console.log(idGroup)
+      console.log(idGroup);
     },
 
     /*
       广告关闭
     */
     closeAD() {
-      const length = this.waittingData.length
+      const length = this.waittingData.length;
       if (!length) {
         this.$message({
-          message: '请先选择！',
+          message: "请先选择！",
           showClose: true,
-          type: 'warning'
-        })
+          type: "warning"
+        });
       }
-      let idGroup = []
+      let idGroup = [];
       for (let i = 0; i < length; i++) {
-        idGroup.push(this.waittingData[i].id)
+        idGroup.push(this.waittingData[i].id);
       }
-      console.log(idGroup)
+      console.log(idGroup);
     },
 
     /*
     * 图片预览
     */
     preImgFnc(img) {
-      console.log(img)
-      this.isPre = true
-      this.preImg = img
+      console.log(img);
+      this.isPre = true;
+      this.preImg = img;
     },
 
     /*
     * 预览关闭
     */
     closePreImg() {
-      this.isPre = false
+      this.isPre = false;
     },
 
     /* 
       广告名称、图片修改
     */
     handleChange(index, row) {
-      this.$router.push({ name: 'bannerchange', params: { img: row } })
+      this.$router.push({ name: "bannerchange", params: { img: row } });
     },
 
     /*
       广告文本编辑
     */
     handleEdit(index, row) {
-      this.$router.push({ name: 'banneredit', params: { id: row.id } })
+      this.$router.push({ name: "banneredit", params: { id: row.id } });
     },
 
     /*
       广告删除
     */
     handleDelete(index, row) {
-      this.$confirm('此操作将删除该 Banner, 是否继续?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        this.bannerList.splice(index, 1)
+      this.$operation.tableMessageBox("此操作将删除该 Banner", () => {
+        this.bannerList.splice(index, 1);
         this.$message({
-          type: 'success',
-          message: '删除成功!'
-        })
-      }).catch(() => {
-        this.$message({
-          type: 'info',
-          message: '已取消删除'
-        })
-      })
+          type: "success",
+          message: "删除成功!"
+        });
+      });
     },
 
     /*
       页数改变
     */
-    handleCurrentChange() {
-
-    },
+    handleCurrentChange() {},
 
     /*
       每页显示数量改变
     */
-    handleSizeChange() {
-
-    },
+    handleSizeChange() {}
   }
-}
+};
 </script>
