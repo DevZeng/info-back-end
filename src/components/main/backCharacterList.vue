@@ -2,6 +2,9 @@
 .back-character-list {
   height: 100%;
   padding: 15px;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
 }
 
 .banner-operation {
@@ -10,6 +13,12 @@
 
 .breadcrumb {
   margin-bottom: 20px;
+}
+
+.table-list {
+  flex: 1;
+  min-height: 250px;
+  overflow: auto;
 }
 </style>
 
@@ -39,13 +48,18 @@
         </el-table-column>
         <el-table-column prop="authorities" label="权限" show-overflow-tooltip :formatter="formatAuthority">
         </el-table-column>
-        <el-table-column label="操作">
+        <el-table-column label="操作" width="150">
           <template slot-scope="scope">
             <el-button size="small" type="primary" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
             <el-button size="small" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
+    </div>
+
+    <div class="pages">
+      <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="page" :page-size="eachPage" layout="total, prev, pager, next" :total="count">
+      </el-pagination>
     </div>
   </section>
 </template>
@@ -55,6 +69,11 @@ export default {
   data() {
     return {
       loading: true,
+      waittingData: "",
+
+      page: 1,
+      eachPage: 10,
+      count: 100,
 
       backCharacterList: [
         {
@@ -87,7 +106,10 @@ export default {
       新增
     */
     addCharacter() {
-      this.$router.push({ name: "backedit", params: { character: null } });
+      this.$router.push({
+        name: "backcharacteredit",
+        params: { character: null }
+      });
     },
 
     deleteCharacter() {
@@ -99,7 +121,7 @@ export default {
         });
         return false;
       }
-      this.$confirm("此操作将删除选中的所有指南, 是否继续?", "提示", {
+      this.$confirm("此操作将删除选中的所有角色, 是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning"
@@ -129,20 +151,23 @@ export default {
       编辑
     */
     handleEdit(index, row) {
-      this.$router.push({ name: "backedit", params: { user: row } });
+      this.$router.push({
+        name: "backcharacteredit",
+        params: { character: row }
+      });
     },
 
     /*
       删除
     */
     handleDelete(index, row) {
-      this.$confirm("此操作将删除该指南, 是否继续?", "提示", {
+      this.$confirm("此操作将删除该角色, 是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning"
       })
         .then(() => {
-          this.backList.splice(index, 1);
+          this.backCharacterList.splice(index, 1);
           this.$message({
             type: "success",
             message: "删除成功!"

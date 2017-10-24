@@ -75,7 +75,7 @@
         </el-table-column>
         <el-table-column prop="authority" label="权限" show-overflow-tooltip :formatter="formatAuthority">
         </el-table-column>
-        <el-table-column label="操作">
+        <el-table-column label="操作" width="150">
           <template slot-scope="scope">
             <el-button size="small" type="primary" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
             <el-button size="small" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
@@ -99,6 +99,7 @@ export default {
       waittingData: [],
 
       currentCharacter: "",
+      select: "1",
       selectInput: "",
       characters: [
         {

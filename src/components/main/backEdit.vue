@@ -38,11 +38,6 @@
         <el-form-item label="密码" prop="password">
           <el-input v-model="adminUser.password" placeholder="请输入密码（不能短于6位）"></el-input>
         </el-form-item>
-        <!-- <el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">全选</el-checkbox>
-        <div style="margin: 15px 0;"></div>
-        <el-checkbox-group v-model="adminUser.authorities" @change="handleCheckedCitiesChange">
-          <el-checkbox v-for="authority in authorities" :label="authority.id" :key="authority.id" style="margin: 10px;">{{authority.name}}</el-checkbox>
-        </el-checkbox-group> -->
         <el-form-item label="权限角色" prop="character">
             <el-select v-model="adminUser.character" placeholder="请选择权限角色">
               <el-option label="角色一" value="1"></el-option>
@@ -111,25 +106,6 @@ export default {
   },
 
   methods: {
-    /*
-    * 全选
-    */
-    // handleCheckAllChange(event) {
-    //   this.adminUser.authorities = event.target.checked
-    //     ? this.authoritiesArr
-    //     : [];
-    //   this.isIndeterminate = false;
-    // },
-
-    /*
-    * 监听多选
-    */
-    // handleCheckedCitiesChange(value) {
-    //   let checkedCount = value.length;
-    //   this.checkAll = checkedCount === this.authorities.length;
-    //   this.isIndeterminate =
-    //     checkedCount > 0 && checkedCount < this.authorities.length;
-    // },
 
     /*
     * 表单提交

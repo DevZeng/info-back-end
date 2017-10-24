@@ -1,4 +1,4 @@
-<style scoped>
+<style>
 #root {
   height: 100%;
   display: flex;
@@ -69,7 +69,7 @@
 }
 
 .el-table__body-wrapper {
-  overflow: hidden;
+  overflow: hidden !important;
 }
 
 /* 底部样式 */
