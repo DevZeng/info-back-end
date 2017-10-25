@@ -42,7 +42,7 @@
   
     <div class="table-list">
       <el-table ref="multipleTable" :data="cityList" border stripe tooltip-effect="dark" style="width: 100%">
-        <el-table-column label="ID" prop="type">
+        <el-table-column label="ID" prop="id">
         </el-table-column>
         <el-table-column label="城市名称" prop="name"></el-table-column>
         <el-table-column label="城市坐标" prop="location"></el-table-column>

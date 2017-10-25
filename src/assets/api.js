@@ -20,14 +20,29 @@ axios.interceptors.request.use(config => {
 })
 
 export default {
+  /**
+   * 假如省份的日期没有更新，就直接拿 localStorage 的数据
+   * @param {*行政区 ID} id 
+   * @param {* jsonP 回调} callback 
+   */
   getDistrict(id, callback) {
-    jsonP(`${TXWebService}getchildren?${id?'id='+ id + '&': ''}key=${TXKey}&output=jsonp`, null, (err, data) => {
-      if (err) {
-        console.error(err.message);
-      } else {
-        console.log(data);
+    const localShengs = localStorage.infoShengs
+    if (id) {
+      jsonP(`${TXWebService}getchildren?id=${id}&key=${TXKey}&output=jsonp`, null, (err, data) => {
+        if (JSON.parse(localShengs).data_version !== data.data_version) {
+          localStorage.infoShengs = ''
+        }
+        typeof callback === 'function' && callback(err, data)
+      })
+    } else {
+      if (localShengs) {
+        typeof callback === 'function' && callback(null, JSON.parse(localShengs))
       }
-    })
+      jsonP(`${TXWebService}getchildren?key=${TXKey}&output=jsonp`, null, (err, data) => {
+        localStorage.infoShengs = JSON.stringify(data)
+        typeof callback === 'function' && callback(err, data)
+      })
+    }
   },
 
 }
