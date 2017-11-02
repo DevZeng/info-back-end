@@ -117,6 +117,14 @@
       <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="page" :page-size="eachPage" layout="total, prev, pager, next" :total="count">
       </el-pagination>
     </div>
+
+    <el-dialog title="拒绝原因" :visible.sync="rejectDialog">
+      <el-table :data="gridData">
+        <el-table-column property="date" label="日期" width="150"></el-table-column>
+        <el-table-column property="name" label="姓名" width="200"></el-table-column>
+        <el-table-column property="address" label="地址"></el-table-column>
+      </el-table>
+    </el-dialog>
   </section>
 </template>
 
@@ -137,6 +145,7 @@ export default {
     };
     return {
       loading: true,
+      rejectDialog: false,
 
       editText: ["原始", "已修改"],
       statusText: ["正常", "已推迟"],
@@ -226,38 +235,39 @@ export default {
     * 拒绝
     */
     handleReject(index, row) {
-      this.$prompt("请输入不通过原因", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        beforeClose: (action, instance, done) => {
-          if (action === "confirm") {
-            if (!instance.inputValue) {
-              this.$message({
-                type: "warning",
-                message: "回复不能为空",
-                showClose: true
-              });
-              return false;
-            }
-            done();
-          } else {
-            done();
-          }
-        }
-      })
-        .then(() => {
-          this.auditList.splice(index, 1);
-          this.$message({
-            type: "success",
-            message: "已拒绝"
-          });
-        })
-        .catch(() => {
-          this.$message({
-            type: "info",
-            message: "已取消"
-          });
-        });
+      // this.$prompt("请输入不通过原因", "提示", {
+      //   confirmButtonText: "确定",
+      //   cancelButtonText: "取消",
+      //   beforeClose: (action, instance, done) => {
+      //     if (action === "confirm") {
+      //       if (!instance.inputValue) {
+      //         this.$message({
+      //           type: "warning",
+      //           message: "回复不能为空",
+      //           showClose: true
+      //         });
+      //         return false;
+      //       }
+      //       done();
+      //     } else {
+      //       done();
+      //     }
+      //   }
+      // })
+        // .then(() => {
+        //   this.auditList.splice(index, 1);
+        //   this.$message({
+        //     type: "success",
+        //     message: "已拒绝"
+        //   });
+        // })
+        // .catch(() => {
+        //   this.$message({
+        //     type: "info",
+        //     message: "已取消"
+        //   });
+        // });
+        this.rejectDialog = true
     },
 
     /*
