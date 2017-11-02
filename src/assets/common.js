@@ -2,23 +2,23 @@ export default {
   _data: {
     //会员等级
     memberLevels: [{
-        id: 0,
+        id: 1,
         name: '一星会员',
       },
       {
-        id: 1,
+        id: 2,
         name: '二星会员',
       },
       {
-        id: 2,
+        id: 3,
         name: '三星会员',
       },
       {
-        id: 3,
+        id: 4,
         name: '四星会员',
       },
       {
-        id: 4,
+        id: 5,
         name: '五星会员',
       },
     ],
