@@ -20,6 +20,10 @@
   min-height: 250px;
   overflow: auto;
 }
+
+.pages {
+  text-align: right;
+}
 </style>
 
 <template>
@@ -86,9 +90,10 @@ export default {
   },
 
   created() {
-    setTimeout(() => {
+    this.$api.getRoleList(res => {
+      this.backCharacterList = res.data.data;
       this.loading = false;
-    }, 200);
+    });
   },
 
   methods: {

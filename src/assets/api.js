@@ -126,6 +126,36 @@ export default {
       })
   },
 
+  temp(data, cb) {
+    axios.post(host + 'permission', data)
+      .then(res => {
+        if ('SUCCESS' === res.data.return_code) {
+          typeof cb === 'function' && cb(res)
+        } else {
+          this.APIError(res)
+        }
+      }).catch(error => {
+        this.APIError(error.response)
+      })
+  },
+
+  /**
+   * 获取角色列表
+   * @param {function} cb 回调 
+   */
+  getRoleList(cb) {
+    axios.get(host + 'roles')
+      .then(res => {
+        if ('SUCCESS' === res.data.return_code) {
+          typeof cb === 'function' && cb(res)
+        } else {
+          this.APIError(res)
+        }
+      }).catch(error => {
+        this.APIError(error.response)
+      })
+  },
+
   /**
    * 假如省份的日期没有更新，就直接拿 localStorage 的数据
    * @param {*行政区 ID} id 

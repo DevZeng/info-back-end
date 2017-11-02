@@ -28,11 +28,17 @@
         <el-form-item label="角色名称" prop="name">
           <el-input v-model="formCharacter.name" placeholder="请输入角色名称"></el-input>
         </el-form-item>
-        <el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">全选</el-checkbox>
+        <el-form-item label="display_name" prop="display_name">
+          <el-input v-model="formCharacter.display_name" placeholder="请输入display_name"></el-input>
+        </el-form-item>
+        <el-form-item label="description" prop="description">
+          <el-input v-model="formCharacter.description" placeholder="请输入description"></el-input>
+        </el-form-item>
+        <!-- <el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">全选</el-checkbox>
         <div style="margin: 15px 0;"></div>
         <el-checkbox-group v-model="formCharacter.authorities" @change="handleCheckedItemChange">
           <el-checkbox v-for="authority in authorities" :label="authority.id" :key="authority.id" style="margin: 10px;">{{authority.name}}</el-checkbox>
-        </el-checkbox-group>
+        </el-checkbox-group> -->
         <el-form-item>
           <el-button type="primary" @click="submitForm('formCharacter')" style="width: 100%;margin-top: 10px;">确定</el-button>
         </el-form-item>
@@ -57,7 +63,9 @@ export default {
 
       formCharacter: {
         name: "",
-        authorities: []
+        display_name: "",
+        description: ""
+        // authorities: []
       }
     };
   },
@@ -101,10 +109,12 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
-          this.$message({
-            type: "success",
-            message: "保存成功",
-            showClose: true
+          this.$api.temp(this.formCharacter, res => {
+            this.$message({
+              type: "success",
+              message: "保存成功",
+              showClose: true
+            });
           });
         } else {
           this.$message({
