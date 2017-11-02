@@ -74,6 +74,59 @@ export default {
   },
 
   /**
+   * 
+   * @param {function} cb 回调
+   */
+  memberLevelList(cb) {
+    axios.get(host + 'member/levels')
+      .then(res => {
+        if ('SUCCESS' === res.data.return_code) {
+          typeof cb === 'function' && cb(res)
+        } else {
+          this.APIError(res)
+        }
+      }).catch(error => {
+        this.APIError(error.response)
+      })
+  },
+
+  /**
+   * 获取单个会员信息， 暂不需要使用
+   * @param {string} id 会员等级 id
+   * @param {*} cb 回调
+   */
+  memberLevelSingle(id, cb) {
+    axios.get(host + 'member/level/' + id)
+      .then(res => {
+        if ('SUCCESS' === res.data.return_code) {
+          typeof cb === 'function' && cb(res)
+        } else {
+          this.APIError(res)
+        }
+      }).catch(error => {
+        this.APIError(error.response)
+      })
+  },
+
+  /**
+   * 删除单个会员等级
+   * @param {string} id 会员等级 id
+   * @param {function} cb 回调
+   */
+  memberLevelDelete(id, cb) {
+    axios.get(host + 'del/member/level/' + id)
+      .then(res => {
+        if ('SUCCESS' === res.data.return_code) {
+          typeof cb === 'function' && cb(res)
+        } else {
+          this.APIError(res)
+        }
+      }).catch(error => {
+        this.APIError(error.response)
+      })
+  },
+
+  /**
    * 假如省份的日期没有更新，就直接拿 localStorage 的数据
    * @param {*行政区 ID} id 
    * @param {* jsonP 回调} callback 

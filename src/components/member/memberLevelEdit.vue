@@ -95,6 +95,13 @@ export default {
       }
     };
   },
+
+  created() {
+    const params = this.$route.params.level
+    if (params) {
+      this.levelForm = params;
+    }
+  },
   methods: {
     /*
     * 提交

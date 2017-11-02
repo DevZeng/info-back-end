@@ -47,19 +47,24 @@
       <el-table ref="multipleTable" :data="memberLevelList" border stripe tooltip-effect="dark" style="width: 100%">
         <el-table-column label="ID" prop="id">
         </el-table-column>
-        <el-table-column label="名称" prop="name">
+        <el-table-column label="等级" prop="level">
+          <template slot-scope="scope">
+            <span>{{levelsText[scope.row.level * 1 - 1].name}}</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="名称" prop="title">
         </el-table-column>
         <el-table-column prop="price" label="价格">
           <template slot-scope="scope">{{scope.row.price + ' 元'}}</template>
         </el-table-column>
-        <el-table-column prop="cycle" label="有效期">
-          <template slot-scope="scope">{{scope.row.cycle + ' 天'}}</template>
+        <el-table-column prop="time" label="有效期">
+          <template slot-scope="scope">{{scope.row.time + ' 天'}}</template>
         </el-table-column>
-        <el-table-column prop="daily_publish" label="每天发布次数">
-          <template slot-scope="scope">{{scope.row.daily_publish + ' 条'}}</template>
+        <el-table-column prop="send_daily" label="每天发布次数">
+          <template slot-scope="scope">{{scope.row.send_daily + ' 条'}}</template>
         </el-table-column>
-        <el-table-column prop="monthly_publish" label="总发布次数">
-          <template slot-scope="scope">{{scope.row.monthly_publish + ' 条'}}</template>
+        <el-table-column prop="send_max" label="总发布次数">
+          <template slot-scope="scope">{{scope.row.send_max + ' 条'}}</template>
         </el-table-column>
         <el-table-column label="操作">
           <template slot-scope="scope">
@@ -84,44 +89,21 @@ export default {
       loading: true,
       levelSwitchText: ["关闭", "打开"],
       levelSwitch: "1",
+      levelsText: this.$common.memberLevels,
 
       page: 1,
       eachPage: 10,
       count: 100,
 
-      memberLevelList: [
-        {
-          id: 1,
-          name: "等级一",
-          price: 3,
-          cycle: 30,
-          daily_publish: 10,
-          monthly_publish: 300
-        },
-        {
-          id: 2,
-          name: "等级二",
-          price: 6,
-          cycle: 30,
-          daily_publish: 12,
-          monthly_publish: 320
-        },
-        {
-          id: 2,
-          name: "等级三",
-          price: 9,
-          cycle: 30,
-          daily_publish: 15,
-          monthly_publish: 350
-        }
-      ]
+      memberLevelList: []
     };
   },
 
   created() {
-    setTimeout(() => {
+    this.$api.memberLevelList(res => {
+      this.memberLevelList = res.data.data;
       this.loading = false;
-    }, 200);
+    });
   },
   methods: {
     /*
@@ -165,10 +147,12 @@ export default {
     */
     handleDelete(index, row) {
       this.$operation.tableMessageBox("此操作将删除该等级设置", () => {
-        this.memberLevelList.splice(index, 1);
-        this.$message({
-          type: "success",
-          message: "删除成功!"
+        this.$api.memberLevelDelete(row.id, res => {
+          this.memberLevelList.splice(index, 1);
+          this.$message({
+            type: "success",
+            message: "删除成功!"
+          });
         });
       });
     }
