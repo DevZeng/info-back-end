@@ -54,17 +54,17 @@ export default {
   data() {
     return {
       guideForm: {
-        name: '',
-        content: '',
+        name: "",
+        content: ""
       },
       editorOption: {
-        placeholder: '在这里输入，下面会同步显示...'
+        placeholder: "在这里输入，下面会同步显示..."
       }
-    }
+    };
   },
   methods: {
     onEditorReady(editor) {
-      console.log('editor ready!', editor)
+      console.log("editor ready!", editor);
     },
 
     /*
@@ -72,37 +72,38 @@ export default {
     */
     onSubmit() {
       if (this.guideForm.content && this.guideForm.name) {
+        console.log(this.guideForm.content);
         this.$message({
-          message: '提交成功',
+          message: "提交成功",
           showClose: true,
-          type: 'success'
-        })
-        this.$router.go(-1)
+          type: "success"
+        });
+        this.$router.go(-1);
       } else {
         this.$message({
-          message: '不能为空！',
+          message: "不能为空！",
           showClose: true,
-          type: 'warning'
-        })
+          type: "warning"
+        });
       }
     }
   },
 
   computed: {
     editor() {
-      return this.$refs.myTextEditor.quill
+      return this.$refs.myTextEditor.quill;
     }
   },
 
   mounted() {
-    console.log('this is my editor', this.editor)
+    console.log("this is my editor", this.editor);
   },
 
   created() {
-    const guide = this.$route.params.guide
+    const guide = this.$route.params.guide;
     if (guide) {
-      this.guideForm.name = guide.name
+      this.guideForm.name = guide.name;
     }
   }
-}
+};
 </script>
