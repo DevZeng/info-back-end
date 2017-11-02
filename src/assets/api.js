@@ -157,6 +157,41 @@ export default {
   },
 
   /**
+   * 新增角色
+   * @param {object} data  角色提交参数 {name,display_name,description, pres}
+   * @param {function} cb 回调
+   */
+  addRole(data, cb) {
+    axios.post(host + 'role', data)
+      .then(res => {
+        if ('SUCCESS' === res.data.return_code) {
+          typeof cb === 'function' && cb(res)
+        } else {
+          this.APIError(res)
+        }
+      }).catch(error => {
+        this.APIError(error.response)
+      })
+  },
+
+  /**
+   * 获取所有权限
+   * @param {function} cb 回调
+   */
+  getPermission(cb) {
+    axios.get(host + 'permissions')
+      .then(res => {
+        if ('SUCCESS' === res.data.return_code) {
+          typeof cb === 'function' && cb(res)
+        } else {
+          this.APIError(res)
+        }
+      }).catch(error => {
+        this.APIError(error.response)
+      })
+  },
+
+  /**
    * 假如省份的日期没有更新，就直接拿 localStorage 的数据
    * @param {*行政区 ID} id 
    * @param {* jsonP 回调} callback 
