@@ -29,6 +29,11 @@
   margin-left: 10px;
   vertical-align: bottom;
 }
+
+.form-wrap {
+  width: 900px;
+  margin: 0 auto;
+}
 </style>
 
 <template>
@@ -39,23 +44,25 @@
       <el-breadcrumb-item>编辑</el-breadcrumb-item>
     </el-breadcrumb>
 
-    <el-form label-position="top" label-width="80px" :model="categoryForm" :rules="rules" ref="categoryForm">
-      <el-form-item label="种类名称" prop="name">
-        <el-input v-model="categoryForm.name" placeholder="输入种类名称"></el-input>
-      </el-form-item>
-      <!-- <el-form-item label="种类细节" prop="content">
-        <el-input type="textarea" v-model="categoryForm.content" placeholder="这里输入种类细节" :autosize="{minRows: 10}"></el-input>
-      </el-form-item> -->
-      <el-form-item>
-        <el-tag type="success" :key="tag" v-for="tag in dynamicTags" closable @close="handleClose(tag)">{{tag}}</el-tag>
-        <el-input class="input-new-tag" v-if="inputVisible" v-model="inputValue" ref="saveTagInput" @keyup.enter.native="handleInputConfirm" @blur="handleInputConfirm">
-        </el-input>
-        <el-button v-else class="button-new-tag" @click="showInput">新标签</el-button>
-      </el-form-item>
-      <el-form-item>
-        <el-button type="primary" @click="onSubmit('categoryForm')" style="width: 200px;margin: 20px auto 0;display: block;">确定</el-button>
-      </el-form-item>
-    </el-form>
+    <div class="form-wrap">
+      <el-form label-position="top" label-width="80px" :model="categoryForm" :rules="rules" ref="categoryForm">
+        <el-form-item label="种类名称" prop="title">
+          <el-input v-model="categoryForm.title" placeholder="输入种类名称"></el-input>
+        </el-form-item>
+        <!-- <el-form-item label="种类细节" prop="desc">
+          <el-input type="textarea" v-model="categoryForm.desc" placeholder="这里输入种类细节" :autosize="{minRows: 10}"></el-input>
+        </el-form-item> -->
+        <el-form-item>
+          <el-tag type="success" :key="tag.title" v-for="tag in dynamicTags" closable @close="handleClose(tag)">{{tag.title}}</el-tag>
+          <el-input class="input-new-tag" v-if="inputVisible" v-model="inputValue" ref="saveTagInput" @keyup.enter.native="handleInputConfirm" @blur="handleInputConfirm">
+          </el-input>
+          <el-button v-else class="button-new-tag" @click="showInput">新标签</el-button>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="onSubmit('categoryForm')" style="width: 100%;margin: 20px auto 0;display: block;">确定</el-button>
+        </el-form-item>
+      </el-form>
+    </div>
 
   </section>
 </template>
@@ -65,15 +72,15 @@ export default {
   data() {
     return {
       categoryForm: {
-        name: "",
-        content: ""
+        title: "",
+        desc: []
       },
 
+      dynamicTags: [],
       rules: {
         name: [{ required: true, message: "种类名称不能为空" }]
       },
 
-      dynamicTags: ["标签一", "标签二", "标签三"],
       inputVisible: false,
       inputValue: ""
     };
@@ -85,12 +92,14 @@ export default {
     onSubmit(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
-          this.$message({
-            type: "success",
-            message: "提交成功",
-            showClose: true
+          this.$api.postCategory(this.categoryForm, res => {
+            this.$message({
+              type: "success",
+              message: "提交成功",
+              showClose: true
+            });
+            this.$router.push("/categorylist");
           });
-          this.$router.push("/auditcondition");
         } else {
           this.$message({
             type: "warning",
@@ -104,7 +113,9 @@ export default {
 
     //删除标签
     handleClose(tag) {
-      this.dynamicTags.splice(this.dynamicTags.indexOf(tag), 1);
+      const index = this.categoryForm.desc.indexOf(tag.title);
+      this.dynamicTags.splice(index, 1);
+      this.categoryForm.desc.splice(index, 1);
     },
 
     //展示 input 框
@@ -119,7 +130,8 @@ export default {
     handleInputConfirm() {
       let inputValue = this.inputValue;
       if (inputValue) {
-        this.dynamicTags.push(inputValue);
+        this.dynamicTags.push({ title: inputValue });
+        this.categoryForm.desc.push(inputValue);
       }
       this.inputVisible = false;
       this.inputValue = "";
@@ -129,8 +141,11 @@ export default {
   created() {
     const category = this.$route.params.category;
     if (category) {
-      this.categoryForm.name = category.name;
-      this.categoryForm.content = category.content;
+      this.categoryForm.title = category.title;
+      this.dynamicTags = category.descript;
+      this.categoryForm.desc = category.descript.reduce((arr, it) => {
+        return arr.concat(it.title);
+      }, []);
     }
   }
 };

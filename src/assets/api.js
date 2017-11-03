@@ -43,7 +43,7 @@ export default {
    * @param {function} cb 回调
    */
   login(data, cb) {
-    axios.post(host + 'login', data)
+    axios.post(`${host}login`, data)
       .then(res => {
         if ('SUCCESS' === res.data.return_code) {
           typeof cb === 'function' && cb(res)
@@ -61,7 +61,7 @@ export default {
    * @param {function} cb 
    */
   memberLevelEdit(data, cb) {
-    axios.post(host + 'member/level', data)
+    axios.post(`${host}member/level`, data)
       .then(res => {
         if ('SUCCESS' === res.data.return_code) {
           typeof cb === 'function' && cb(res)
@@ -78,7 +78,7 @@ export default {
    * @param {function} cb 回调
    */
   memberLevelList(cb) {
-    axios.get(host + 'member/levels')
+    axios.get(`${host}member/levels`)
       .then(res => {
         if ('SUCCESS' === res.data.return_code) {
           typeof cb === 'function' && cb(res)
@@ -96,7 +96,7 @@ export default {
    * @param {*} cb 回调
    */
   memberLevelSingle(id, cb) {
-    axios.get(host + 'member/level/' + id)
+    axios.get(`${host}member/level/` + id)
       .then(res => {
         if ('SUCCESS' === res.data.return_code) {
           typeof cb === 'function' && cb(res)
@@ -114,7 +114,7 @@ export default {
    * @param {function} cb 回调
    */
   memberLevelDelete(id, cb) {
-    axios.get(host + 'del/member/level/' + id)
+    axios.get(`${host}del/member/level/` + id)
       .then(res => {
         if ('SUCCESS' === res.data.return_code) {
           typeof cb === 'function' && cb(res)
@@ -127,7 +127,7 @@ export default {
   },
 
   temp(data, cb) {
-    axios.post(host + 'permission', data)
+    axios.post(`${host}permission`, data)
       .then(res => {
         if ('SUCCESS' === res.data.return_code) {
           typeof cb === 'function' && cb(res)
@@ -144,7 +144,7 @@ export default {
    * @param {function} cb 回调 
    */
   getRoleList(cb) {
-    axios.get(host + 'roles')
+    axios.get(`${host}roles`)
       .then(res => {
         if ('SUCCESS' === res.data.return_code) {
           typeof cb === 'function' && cb(res)
@@ -162,7 +162,7 @@ export default {
    * @param {function} cb 回调
    */
   addRole(data, cb) {
-    axios.post(host + 'role', data)
+    axios.post(`${host}role`, data)
       .then(res => {
         if ('SUCCESS' === res.data.return_code) {
           typeof cb === 'function' && cb(res)
@@ -179,7 +179,7 @@ export default {
    * @param {function} cb 回调
    */
   getPermission(cb) {
-    axios.get(host + 'permissions')
+    axios.get(`${host}permissions`)
       .then(res => {
         if ('SUCCESS' === res.data.return_code) {
           typeof cb === 'function' && cb(res)
@@ -191,8 +191,69 @@ export default {
       })
   },
 
+  /**
+   * 删除权限角色
+   * @param {string} id 角色 id
+   * @param {function} cb 回调 
+   */
   deleteCharacter(id, cb) {
     axios.get(`${host}del/role/${id}`)
+      .then(res => {
+        if ('SUCCESS' === res.data.return_code) {
+          typeof cb === 'function' && cb(res)
+        } else {
+          this.APIError(res)
+        }
+      }).catch(error => {
+        this.APIError(error.response)
+      })
+  },
+
+  /**
+   * 新建种类细节
+   * @param {object} data 种类细节 {title, desc} 
+   * @param {function} cb 回调
+   */
+  postCategory(data, cb) {
+    axios.post(`${host}type`, data)
+      .then(res => {
+        if ('SUCCESS' === res.data.return_code) {
+          typeof cb === 'function' && cb(res)
+        } else {
+          this.APIError(res)
+        }
+      }).catch(error => {
+        this.APIError(error.response)
+      })
+  },
+
+  /**
+   * 获取种类细节列表
+   */
+  getCategories(page, cb) {
+    axios.get(`${host}types`, {
+        params: {
+          page
+        }
+      })
+      .then(res => {
+        if ('SUCCESS' === res.data.return_code) {
+          typeof cb === 'function' && cb(res)
+        } else {
+          this.APIError(res)
+        }
+      }).catch(error => {
+        this.APIError(error.response)
+      })
+  },
+
+  /**
+   * 开关修改
+   * @param {string} id id
+   * @param {function} cb 回调
+   */
+  editCategory(id, cb) {
+    axios.get(`${host}modify/type/${id}`)
       .then(res => {
         if ('SUCCESS' === res.data.return_code) {
           typeof cb === 'function' && cb(res)
