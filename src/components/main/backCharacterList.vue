@@ -39,22 +39,22 @@
 
     <div class="banner-operation">
       <el-button type="primary" @click="addCharacter">新增角色</el-button>
-      <el-button type="danger" @click="deleteCharacter">删除</el-button>
+      <!-- <el-button type="danger" @click="deleteCharacter">删除</el-button> -->
     </div>
 
     <div class="table-list">
       <el-table ref="multipleTable" :data="backCharacterList" border stripe tooltip-effect="dark" style="width: 100%" @selection-change="handleSelection">
-        <el-table-column type="selection">
-        </el-table-column>
+        <!-- <el-table-column type="selection">
+        </el-table-column> -->
         <el-table-column label="ID" prop="id">
         </el-table-column>
-        <el-table-column label="角色名" prop="name">
+        <el-table-column label="角色名" prop="display_name">
         </el-table-column>
-        <el-table-column prop="authorities" label="权限" show-overflow-tooltip :formatter="formatAuthority">
+        <el-table-column prop="perms" label="权限" show-overflow-tooltip :formatter="formatAuthority">
         </el-table-column>
-        <el-table-column label="操作" width="150">
+        <el-table-column label="操作" width="100">
           <template slot-scope="scope">
-            <el-button size="small" type="primary" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+            <!-- <el-button size="small" type="primary" @click="handleEdit(scope.$index, scope.row)">编辑</el-button> -->
             <el-button size="small" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
           </template>
         </el-table-column>
@@ -79,13 +79,7 @@ export default {
       eachPage: 10,
       count: 100,
 
-      backCharacterList: [
-        {
-          id: 1,
-          name: "角色一",
-          authorities: [1, 2, 3]
-        }
-      ]
+      backCharacterList: []
     };
   },
 
@@ -102,7 +96,7 @@ export default {
     */
     formatAuthority(row, column, cellValue) {
       const str = cellValue.reduce((sum, value) => {
-        return sum + this.$common.authorities[value].name + "、";
+        return sum + value.display_name + "、";
       }, "");
       return str;
     },
@@ -111,39 +105,36 @@ export default {
       新增
     */
     addCharacter() {
-      this.$router.push({
-        name: "backcharacteredit",
-        params: { character: null }
-      });
+      this.$router.push('/backcharacteredit');
     },
 
-    deleteCharacter() {
-      if (!this.waittingData.length) {
-        this.$message({
-          type: "warning",
-          message: "请先选择！",
-          showClose: true
-        });
-        return false;
-      }
-      this.$confirm("此操作将删除选中的所有角色, 是否继续?", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning"
-      })
-        .then(() => {
-          this.$message({
-            type: "success",
-            message: "删除成功!"
-          });
-        })
-        .catch(() => {
-          this.$message({
-            type: "info",
-            message: "已取消删除"
-          });
-        });
-    },
+    // deleteCharacter() {
+    //   if (!this.waittingData.length) {
+    //     this.$message({
+    //       type: "warning",
+    //       message: "请先选择！",
+    //       showClose: true
+    //     });
+    //     return false;
+    //   }
+    //   this.$confirm("此操作将删除选中的所有角色, 是否继续?", "提示", {
+    //     confirmButtonText: "确定",
+    //     cancelButtonText: "取消",
+    //     type: "warning"
+    //   })
+    //     .then(() => {
+    //       this.$message({
+    //         type: "success",
+    //         message: "删除成功!"
+    //       });
+    //     })
+    //     .catch(() => {
+    //       this.$message({
+    //         type: "info",
+    //         message: "已取消删除"
+    //       });
+    //     });
+    // },
 
     /*
       多选
@@ -155,23 +146,25 @@ export default {
     /*
       编辑
     */
-    handleEdit(index, row) {
-      this.$router.push({
-        name: "backcharacteredit",
-        params: { character: row }
-      });
-    },
+    // handleEdit(index, row) {
+    //   this.$router.push({
+    //     name: "backcharacteredit",
+    //     params: { character: row }
+    //   });
+    // },
 
     /*
       删除
     */
     handleDelete(index, row) {
       this.$operation.tableMessageBox("此操作将删除该角色", () => {
+        this.$api.deleteCharacter(row.id, res => {
         this.backCharacterList.splice(index, 1);
         this.$message({
           type: "success",
           message: "删除成功!"
         });
+        })
       });
     },
 
