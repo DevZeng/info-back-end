@@ -1,5 +1,8 @@
 export default {
   _data: {
+
+    host: 'http://192.168.3.22:8090/',
+
     //会员等级
     memberLevels: [{
         id: 1,

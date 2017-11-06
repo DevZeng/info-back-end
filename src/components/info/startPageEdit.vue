@@ -57,16 +57,16 @@
       <el-breadcrumb-item>编辑</el-breadcrumb-item>
     </el-breadcrumb>
     <div class="start-img-wrap">
-      <el-upload class="start-img-uploader" action="https://jsonplaceholder.typicode.com/posts/" :multiple="false" accept="image/jpg,image/png,image/jpeg" :show-file-list="false" :on-success="handleSuccess" :before-upload="beforeUpload">
+      <el-upload class="start-img-uploader" :action="uploadUrl" with-credentials name="image" :multiple="false" accept="image/jpg,image/png,image/jpeg" :show-file-list="false" :on-success="handleSuccess" :before-upload="beforeUpload">
         <img v-if="startPageForm.url" :src="startPageForm.url" class="start-img">
         <i v-else class="el-icon-plus start-img-uploader-icon"></i>
       </el-upload>
       <el-form label-position="top" label-width="80px" :model="startPageForm" :rules="rules" ref="startPageForm">
-        <el-form-item label="启动页面名称" prop="name">
-          <el-input v-model="startPageForm.name" placeholder="输入启动页面名称"></el-input>
+        <el-form-item label="启动页面名称" prop="title">
+          <el-input v-model="startPageForm.title" placeholder="输入启动页面名称"></el-input>
         </el-form-item>        
-        <el-form-item label="启动页面跳转链接" prop="link">
-          <el-input v-model="startPageForm.link" placeholder="输入启动页面跳转链接"></el-input>
+        <el-form-item label="启动页面跳转链接" prop="link_url">
+          <el-input v-model="startPageForm.link_url" placeholder="输入启动页面跳转链接"></el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="onSubmit('startPageForm')" style="width: 100%;margin-top: 20px;">确定</el-button>
@@ -81,22 +81,25 @@ export default {
   data() {
     return {
       loading: true,
+      uploadUrl: this.$common.host + "upload",
       startPageForm: {
         url: "",
-        name: "",
-        link: ""
+        title: "",
+        link_url: ""
       },
 
       rules: {
-        name: [{ required: true, message: "启动页面名称不能为空" }]
+        title: [{ required: true, message: "启动页面名称不能为空" }]
       }
     };
   },
 
   created() {
-    setTimeout(() => {
-      this.loading = false;
-    }, 200);
+    const startPage = this.$route.params.startPage;
+    if (startPage) {
+      this.startPageForm = startPage;
+    }
+    this.loading = false;
   },
 
   methods: {
@@ -115,7 +118,8 @@ export default {
       上传成功
     */
     handleSuccess(res, file) {
-      this.startPageForm.url = URL.createObjectURL(file.raw);
+      console.log(res);
+      this.startPageForm.url = res.data.base_url;
     },
 
     /*
@@ -125,15 +129,17 @@ export default {
       this.$refs[formName].validate(valid => {
         if (valid) {
           if (this.startPageForm.url) {
-            this.$message({
-              message: "提交成功！",
-              showClose: true,
-              type: "success"
+            this.$api.postLaunchImg(this.startPageForm, res => {
+              this.$message({
+                message: "提交成功！",
+                showClose: true,
+                type: "success"
+              });
+              this.$router.push("/startpagelist");
             });
-            this.$router.push("/auditcondition");
           } else {
             this.$message({
-              message: "请先上传图片",
+              message: "请先选择图片",
               showClose: true,
               type: "warning"
             });

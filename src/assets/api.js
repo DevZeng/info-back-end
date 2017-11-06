@@ -266,6 +266,77 @@ export default {
   },
 
   /**
+   * 获取启动页面
+   * @param {function} cb 回调
+   */
+  getLaunchImg(cb) {
+    axios.get(`${host}launcher/images`)
+      .then(res => {
+        if ('SUCCESS' === res.data.return_code) {
+          typeof cb === 'function' && cb(res)
+        } else {
+          this.APIError(res)
+        }
+      }).catch(error => {
+        this.APIError(error.response)
+      })
+  },
+
+  /**
+   * 添加新的启动页
+   * @param {object} data {title, url, link_url}
+   * @param {function} cb 回调
+   */
+  postLaunchImg(data, cb) {
+    axios.post(`${host}launcher/image`, data)
+      .then(res => {
+        if ('SUCCESS' === res.data.return_code) {
+          typeof cb === 'function' && cb(res)
+        } else {
+          this.APIError(res)
+        }
+      }).catch(error => {
+        this.APIError(error.response)
+      })
+  },
+
+  /**
+   * 打开启动页
+   * @param {string} id 
+   * @param {function} cb 
+   */
+  closeLaunchImg(id, cb) {
+    axios.get(`${host}enable/launcher/image/${id}`)
+      .then(res => {
+        if ('SUCCESS' === res.data.return_code) {
+          typeof cb === 'function' && cb(res)
+        } else {
+          this.APIError(res)
+        }
+      }).catch(error => {
+        this.APIError(error.response)
+      })
+  },
+
+  /**
+   * 删除启动页
+   * @param {string} id 
+   * @param {function} cb 
+   */
+  deleteLaunchImg(id, cb) {
+    axios.get(`${host}del/image/${id}`)
+      .then(res => {
+        if ('SUCCESS' === res.data.return_code) {
+          typeof cb === 'function' && cb(res)
+        } else {
+          this.APIError(res)
+        }
+      }).catch(error => {
+        this.APIError(error.response)
+      })
+  },
+
+  /**
    * 假如省份的日期没有更新，就直接拿 localStorage 的数据
    * @param {*行政区 ID} id 
    * @param {* jsonP 回调} callback 

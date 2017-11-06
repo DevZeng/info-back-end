@@ -27,4 +27,12 @@ body {
   -moz-osx-font-smoothing: grayscale;
   height: 100%;
 }
+
+.success {
+  color: #67c23a;
+}
+
+.warning {
+  color: #eb9e05;
+}
 </style>

@@ -83,7 +83,7 @@
         <el-table-column label="浏览量">
           <template slot-scope="scope">{{scope.row.read + ' 次'}}</template>
         </el-table-column>
-        <el-table-column label="发布时间" prop="create_time"></el-table-column>
+        <el-table-column label="举报时间" prop="create_time"></el-table-column>
         <el-table-column label="已申诉">
           <template slot-scope="scope">
             <span v-if="scope.row.replay === 0">暂无</span>
