@@ -141,10 +141,13 @@ export default {
 
   /**
    * 获取角色列表
+   * @param {object} data {page, (limit)}
    * @param {function} cb 回调 
    */
-  getRoleList(cb) {
-    axios.get(`${host}roles`)
+  getRoleList(data, cb) {
+    axios.get(`${host}roles`, {
+        params: data
+      })
       .then(res => {
         if ('SUCCESS' === res.data.return_code) {
           typeof cb === 'function' && cb(res)
@@ -325,6 +328,42 @@ export default {
    */
   deleteLaunchImg(id, cb) {
     axios.get(`${host}del/image/${id}`)
+      .then(res => {
+        if ('SUCCESS' === res.data.return_code) {
+          typeof cb === 'function' && cb(res)
+        } else {
+          this.APIError(res)
+        }
+      }).catch(error => {
+        this.APIError(error.response)
+      })
+  },
+
+  /**
+   * 获取二维码
+   * @param {function} cb 
+   */
+  getQRCode(cb) {
+    axios.get(`${host}qrcode`)
+      .then(res => {
+        if ('SUCCESS' === res.data.return_code) {
+          typeof cb === 'function' && cb(res)
+        } else {
+          this.APIError(res)
+        }
+      }).catch(error => {
+        this.APIError(error.response)
+      })
+  },
+
+  /**
+   * 修改二维码
+   * @param {string} id
+   * @param {object} data {logo, content}
+   * @param {function} cb 
+   */
+  postQRCode(id, data, cb) {
+      axios.post(`${host}qrcode/${id}`, data)
       .then(res => {
         if ('SUCCESS' === res.data.return_code) {
           typeof cb === 'function' && cb(res)

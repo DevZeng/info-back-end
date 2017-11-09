@@ -54,13 +54,13 @@
       <el-breadcrumb-item>LOGO</el-breadcrumb-item>
     </el-breadcrumb>
     <div class="logo-wrap">
-      <el-upload class="logo-uploader" action="https://jsonplaceholder.typicode.com/posts/" :multiple="false" accept="image/jpg,image/png,image/jpeg" :show-file-list="false" :on-success="handleSuccess" :before-upload="beforeUpload">
-        <img v-if="logoForm.url" :src="logoForm.url" class="logo">
+      <el-upload class="logo-uploader" :action="host" name="image" :multiple="false" accept="image/jpg,image/png,image/jpeg" :show-file-list="false" :on-success="handleSuccess" :before-upload="beforeUpload">
+        <img v-if="logoForm.logo" :src="logoForm.logo" class="logo">
         <i v-else class="el-icon-plus logo-uploader-icon"></i>
       </el-upload>
-      <el-form label-position="top" label-width="80px" :rules="rules" :model="logoForm">
-        <el-form-item label="LOGO 名称" prop="name">
-          <el-input v-model="logoForm.name" placeholder="请输入 LOGO 名称"></el-input>
+      <el-form label-position="top" label-width="80px" :model="logoForm">
+        <el-form-item label="文字描述" prop="content">
+          <el-input type="textarea" v-model="logoForm.content" placeholder="请输入文字描述"></el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="onSubmit()" style="width: 100%;margin-top: 20px;">确定</el-button>
@@ -75,14 +75,20 @@ export default {
   data() {
     return {
       logoForm: {
-        name: "",
-        url: ""
+        content: "",
+        logo: ""
       },
 
-      rules: {
-        name: [{ required: true, message: "不能为空", trigger: "blur" }]
-      }
+      host: this.$common.host + "upload"
     };
+  },
+
+  created() {
+    this.$api.getQRCode(res => {
+      if (res.data.data) {
+        this.logoForm = res.data.data;
+      }
+    });
   },
 
   methods: {
@@ -101,26 +107,27 @@ export default {
       上传成功
     */
     handleSuccess(res, file) {
-      this.logoForm.url = URL.createObjectURL(file.raw);
+      console.log(res);
+      this.logoForm.logo = res.data.base_url;
+      console.log(this.logoForm);
     },
 
     /*
       提交
     */
     onSubmit() {
-      if (this.logoForm.name) {
+      const id = this.logoForm.id || '';
+      // let editData = {};
+      // if (id) {
+      //   editData.id = id;
+      // }
+      this.$api.postQRCode(id, this.logoForm, res => {
         this.$message({
-          message: "提交成功！",
+          message: "保存成功！",
           showClose: true,
           type: "success"
         });
-      } else {
-        this.$message({
-          message: "名称不能为空！",
-          showClose: true,
-          type: "warning"
-        });
-      }
+      });
     }
   }
 };

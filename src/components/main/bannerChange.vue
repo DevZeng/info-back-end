@@ -62,6 +62,13 @@
         <el-form-item label="Banner 名称" prop="name">
           <el-input v-model="bannerForm.name"></el-input>
         </el-form-item>
+        <el-form-item label="广告类型" prop="type">
+          <el-select v-model="bannerForm.type" placeholder="请选择广告类型">
+            <el-option label="首页" value="1"></el-option>
+            <el-option label="签到页" value="2"></el-option>
+            <el-option label="信息详情" value="3"></el-option>
+          </el-select>
+        </el-form-item>
         <el-form-item label="跳转链接" prop="redirect">
           <el-input v-model="bannerForm.redirect"></el-input>
         </el-form-item>
@@ -78,36 +85,34 @@ export default {
   data() {
     return {
       bannerForm: {
-        name: '',
-        url: '',
-        redirect: ''
+        name: "",
+        url: "",
+        redirect: "",
+        type: "1"
       },
 
       rules: {
-        name: [
-          { required: true, message: '不能为空', trigger: 'blur' }
-        ]
+        name: [{ required: true, message: "不能为空", trigger: "blur" }]
       }
-    }
+    };
   },
 
   created() {
-    const img = this.$route.params.img
+    const img = this.$route.params.img;
     if (img) {
-      this.bannerForm.name = img.name
-      this.bannerForm.url = img.url
+      this.bannerForm.name = img.name;
+      this.bannerForm.url = img.url;
     }
   },
 
   methods: {
-
     /*
       上传之前
     */
     beforeUpload(file) {
       const isLt2M = file.size / 1024 / 1024 < 2;
       if (!isLt2M) {
-        this.$message.error('上传 logo 图片大小不能超过 2MB!');
+        this.$message.error("上传 logo 图片大小不能超过 2MB!");
       }
       return isLt2M;
     },
@@ -116,7 +121,7 @@ export default {
       上传成功
     */
     handleSuccess(res, file) {
-      this.bannerForm.url = URL.createObjectURL(file.raw)
+      this.bannerForm.url = URL.createObjectURL(file.raw);
     },
 
     /*
@@ -125,19 +130,18 @@ export default {
     onSubmit() {
       if (this.bannerForm.name) {
         this.$message({
-          message: '提交成功！',
+          message: "提交成功！",
           showClose: true,
-          type: 'success'
-        })
+          type: "success"
+        });
       } else {
         this.$message({
-          message: '名称不能为空！',
+          message: "名称不能为空！",
           showClose: true,
-          type: 'warning'
-        })
+          type: "warning"
+        });
       }
     }
   }
-
-}
+};
 </script>

@@ -115,11 +115,19 @@
                 <el-menu-item index="/bannerlist">广告位</el-menu-item>
                 <el-menu-item index="/textlist">文本表</el-menu-item>
                 <el-menu-item index="/guidelist">用户指南</el-menu-item>
-                <el-menu-item index="/paylist">支付</el-menu-item>
                 <el-menu-item index="/citylist">城市列表</el-menu-item>
-                <el-menu-item index="/reportlist">举报与投诉</el-menu-item>
               </el-menu-item-group>
               <el-submenu index="1-1">
+                <template slot="title">支付</template>
+                <el-menu-item index="/paylist">支付流水</el-menu-item>
+                <el-menu-item index="/backcharacterlist">支付帐号</el-menu-item>
+              </el-submenu>
+              <el-submenu index="1-2">
+                <template slot="title">举报与投诉</template>
+                <el-menu-item index="/reportlist">举报列表</el-menu-item>
+                <el-menu-item index="/backcharacterlist">举报原因列表</el-menu-item>
+              </el-submenu>
+              <el-submenu index="1-3">
                 <template slot="title">后台管理</template>
                 <el-menu-item index="/backlist">分工列表</el-menu-item>
                 <el-menu-item index="/backcharacterlist">角色列表</el-menu-item>

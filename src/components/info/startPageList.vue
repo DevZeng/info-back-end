@@ -145,29 +145,6 @@ export default {
           });
         });
       });
-      // this.$confirm("此操作设置当前页为启动页, 是否继续?", "提示", {
-      //   confirmButtonText: "确定",
-      //   cancelButtonText: "取消",
-      //   type: "warning"
-      // })
-      //   .then(() => {
-      //     this.$api.closeLaunchImg(row.id, res => {
-      //       this.$api.getLaunchImg(res => {
-      //         this.$message({
-      //           type: "success",
-      //           message: "设置成功!"
-      //         });
-      //         this.startPageList = res.data.data;
-      //         this.loading = false;
-      //       });
-      //     });
-      //   })
-      //   .catch(() => {
-      //     this.$message({
-      //       type: "info",
-      //       message: "已取消"
-      //     });
-      //   });
     },
 
     /*

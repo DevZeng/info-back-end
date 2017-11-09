@@ -29,10 +29,10 @@
           <el-input v-model="formCharacter.name" placeholder="请输入角色名称"></el-input>
         </el-form-item>
         <el-form-item label="显示名称" prop="display_name">
-          <el-input v-model="formCharacter.display_name" placeholder="请输入显示名称（角色名称是标识）"></el-input>
+          <el-input v-model="formCharacter.display_name" placeholder="请输入显示名称"></el-input>
         </el-form-item>
         <el-form-item label="描述" prop="description">
-          <el-input v-model="formCharacter.description" placeholder="请输入description"></el-input>
+          <el-input v-model="formCharacter.description" placeholder="请输入角色描述"></el-input>
         </el-form-item>
         <el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">全选</el-checkbox>
         <div style="margin: 15px 0;"></div>
@@ -86,7 +86,7 @@ export default {
       arr.push(this.authorities[i].id);
     }
     this.authoritiesArr = arr;
-    console.log(this.authoritiesArr)
+    console.log(this.authoritiesArr);
 
     //当从编辑进去时
     // const character = this.$route.params.character;
@@ -102,9 +102,7 @@ export default {
     * 全选
     */
     handleCheckAllChange(event) {
-      this.formCharacter.pres = event.target.checked
-        ? this.authoritiesArr
-        : [];
+      this.formCharacter.pres = event.target.checked ? this.authoritiesArr : [];
       this.isIndeterminate = false;
     },
 
@@ -137,7 +135,7 @@ export default {
               message: "保存成功",
               showClose: true
             });
-            this.$router.push('/backcharacterlist')
+            this.$router.push("/backcharacterlist");
           });
         } else {
           this.$message({

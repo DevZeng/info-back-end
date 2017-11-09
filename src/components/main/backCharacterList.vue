@@ -43,7 +43,7 @@
     </div>
 
     <div class="table-list">
-      <el-table ref="multipleTable" :data="backCharacterList" border stripe tooltip-effect="dark" style="width: 100%" @selection-change="handleSelection">
+      <el-table ref="multipleTable" :data="backCharacterList" border stripe tooltip-effect="dark" style="width: 100%">
         <!-- <el-table-column type="selection">
         </el-table-column> -->
         <el-table-column label="ID" prop="id">
@@ -84,8 +84,9 @@ export default {
   },
 
   created() {
-    this.$api.getRoleList(res => {
+    this.$api.getRoleList("", res => {
       this.backCharacterList = res.data.data;
+      this.count = res.data.count;
       this.loading = false;
     });
   },
@@ -105,7 +106,7 @@ export default {
       新增
     */
     addCharacter() {
-      this.$router.push('/backcharacteredit');
+      this.$router.push("/backcharacteredit");
     },
 
     // deleteCharacter() {
@@ -139,9 +140,9 @@ export default {
     /*
       多选
     */
-    handleSelection(selection) {
-      this.waittingData = selection;
-    },
+    // handleSelection(selection) {
+    //   this.waittingData = selection;
+    // },
 
     /*
       编辑
@@ -159,19 +160,23 @@ export default {
     handleDelete(index, row) {
       this.$operation.tableMessageBox("此操作将删除该角色", () => {
         this.$api.deleteCharacter(row.id, res => {
-        this.backCharacterList.splice(index, 1);
-        this.$message({
-          type: "success",
-          message: "删除成功!"
+          this.backCharacterList.splice(index, 1);
+          this.$message({
+            type: "success",
+            message: "删除成功!"
+          });
         });
-        })
       });
     },
 
     /*
       页数改变
     */
-    handleCurrentChange() {},
+    handleCurrentChange(page) {
+      this.$api.getRoleList({ page: page }, res => {
+        this.backCharacterList = res.data.data;
+      });
+    },
 
     /*
       每页显示数量改变
