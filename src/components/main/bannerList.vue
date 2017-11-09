@@ -156,9 +156,10 @@ export default {
   },
 
   created() {
-    setTimeout(() => {
-      this.loading = false;
-    }, 200);
+    this.$api.getAdverts(res => {
+      console.log(res)
+      this.loading = false
+    })
   },
 
   methods: {

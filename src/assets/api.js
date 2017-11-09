@@ -363,7 +363,44 @@ export default {
    * @param {function} cb 
    */
   postQRCode(id, data, cb) {
-      axios.post(`${host}qrcode/${id}`, data)
+    axios.post(`${host}qrcode/${id}`, data)
+      .then(res => {
+        if ('SUCCESS' === res.data.return_code) {
+          typeof cb === 'function' && cb(res)
+        } else {
+          this.APIError(res)
+        }
+      }).catch(error => {
+        this.APIError(error.response)
+      })
+  },
+
+  /**
+   * 获取所有广告
+   * @param {function} cb 回调
+   */
+  getAdverts(cb) {
+    axios.get(`${host}adverts`)
+      .then(res => {
+        if ('SUCCESS' === res.data.return_code) {
+          typeof cb === 'function' && cb(res)
+        } else {
+          this.APIError(res)
+        }
+      }).catch(error => {
+        this.APIError(error.response)
+      })
+  },
+
+  /**
+   * 获取城市列表
+   * @param {object} data {pid}
+   * @param {function} cb 回调 
+   */
+  getUsDistrict(data, cb) {
+    axios.get(`${host}cities`, {
+        params: data
+      })
       .then(res => {
         if ('SUCCESS' === res.data.return_code) {
           typeof cb === 'function' && cb(res)

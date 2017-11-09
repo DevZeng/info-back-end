@@ -29,17 +29,17 @@
       <el-form :inline="true" :model="cityForm" class="demo-form-inline">
         <el-form-item label="省份：">
           <el-select v-model="cityForm.sheng" placeholder="请选择省份" @change="selectSheng">
-            <el-option v-for="(item,index) in shengs" :key="item.id" :label="item.fullname" :value="index"></el-option>
+            <el-option v-for="(item,index) in shengs" :key="item.id" :label="item.name" :value="item.id"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="市区：">
           <el-select v-model="cityForm.shi" placeholder="请选择市区" @change="selectShi">
-            <el-option v-for="(item,index) in shis" :key="item.id" :label="item.fullname" :value="index"></el-option>
+            <el-option v-for="(item,index) in shis" :key="item.id" :label="item.name" :value="item.id"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="县区：">
           <el-select v-model="cityForm.xian" placeholder="请选择县区"  @change="selectXian">
-            <el-option v-for="(item,index) in xians" :key="item.id" :label="item.fullname" :value="index"></el-option>
+            <el-option v-for="(item,index) in xians" :key="item.id" :label="item.name" :value="item.id"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item>
@@ -70,12 +70,8 @@ export default {
   },
 
   created() {
-    this.$api.getDistrict(null, (err, data) => {
-      if (err) {
-        this.$alert(err.message, "错误");
-        return false;
-      }
-      this.shengs = data.result[0];
+    this.$api.getUsDistrict("", res => {
+      this.shengs = res.data.data;
     });
   },
 
@@ -91,17 +87,13 @@ export default {
     * 省份选择
     */
 
-    selectSheng() {
+    selectSheng(id) {
       this.cityForm.shi = "";
       this.cityForm.xian = "";
       this.xians = [];
       this.currentArea = this.shengs[this.cityForm.sheng];
-      this.$api.getDistrict(this.currentArea.id, (err, data) => {
-        if (err) {
-          this.$alert(err.message, "错误");
-          return false;
-        }
-        this.shis = data.result[0];
+      this.$api.getUsDistrict({ pid: id }, res => {
+        this.shis = res.data.data;
       });
     },
 
@@ -109,18 +101,14 @@ export default {
     * 市区选择
     */
 
-    selectShi() {
+    selectShi(id) {
       const shi = this.cityForm.shi;
       if (!shi) {
         return false;
       }
       this.currentArea = this.shis[shi];
-      this.$api.getDistrict(this.currentArea.id, (err, data) => {
-        if (err) {
-          this.$alert(err.message, "错误");
-          return false;
-        }
-        this.xians = data.result[0];
+      this.$api.getUsDistrict({ pid: id }, res => {
+        this.xians = res.data.data;
       });
     },
 
