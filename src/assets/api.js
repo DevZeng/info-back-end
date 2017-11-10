@@ -670,41 +670,76 @@ export default {
         this.APIError(error.response)
       })
   },
-  
-    /**
-     * 扫一扫获取
-     * @param {function} cb 回调
-     */
-    getScan(cb) {
-      axios.get(`${host}activity/scan`)
-        .then(res => {
-          if ('SUCCESS' === res.data.return_code) {
-            typeof cb === 'function' && cb(res)
-          } else {
-            this.APIError(res)
-          }
-        }).catch(error => {
-          this.APIError(error.response)
-        })
-    },
-  
-    /**
-     * 扫一扫提交
-     * @param {object} data {id, start, end, score}
-     * @param {function} cb 回调
-     */
-    postScan(data, cb) {
-      axios.post(`${host}activity/scan`, data)
-        .then(res => {
-          if ('SUCCESS' === res.data.return_code) {
-            typeof cb === 'function' && cb(res)
-          } else {
-            this.APIError(res)
-          }
-        }).catch(error => {
-          this.APIError(error.response)
-        })
-    },
+
+  /**
+   * 扫一扫获取
+   * @param {function} cb 回调
+   */
+  getScan(cb) {
+    axios.get(`${host}activity/scan`)
+      .then(res => {
+        if ('SUCCESS' === res.data.return_code) {
+          typeof cb === 'function' && cb(res)
+        } else {
+          this.APIError(res)
+        }
+      }).catch(error => {
+        this.APIError(error.response)
+      })
+  },
+
+  /**
+   * 扫一扫提交
+   * @param {object} data {id, start, end, score}
+   * @param {function} cb 回调
+   */
+  postScan(data, cb) {
+    axios.post(`${host}activity/scan`, data)
+      .then(res => {
+        if ('SUCCESS' === res.data.return_code) {
+          typeof cb === 'function' && cb(res)
+        } else {
+          this.APIError(res)
+        }
+      }).catch(error => {
+        this.APIError(error.response)
+      })
+  },
+
+  /**
+   * 系统设置获取
+   * @param {function} cb 回调
+   */
+  getConfig(cb) {
+    axios.get(`${host}Config`)
+      .then(res => {
+        if ('SUCCESS' === res.data.return_code) {
+          typeof cb === 'function' && cb(res)
+        } else {
+          this.APIError(res)
+        }
+      }).catch(error => {
+        this.APIError(error.response)
+      })
+  },
+
+  /**
+   * 系统设置提交
+   * @param {object} data {need_pay, pic_score, phone_score, pic_price, phone_price, show_sign, show_qrcode, show_share, Apply}
+   * @param {function} cb 回调
+   */
+  postConfig(data, cb) {
+    axios.post(`${host}Config`, data)
+      .then(res => {
+        if ('SUCCESS' === res.data.return_code) {
+          typeof cb === 'function' && cb(res)
+        } else {
+          this.APIError(res)
+        }
+      }).catch(error => {
+        this.APIError(error.response)
+      })
+  },
 
   /**
    * 假如省份的日期没有更新，就直接拿 localStorage 的数据

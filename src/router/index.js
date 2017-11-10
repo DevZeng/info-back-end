@@ -38,6 +38,7 @@ import chargeMode from '@/components/info/chargeMode'
 import startPageList from '@/components/info/startPageList'
 import startPageEdit from '@/components/info/startPageEdit'
 import sms from '@/components/info/sms'
+import config from '@/components/info/config'
 
 Vue.use(Router)
 
@@ -202,6 +203,10 @@ export default new Router({
         path: 'sms',
         name: 'sms',
         component: sms
+      }, {
+        path: 'config',
+        name: 'config',
+        component: config
       }]
     }
   ]

@@ -98,10 +98,12 @@ export default {
             end: new Date(this.dateRange[1]).toLocaleDateString(),
             score: this.scanForm.score
           };
-          this.$message({
-            type: "success",
-            message: "提交成功",
-            showClose: true
+          this.$api.getScan(postData, res => {
+            this.$message({
+              type: "success",
+              message: "提交成功",
+              showClose: true
+            });
           });
         } else {
           this.$message({
