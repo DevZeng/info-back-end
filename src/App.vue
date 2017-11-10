@@ -35,4 +35,8 @@ body {
 .warning {
   color: #eb9e05;
 }
+
+.info {
+  color: #20a0ff;
+}
 </style>

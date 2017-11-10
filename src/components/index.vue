@@ -120,7 +120,7 @@
               <el-submenu index="1-1">
                 <template slot="title">支付</template>
                 <el-menu-item index="/paylist">支付流水</el-menu-item>
-                <el-menu-item index="/backcharacterlist">支付帐号</el-menu-item>
+                <!-- <el-menu-item index="/backcharacterlist">支付帐号</el-menu-item> -->
               </el-submenu>
               <el-submenu index="1-2">
                 <template slot="title">举报与投诉</template>

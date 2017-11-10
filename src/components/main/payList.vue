@@ -33,6 +33,14 @@
 .report-wrap .el-input-group__prepend {
   width: 200px;
 }
+
+.table-list {
+  flex: 1;
+}
+
+.pages {
+  text-align: right;
+}
 </style>
 
 
@@ -47,35 +55,58 @@
     </el-breadcrumb>
 
     <div class="pay-operation">
-      <el-tooltip :content="'当前选项: ' + payType" placement="top" style="margin-bottom: 20px;">
-        <el-switch v-model="payType" off-color="#13ce66" on-value="支付宝" off-value="微信" on-text="支付宝" off-text="微信" :width="80">
+      <!-- <el-tooltip :content="'当前选项: ' + pay_type" placement="top" style="margin-bottom: 20px;">
+        <el-switch v-model="pay_type" off-color="#13ce66" on-value="支付宝" off-value="微信" on-text="支付宝" off-text="微信" :width="80">
         </el-switch>
-      </el-tooltip>
+      </el-tooltip> -->
       <div class="pay-picker">
+        <el-select v-model="searchForm.pay_type" placeholder="请选择类型">
+          <el-option label="全部" value=""></el-option>
+          <el-option label="支付宝" value="2"></el-option>
+          <el-option label="微信" value="3"></el-option>
+        </el-select>
         <el-date-picker v-model="dateRange" type="daterange" align="right" placeholder="选择日期范围" :picker-options="dateOptions">
         </el-date-picker>
-        <el-select v-model="level" multiple filterable placeholder="请选择会员等级">
+        <el-select v-model="searchForm.level" multiple filterable placeholder="请选择会员等级">
           <el-option v-for="item in levels" :key="item.id" :label="item.name" :value="item.id">
           </el-option>
         </el-select>
-        <el-transfer filterable :filter-method="filterMethod" filter-placeholder="请输入城市名称" :titles="['已开放城市', '已选择城市']" :button-texts="['取消', '添加']" v-model="city" :data="cities">
-        </el-transfer>
+        <!-- <el-transfer filterable :filter-method="filterMethod" filter-placeholder="请输入城市名称" :titles="['已开放城市', '已选择城市']" :button-texts="['取消', '添加']" v-model="city" :data="cities">
+        </el-transfer> -->
         <el-button type="primary" icon="search" @click="pickerSearch">搜索</el-button>
       </div>
     </div>
 
     <div class="table-list">
-      <el-table :data="payList" border :summary-method="getSummaries" show-summary style="width: 100%; margin-top: 20px">
-        <el-table-column prop="id" label="ID">
+      <el-table :data="payList" border style="width: 100%; margin-top: 20px">
+        <el-table-column prop="id" label="ID" sortable>
         </el-table-column>
-        <el-table-column label="等级" prop="level" sortable>
+        <el-table-column prop="username" label="用户">
+        </el-table-column>
+        <el-table-column prop="number" label="订单号">
+        </el-table-column>
+        <el-table-column prop="pay_type" label="支付类型" sortable>
+          <template slot-scope="scope">
+            <span class="success" v-if="scope.row.pay_type == 3">微信</span>
+            <span class="info" v-else>支付宝</span>
+          </template>
+        </el-table-column>
+        <!-- <el-table-column label="等级" prop="level" sortable>
           <template slot-scope="scope">{{levels[scope.row.level].name}}</template>
+        </el-table-column> -->
+        <el-table-column prop="title" label="使用方式" show-overflow-tooltip>
         </el-table-column>
-        <el-table-column prop="city" label="城市">
-        </el-table-column>
-        <el-table-column prop="cost" label="金额（元）">
+        <el-table-column prop="price" label="金额（元）" sortable>
+          <template slot-scope="scope">
+            <span>{{scope.row.price}} 元</span>
+          </template>
         </el-table-column>
       </el-table>
+    </div>
+
+    <div class="pages">
+      <el-pagination  @current-change="handleCurrentChange" :current-page.sync="page" :page-size="eachPage" layout="total, prev, pager, next" :total="count">
+      </el-pagination>
     </div>
 
   </section>
@@ -84,72 +115,56 @@
 <script>
 export default {
   data() {
-    const generateCities = _ => {
-      const data = [];
-      const cities = ["上海", "北京", "广州", "深圳", "南京", "西安", "成都"];
-      cities.forEach((city, index) => {
-        data.push({
-          label: city,
-          key: index,
-          cities: cities[index]
-        });
-      });
-      return data;
-    };
+    // const generateCities = _ => {
+    //   const data = [];
+    // const cities = ["上海", "北京", "广州", "深圳", "南京", "西安", "成都"];
+    //   cities.forEach((city, index) => {
+    //     data.push({
+    //       label: city,
+    //       key: index,
+    //       cities: cities[index]
+    //     });
+    //   });
+    //   return data;
+    // };
     return {
       loading: true,
+
+      searchForm: {
+        level: "",
+        pay_type: "",
+        start: "",
+        end: ""
+      },
+      dateRange: "",
+
+      count: 0,
+      page: 1,
+      eachPage: 10,
 
       //等级
       levels: this.$common.memberLevels,
 
-      level: "",
-      city: "",
+      // city: "",
 
-      cities: generateCities(),
+      // cities: generateCities(),
       city: [],
-      filterMethod(query, item) {
-        return item.cities.indexOf(query) > -1;
-      },
+      // filterMethod(query, item) {
+      //   return item.cities.indexOf(query) > -1;
+      // },
 
-      dateRange: "",
       dateOptions: this.$common.dateOptions,
 
-      //支付类型
-      payType: "支付宝",
-
-      payList: [
-        {
-          id: 1,
-          level: 1,
-          city: "广州市",
-          cost: 1000
-        },
-        {
-          id: 1,
-          level: 2,
-          city: "上海市",
-          cost: 1000
-        },
-        {
-          id: 1,
-          level: 1,
-          city: "北京市",
-          cost: 10100
-        },
-        {
-          id: 1,
-          level: 3,
-          city: "南昌市",
-          cost: 2500
-        }
-      ]
+      payList: []
     };
   },
 
   created() {
-    setTimeout(() => {
+    this.$api.getPayOrders("", res => {
+      this.payList = res.data.data;
+      this.count = res.data.count;
       this.loading = false;
-    }, 200);
+    });
   },
 
   methods: {
@@ -180,7 +195,24 @@ export default {
     /*
     * 搜索
     */
-    pickerSearch() {}
+    pickerSearch() {
+      if (this.dateRange) {
+        this.searchForm.start = new Date(
+          this.dateRange[0]
+        ).toLocaleDateString();
+        this.searchForm.end = new Date(this.dateRange[1]).toLocaleDateString();
+      }
+      this.$api.getPayOrders(this.searchForm, res => {
+        this.payList = res.data.data;
+      });
+    },
+
+    //页码改变
+    handleCurrentChange(page) {
+      this.$api.getPayOrders(this.searchForm, res => {
+        this.payList = res.data.data;
+      });
+    }
   }
 };
 </script>

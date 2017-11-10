@@ -539,6 +539,25 @@ export default {
   },
 
   /**
+   * 获取支付流水
+   * @param {function} cb 回调
+   */
+  getPayOrders(data, cb) {
+    axios.get(`${host}orders`, {
+        params: data
+      })
+      .then(res => {
+        if ('SUCCESS' === res.data.return_code) {
+          typeof cb === 'function' && cb(res)
+        } else {
+          this.APIError(res)
+        }
+      }).catch(error => {
+        this.APIError(error.response)
+      })
+  },
+
+  /**
    * 假如省份的日期没有更新，就直接拿 localStorage 的数据
    * @param {*行政区 ID} id 
    * @param {* jsonP 回调} callback 
