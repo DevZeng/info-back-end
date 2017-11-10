@@ -742,6 +742,47 @@ export default {
   },
 
   /**
+   * 获取用户列表
+   * @param {object} data {page, (limit)}
+   * @param {function} cb 回调
+   */
+  getUserList(data, cb) {
+    axios.get(`${host}users`, {
+        params: data
+      })
+      .then(res => {
+        if ('SUCCESS' === res.data.return_code) {
+          typeof cb === 'function' && cb(res)
+        } else {
+          this.APIError(res)
+        }
+      }).catch(error => {
+        this.APIError(error.response)
+      })
+  },
+
+  /**
+   * 调整单个用户状态
+   * @param {string} id 
+   * @param {object} data {state}
+   * @param {function} cb 回调
+   */
+  changeUser(id, data, cb) {
+    axios.get(`${host}modify/user/${id}`, {
+        params: data
+      })
+      .then(res => {
+        if ('SUCCESS' === res.data.return_code) {
+          typeof cb === 'function' && cb(res)
+        } else {
+          this.APIError(res)
+        }
+      }).catch(error => {
+        this.APIError(error.response)
+      })
+  },
+
+  /**
    * 假如省份的日期没有更新，就直接拿 localStorage 的数据
    * @param {*行政区 ID} id 
    * @param {* jsonP 回调} callback 
