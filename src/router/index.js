@@ -6,7 +6,7 @@ import IndexContent from '@/components/IndexContent'
 import LogoEdit from '@/components/main/logoEdit'
 import BannerList from '@/components/main/bannerList'
 import BannerChange from '@/components/main/bannerChange'
-import BannerEdit from '@/components/main/bannerEdit'
+// import BannerEdit from '@/components/main/bannerEdit'
 import textList from '@/components/main/textList'
 import textEdit from '@/components/main/textEdit'
 import cityList from '@/components/main/cityList'
@@ -66,11 +66,13 @@ export default new Router({
         path: 'bannerchange',
         name: 'bannerchange',
         component: BannerChange
-      }, {
-        path: 'banneredit',
-        name: 'banneredit',
-        component: BannerEdit
-      }, {
+      }, 
+      // {
+      //   path: 'banneredit',
+      //   name: 'banneredit',
+      //   component: BannerEdit
+      // },
+       {
         path: 'textlist',
         name: 'textlist',
         component: textList

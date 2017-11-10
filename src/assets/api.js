@@ -379,8 +379,46 @@ export default {
    * 获取所有广告
    * @param {function} cb 回调
    */
-  getAdverts(cb) {
-    axios.get(`${host}adverts`)
+  getAdverts(data, cb) {
+    axios.get(`${host}adverts`, {
+        params: data
+      })
+      .then(res => {
+        if ('SUCCESS' === res.data.return_code) {
+          typeof cb === 'function' && cb(res)
+        } else {
+          this.APIError(res)
+        }
+      }).catch(error => {
+        this.APIError(error.response)
+      })
+  },
+
+  /**
+   * 提交广告
+   * @param {object} data {title, city_id, url, link_url, state}
+   * @param {function} cb 
+   */
+  postAdvert(data, cb) {
+    axios.post(`${host}advert`, data)
+      .then(res => {
+        if ('SUCCESS' === res.data.return_code) {
+          typeof cb === 'function' && cb(res)
+        } else {
+          this.APIError(res)
+        }
+      }).catch(error => {
+        this.APIError(error.response)
+      })
+  },
+
+  /**
+   * 删除广告
+   * @param {string} id 
+   * @param {function} cb 回调
+   */
+  deleteAdvert(id, cb) {
+    axios.get(`${host}del/advert/${id}`)
       .then(res => {
         if ('SUCCESS' === res.data.return_code) {
           typeof cb === 'function' && cb(res)

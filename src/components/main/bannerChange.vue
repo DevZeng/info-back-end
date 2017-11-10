@@ -54,13 +54,13 @@
       <el-breadcrumb-item>广告修改</el-breadcrumb-item>
     </el-breadcrumb>
     <div class="banner-wrap">
-      <el-upload class="banner-uploader" action="https://jsonplaceholder.typicode.com/posts/" :multiple="false" accept="image/jpg,image/png,image/jpeg" :show-file-list="false" :on-success="handleSuccess" :before-upload="beforeUpload">
+      <el-upload class="banner-uploader" :action="host" :multiple="false" accept="image/jpg,image/png,image/jpeg" :show-file-list="false" :on-success="handleSuccess" :before-upload="beforeUpload">
         <img v-if="bannerForm.url" :src="bannerForm.url" class="banner">
         <i v-else class="el-icon-plus banner-uploader-icon"></i>
       </el-upload>
       <el-form label-position="top" label-width="80px" :rules="rules" :model="bannerForm">
-        <el-form-item label="Banner 名称" prop="name">
-          <el-input v-model="bannerForm.name"></el-input>
+        <el-form-item label="广告名称" prop="title">
+          <el-input v-model="bannerForm.title"></el-input>
         </el-form-item>
         <el-form-item label="广告类型" prop="type">
           <el-select v-model="bannerForm.type" placeholder="请选择广告类型">
@@ -84,8 +84,8 @@
             <el-option v-for="(item,index) in xians" :key="item.id" :label="item.name" :value="item.id"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="跳转链接" prop="redirect">
-          <el-input v-model="bannerForm.redirect"></el-input>
+        <el-form-item label="跳转链接" prop="link_url">
+          <el-input v-model="bannerForm.link_url"></el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="onSubmit()" style="width: 100%;margin-top: 20px;">确定</el-button>
@@ -100,18 +100,23 @@ export default {
   data() {
     return {
       bannerForm: {
-        name: "",
+        title: "",
         url: "",
-        redirect: "",
+        link_url: "",
         type: "1",
         sheng: "",
         shi: "",
-        xian: ""
+        xian: "",
+        id: "",
+        state: 0
       },
+
+      host: this.$common.host + 'upload',
 
       shengs: [],
       shis: [],
       xians: [],
+      noxian: false,
 
       //存放当前选择区域
       currentArea: null,
@@ -125,8 +130,26 @@ export default {
   created() {
     const img = this.$route.params.img;
     if (img) {
-      this.bannerForm.name = img.name;
+      const cityArr = img.parents.split(",");
+      this.bannerForm.sheng = Number(cityArr[0]);
+      this.bannerForm.shi = Number(cityArr[1]);
+      if (img.city_id == cityArr[1]) {
+        this.bannerForm.xian = "";
+        this.noxian = true;
+      } else {
+        this.bannerForm.xian = img.city_id;
+      }
+      this.$api.getUsDistrict({ pid: cityArr[0] }, res => {
+        this.shis = res.data.data;
+      });
+      this.$api.getUsDistrict({ pid: cityArr[1] }, res => {
+        this.xians = res.data.data;
+      });
+      this.bannerForm.title = img.title;
       this.bannerForm.url = img.url;
+      this.bannerForm.link_url = img.link_url;
+      this.bannerForm.id = img.id;
+      this.bannerForm.state = img.state;
     }
     this.$api.getUsDistrict("", res => {
       this.shengs = res.data.data;
@@ -178,6 +201,9 @@ export default {
       this.currentArea = this.shis[shi];
       this.$api.getUsDistrict({ pid: id }, res => {
         this.xians = res.data.data;
+        if (!this.xians.length) {
+          this.noxian = true;
+        }
       });
     },
 
@@ -191,25 +217,45 @@ export default {
         return false;
       }
       this.currentArea = this.xians[xian];
-    }
-  },
+    },
 
-  /*
+    /*
       提交
     */
-  onSubmit() {
-    if (this.bannerForm.name) {
-      this.$message({
-        message: "提交成功！",
-        showClose: true,
-        type: "success"
-      });
-    } else {
-      this.$message({
-        message: "名称不能为空！",
-        showClose: true,
-        type: "warning"
-      });
+    onSubmit() {
+      if (!this.bannerForm.title || !this.bannerForm.url) {
+        this.$message({
+          message: "名称和图片不能为空！",
+          showClose: true,
+          type: "warning"
+        });
+      } else if (!this.bannerForm.xian && !this.noxian) {
+        this.$message({
+          message: "请选择完整的城市信息，选到县区",
+          showClose: true,
+          type: "warning"
+        });
+      } else {
+        let postData = {
+          title: this.bannerForm.title,
+          city_id: this.noxian ? this.bannerForm.shi : this.bannerForm.xian,
+          type: this.bannerForm.type,
+          url: this.bannerForm.url,
+          link_url: this.bannerForm.link_url,
+          id: this.bannerForm.id,
+          state: this.bannerForm.state,
+          parents: this.bannerForm.sheng + "," + this.bannerForm.shi
+        };
+
+        this.$api.postAdvert(postData, res => {
+          this.$message({
+            message: "提交成功！",
+            showClose: true,
+            type: "success"
+          });
+          this.$router.push("/bannerlist");
+        });
+      }
     }
   }
 };

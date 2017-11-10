@@ -73,30 +73,42 @@
     </el-breadcrumb>
     <div class="banner-operation">
       <el-button type="primary" @click="addAD">新增广告</el-button>
-      <el-button type="primary" @click="openAD">开启</el-button>
-      <el-button type="warning" @click="closeAD">关闭</el-button>
+      <!-- <el-button type="primary" @click="openAD">开启</el-button>
+      <el-button type="warning" @click="closeAD">关闭</el-button> -->
     </div>
     <div class="table-list">
       <el-table ref="multipleTable" :data="bannerList" border stripe tooltip-effect="dark" style="width: 100%" @selection-change="handleSelection">
-        <el-table-column type="selection">
-        </el-table-column>
-        <el-table-column label="名称" prop="name">
-        </el-table-column>
-        <el-table-column label="图片" align="center">
+        <!-- <el-table-column type="selection">
+        </el-table-column> -->
+        <el-table-column label="类型" prop="type">
           <template slot-scope="scope">
-            <img v-if="scope.row.img" :src="scope.row.img" alt="点击预览" title="点击预览" style="height: 40px; vertical-align: middle; cursor: pointer;" @click="preImgFnc(scope.row.img)">
+            <span>{{typeText[scope.row.type]}}</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="图片" align="center" prop="url">
+          <template slot-scope="scope">
+            <img v-if="scope.row.url" :src="scope.row.url" alt="点击预览" title="点击预览" style="height: 40px; vertical-align: middle; cursor: pointer;" @click="preImgFnc(scope.row.url)">
             <span v-else>暂无</span>
           </template>
         </el-table-column>
-        <el-table-column label="跳转链接" show-overflow-tooltip>
-          <template slot-scope="scope">{{scope.row.link || '暂无'}}</template>
+        <el-table-column label="所属城市" prop="city" align="center">
+          <template slot-scope="scope">{{scope.row.city?scope.row.city.name:'全部'}}</template>
         </el-table-column>
-        <el-table-column prop="status" label="状态" :formatter="statusFnc">
+        <el-table-column label="跳转链接" show-overflow-tooltip prop="link_url">
+          <template slot-scope="scope">{{scope.row.link_url || '暂无'}}</template>
+        </el-table-column>
+        <el-table-column prop="state" label="状态">
+          <template slot-scope="scope">
+            <span v-if="scope.row.state == 1" class="success">开启中</span>
+            <span v-else class="warning">已关闭</span>
+          </template>
         </el-table-column>
         <el-table-column label="操作" width="200">
           <template slot-scope="scope">
-            <el-button size="small" @click="handleChange(scope.$index, scope.row)">修改</el-button>
-            <el-button size="small" type="primary" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+            <el-button type="primary" size="small" @click="handleChange(scope.$index, scope.row)">修改</el-button>
+            <el-button v-if="scope.row.state == 0" type="primary" size="small" @click="openAD(scope.$index, scope.row)">开启</el-button>
+            <el-button v-else type="danger" size="small" @click="closeAD(scope.$index, scope.row)">关闭</el-button>
+            <!-- <el-button size="small" type="primary" @click="handleEdit(scope.$index, scope.row)">编辑</el-button> -->
             <el-button size="small" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
           </template>
         </el-table-column>
@@ -128,6 +140,16 @@ export default {
       isPre: false,
       preImg: "",
 
+      stateText: {
+        1: "开启",
+        0: "关闭"
+      },
+      typeText: {
+        1: "首页",
+        2: "签到",
+        3: "信息详情"
+      },
+
       //开启、关闭 暂存
       waittingData: [],
 
@@ -150,26 +172,20 @@ export default {
         }
       ],
       page: 1,
-      eachPage: 100,
-      count: 1000
+      eachPage: 10,
+      count: 0
     };
   },
 
   created() {
-    this.$api.getAdverts(res => {
-      console.log(res)
-      this.loading = false
-    })
+    this.$api.getAdverts("", res => {
+      this.bannerList = res.data.data;
+      this.count = res.data.count;
+      this.loading = false;
+    });
   },
 
   methods: {
-    /*
-      状态格式化函数
-    */
-    statusFnc(row, column, cellValue) {
-      return cellValue === 0 ? "开启" : "关闭";
-    },
-
     /*
       新增广告
     */
@@ -187,39 +203,31 @@ export default {
     /*
       广告打开
     */
-    openAD() {
-      const length = this.waittingData.length;
-      if (!length) {
+    openAD(index, row) {
+      let postData = row;
+      postData.state = 1;
+      this.$api.postAdvert(postData, res => {
         this.$message({
-          message: "请先选择！",
-          showClose: true,
-          type: "warning"
+          type: "success",
+          message: "开启成功"
         });
-      }
-      let idGroup = [];
-      for (let i = 0; i < length; i++) {
-        idGroup.push(this.waittingData[i].id);
-      }
-      console.log(idGroup);
+        this.bannerList[index].state = 1;
+      });
     },
 
     /*
       广告关闭
     */
-    closeAD() {
-      const length = this.waittingData.length;
-      if (!length) {
+    closeAD(index, row) {
+      let postData = row;
+      postData.state = 0;
+      this.$api.postAdvert(postData, res => {
         this.$message({
-          message: "请先选择！",
-          showClose: true,
-          type: "warning"
+          type: "success",
+          message: "关闭成功"
         });
-      }
-      let idGroup = [];
-      for (let i = 0; i < length; i++) {
-        idGroup.push(this.waittingData[i].id);
-      }
-      console.log(idGroup);
+        this.bannerList[index].state = 0;
+      });
     },
 
     /*
@@ -248,19 +256,22 @@ export default {
     /*
       广告文本编辑
     */
-    handleEdit(index, row) {
-      this.$router.push({ name: "banneredit", params: { id: row.id } });
-    },
+    // handleEdit(index, row) {
+    //   this.$router.push({ name: "banneredit", params: { id: row.id } });
+    // },
 
     /*
       广告删除
     */
     handleDelete(index, row) {
-      this.$operation.tableMessageBox("此操作将删除该 Banner", () => {
-        this.bannerList.splice(index, 1);
-        this.$message({
-          type: "success",
-          message: "删除成功!"
+      this.$operation.tableMessageBox("此操作将删除该广告", () => {
+        this.$api.deleteAdvert(row.id, res => {
+          this.count--;
+          this.bannerList.splice(index, 1);
+          this.$message({
+            type: "success",
+            message: "删除成功!"
+          });
         });
       });
     },
@@ -268,12 +279,11 @@ export default {
     /*
       页数改变
     */
-    handleCurrentChange() {},
-
-    /*
-      每页显示数量改变
-    */
-    handleSizeChange() {}
+    handleCurrentChange(page) {
+      this.$api.getAdverts({ page }, res => {
+        this.bannerList = res.data.data;
+      });
+    }
   }
 };
 </script>
