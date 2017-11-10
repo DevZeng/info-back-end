@@ -186,7 +186,7 @@ export default {
     handleStop(index, row) {
       this.$operation.tableMessageBox("此操作将停用该用户账号", () => {
         this.$api.changeUser(row.id, { state: 0 }, res => {
-          this.userList[index].state = 0
+          this.userList[index].state = 0;
           this.$message({
             type: "success",
             message: "已停用!"
@@ -196,17 +196,17 @@ export default {
     },
 
     //取消停用
-    handleNormal(index, row){
+    handleNormal(index, row) {
       this.$operation.tableMessageBox("此操作将取消停用该用户账号", () => {
         this.$api.changeUser(row.id, { state: 1 }, res => {
-          this.userList[index].state = 1
+          this.userList[index].state = 1;
           this.$message({
             type: "success",
             message: "已恢复!"
           });
         });
       });
-    }
+    },
 
     /*
     * 删除
