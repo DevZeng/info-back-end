@@ -39,4 +39,8 @@ body {
 .info {
   color: #20a0ff;
 }
+
+.normal {
+  color: #666;
+}
 </style>

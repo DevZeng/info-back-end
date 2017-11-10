@@ -558,6 +558,46 @@ export default {
   },
 
   /**
+   * 获取举报列表
+   * @param {object} data {page, state, username, user_id}
+   * @param {function} cb 回调
+   */
+  getReports(data, cb) {
+    axios.get(`${host}reports`, {
+        params: data
+      })
+      .then(res => {
+        if ('SUCCESS' === res.data.return_code) {
+          typeof cb === 'function' && cb(res)
+        } else {
+          this.APIError(res)
+        }
+      }).catch(error => {
+        this.APIError(error.response)
+      })
+  },
+
+  /**
+   * 改变举报状态
+   * @param {string} id 
+   * @param {function} cb 回调
+   */
+  changeReport(id, cb) {
+    axios.get(`${host}report/${id}`, {
+        params: data
+      })
+      .then(res => {
+        if ('SUCCESS' === res.data.return_code) {
+          typeof cb === 'function' && cb(res)
+        } else {
+          this.APIError(res)
+        }
+      }).catch(error => {
+        this.APIError(error.response)
+      })
+  },
+
+  /**
    * 假如省份的日期没有更新，就直接拿 localStorage 的数据
    * @param {*行政区 ID} id 
    * @param {* jsonP 回调} callback 
