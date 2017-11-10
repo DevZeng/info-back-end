@@ -22,6 +22,11 @@
   border-top: none;
   resize: vertical;
 }
+
+.form-wrap {
+  max-width: 900px;
+  margin: 0 auto;
+}
 </style>
 
 <template>
@@ -32,20 +37,27 @@
       <el-breadcrumb-item>指南编辑</el-breadcrumb-item>
     </el-breadcrumb>
 
-    <el-form label-position="top" label-width="80px" :model="guideForm">
-      <el-form-item label="名称">
-        <el-input v-model="guideForm.name"></el-input>
-      </el-form-item>
-    </el-form>
+    <div class="form-wrap">
+      <el-form label-position="top" label-width="80px" :model="guideForm">
+        <el-form-item label="名称">
+          <el-input v-model="guideForm.title" placeholder="请输入指南名称"></el-input>
+        </el-form-item>
+        <el-form-item label="权重">
+          <el-input v-model.number="guideForm.sort" placeholder="请输入权重排序（数字，最大为10）"></el-input>
+        </el-form-item>
+        <el-form-item label="内容">
+          <el-input type="textarea" :rows="10" v-model="guideForm.content" placeholder="请输入指南内容"></el-input>
+        </el-form-item>
+      </el-form>
 
-    <div class="quill-editor-example">
-      <!-- quill-editor -->
-      <quill-editor ref="myTextEditor" v-model="guideForm.content" :options="editorOption" @ready="onEditorReady($event)">
-      </quill-editor>
-      <div class="html ql-editor" v-html="guideForm.content"></div>
+      <!-- <div class="quill-editor-example">
+        <quill-editor ref="myTextEditor" v-model="guideForm.content" :options="editorOption" @ready="onEditorReady($event)">
+        </quill-editor>
+        <div class="html ql-editor" v-html="guideForm.content"></div>
+      </div> -->
+
+      <el-button type="primary" @click="onSubmit()" style="width: 200px;margin: 20px auto 0;display: block;">提交</el-button>
     </div>
-
-    <el-button type="primary" @click="onSubmit()" style="width: 200px;margin: 20px auto 0;display: block;">提交</el-button>
   </section>
 </template>
 
@@ -54,56 +66,58 @@ export default {
   data() {
     return {
       guideForm: {
-        name: "",
-        content: ""
-      },
-      editorOption: {
-        placeholder: "在这里输入，下面会同步显示..."
+        title: "",
+        content: "",
+        sort: "",
+        id: ""
       }
+      // editorOption: {
+      //   placeholder: "在这里输入，下面会同步显示..."
+      // }
     };
-  },
-  methods: {
-    onEditorReady(editor) {
-      console.log("editor ready!", editor);
-    },
-
-    /*
-      提交
-    */
-    onSubmit() {
-      if (this.guideForm.content && this.guideForm.name) {
-        console.log(this.guideForm.content);
-        this.$message({
-          message: "提交成功",
-          showClose: true,
-          type: "success"
-        });
-        this.$router.go(-1);
-      } else {
-        this.$message({
-          message: "不能为空！",
-          showClose: true,
-          type: "warning"
-        });
-      }
-    }
-  },
-
-  computed: {
-    editor() {
-      return this.$refs.myTextEditor.quill;
-    }
-  },
-
-  mounted() {
-    console.log("this is my editor", this.editor);
   },
 
   created() {
     const guide = this.$route.params.guide;
     if (guide) {
-      this.guideForm.name = guide.name;
+      this.guideForm.title = guide.title;
+      this.guideForm.content = guide.content;
+      this.guideForm.sort = guide.sort;
+      this.guideForm.id = guide.id;
+    }
+  },
+  methods: {
+    /*
+      提交
+    */
+    onSubmit() {
+      if (this.guideForm.content && this.guideForm.title) {
+        this.$api.postGuide(this.guideForm, res => {
+          this.$message({
+            message: "提交成功",
+            showClose: true,
+            type: "success"
+          });
+        });
+        this.$router.push('/guidelist');
+      } else {
+        this.$message({
+          message: "名称和内容不能为空！",
+          showClose: true,
+          type: "warning"
+        });
+      }
     }
   }
+
+  // computed: {
+  //   editor() {
+  //     return this.$refs.myTextEditor.quill;
+  //   }
+  // },
+
+  // mounted() {
+  //   console.log("this is my editor", this.editor);
+  // },
 };
 </script>

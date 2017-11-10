@@ -37,15 +37,19 @@
     </el-breadcrumb>
     <div class="banner-operation">
       <el-button type="primary" @click="addGuide">新增指南</el-button>
-      <el-button type="danger" @click="deleteGuide">删除</el-button>
+      <!-- <el-button type="danger" @click="deleteGuide">删除</el-button> -->
     </div>
     <div class="table-list">
-      <el-table ref="multipleTable" :data="bannerList" border stripe tooltip-effect="dark" style="width: 100%" @selection-change="handleSelection">
-        <el-table-column type="selection">
+      <el-table ref="multipleTable" :data="guideLists" border stripe tooltip-effect="dark" style="width: 100%" @selection-change="handleSelection">
+        <!-- <el-table-column type="selection">
+        </el-table-column> -->
+        <el-table-column label="ID" prop="id" sortable>
         </el-table-column>
-        <el-table-column label="名称" prop="name">
+        <el-table-column label="名称" prop="title">
         </el-table-column>
-        <el-table-column prop="update_time" label="更新时间">
+        <el-table-column label="权重" prop="sort" sortable>
+        </el-table-column>
+        <el-table-column prop="updated_at" label="更新时间">
         </el-table-column>
         <el-table-column label="操作">
           <template slot-scope="scope">
@@ -55,10 +59,10 @@
         </el-table-column>
       </el-table>
     </div>
-    <div class="pages">
+    <!-- <div class="pages">
       <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="page" :page-size="eachPage" layout="total, prev, pager, next" :total="count">
       </el-pagination>
-    </div>
+    </div> -->
   </section>
 </template>
 
@@ -71,18 +75,7 @@ export default {
       waittingData: [],
 
       //数据
-      bannerList: [
-        {
-          id: 1,
-          name: "指南一",
-          update_time: "2017-10-11"
-        },
-        {
-          id: 2,
-          name: "指南二",
-          update_time: "2017-10-11"
-        }
-      ],
+      guideLists: [],
       page: 1,
       eachPage: 100,
       count: 1000
@@ -90,9 +83,10 @@ export default {
   },
 
   created() {
-    setTimeout(() => {
+    this.$api.getGuides(res => {
+      this.guideLists = res.data.data;
       this.loading = false;
-    }, 200);
+    });
   },
 
   methods: {
@@ -103,33 +97,33 @@ export default {
       this.$router.push({ name: "guideedit", params: { guide: null } });
     },
 
-    deleteGuide() {
-      if (!this.waittingData.length) {
-        this.$message({
-          type: "warning",
-          message: "请先选择！",
-          showClose: true
-        });
-        return false;
-      }
-      this.$confirm("此操作将删除选中的所有指南, 是否继续?", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning"
-      })
-        .then(() => {
-          this.$message({
-            type: "success",
-            message: "删除成功!"
-          });
-        })
-        .catch(() => {
-          this.$message({
-            type: "info",
-            message: "已取消删除"
-          });
-        });
-    },
+    // deleteGuide() {
+    //   if (!this.waittingData.length) {
+    //     this.$message({
+    //       type: "warning",
+    //       message: "请先选择！",
+    //       showClose: true
+    //     });
+    //     return false;
+    //   }
+    //   this.$confirm("此操作将删除选中的所有指南, 是否继续?", "提示", {
+    //     confirmButtonText: "确定",
+    //     cancelButtonText: "取消",
+    //     type: "warning"
+    //   })
+    //     .then(() => {
+    //       this.$message({
+    //         type: "success",
+    //         message: "删除成功!"
+    //       });
+    //     })
+    //     .catch(() => {
+    //       this.$message({
+    //         type: "info",
+    //         message: "已取消删除"
+    //       });
+    //     });
+    // },
 
     /*
         多选
@@ -150,23 +144,20 @@ export default {
     */
     handleDelete(index, row) {
       this.$operation.tableMessageBox("此操作将删除该指南", () => {
-        this.bannerList.splice(index, 1);
-        this.$message({
-          type: "success",
-          message: "删除成功!"
+        this.$api.delGuide(row.id, res => {
+          this.guideLists.splice(index, 1);
+          this.$message({
+            type: "success",
+            message: "删除成功!"
+          });
         });
       });
-    },
+    }
 
     /*
         页数改变
     */
-    handleCurrentChange() {},
-
-    /*
-        每页显示数量改变
-    */
-    handleSizeChange() {}
+    // handleCurrentChange() {},
   }
 };
 </script>

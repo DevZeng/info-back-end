@@ -486,6 +486,59 @@ export default {
   },
 
   /**
+   * 获取指南列表
+   * @param {function} cb 回调
+   */
+  getGuides(cb) {
+    axios.get(`${host}guides`)
+      .then(res => {
+        if ('SUCCESS' === res.data.return_code) {
+          typeof cb === 'function' && cb(res)
+        } else {
+          this.APIError(res)
+        }
+      }).catch(error => {
+        this.APIError(error.response)
+      })
+  },
+
+  /**
+   * 提交指南
+   * @param {object} data {title, content, sort, id}
+   * @param {function} cb 回调
+   */
+  postGuide(data, cb) {
+    axios.post(`${host}guide`, data)
+      .then(res => {
+        if ('SUCCESS' === res.data.return_code) {
+          typeof cb === 'function' && cb(res)
+        } else {
+          this.APIError(res)
+        }
+      }).catch(error => {
+        this.APIError(error.response)
+      })
+  },
+
+  /**
+   * 删除指南
+   * @param {string} id 
+   * @param {function} cb 
+   */
+  delGuide(id, cb) {
+    axios.get(`${host}del/guide/${id}`)
+      .then(res => {
+        if ('SUCCESS' === res.data.return_code) {
+          typeof cb === 'function' && cb(res)
+        } else {
+          this.APIError(res)
+        }
+      }).catch(error => {
+        this.APIError(error.response)
+      })
+  },
+
+  /**
    * 假如省份的日期没有更新，就直接拿 localStorage 的数据
    * @param {*行政区 ID} id 
    * @param {* jsonP 回调} callback 
