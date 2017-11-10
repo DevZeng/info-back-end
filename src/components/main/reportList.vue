@@ -66,7 +66,7 @@
         </el-select>
         <el-date-picker v-model="searchFrom.dateRange" type="daterange" align="right" placeholder="选择日期范围" :picker-options="dateOptions">
         </el-date-picker> -->
-        <el-select v-model="searchFrom.state" filterable placeholder="请选择申诉情况">
+        <el-select v-model="searchFrom.state" filterable placeholder="请选择申诉情况" @select-change="pickerSearch">
           <el-option v-for="item in reportTypes" :key="item.id" :label="item.name" :value="item.id">
           </el-option>
         </el-select>

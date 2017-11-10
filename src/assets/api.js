@@ -583,7 +583,46 @@ export default {
    * @param {function} cb 回调
    */
   changeReport(id, cb) {
-    axios.get(`${host}report/${id}`, {
+    axios.get(`${host}report/${id}`)
+      .then(res => {
+        if ('SUCCESS' === res.data.return_code) {
+          typeof cb === 'function' && cb(res)
+        } else {
+          this.APIError(res)
+        }
+      }).catch(error => {
+        this.APIError(error.response)
+      })
+  },
+
+  /**
+   * 获取兼职列表
+   * @param {object} data {page, }
+   * @param {function} cb 回调
+   */
+  getPartTimes(data, cb) {
+    axios.get(`${host}parttimes`, {
+        params: data
+      })
+      .then(res => {
+        if ('SUCCESS' === res.data.return_code) {
+          typeof cb === 'function' && cb(res)
+        } else {
+          this.APIError(res)
+        }
+      }).catch(error => {
+        this.APIError(error.response)
+      })
+  },
+
+  /**
+   * 兼职状态修改
+   * @param {string} id 
+   * @param {object} data {state}
+   * @param {function} cb 回调
+   */
+  chagePratTime(id, data, cb) {
+    axios.get(`${host}modify/parttime/${id}`, {
         params: data
       })
       .then(res => {
