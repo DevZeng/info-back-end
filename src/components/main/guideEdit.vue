@@ -28,8 +28,8 @@
   <section class="editor-wrap">
     <el-breadcrumb separator="/" class="breadcrumb">
       <el-breadcrumb-item>首页</el-breadcrumb-item>
-      <el-breadcrumb-item :to="{'path': '/textlist'}">文本列表</el-breadcrumb-item>
-      <el-breadcrumb-item>文本编辑</el-breadcrumb-item>
+      <el-breadcrumb-item :to="{'path': '/guidelist'}">用户指南</el-breadcrumb-item>
+      <el-breadcrumb-item>指南编辑</el-breadcrumb-item>
     </el-breadcrumb>
 
     <el-form label-position="top" label-width="80px" :model="guideForm">

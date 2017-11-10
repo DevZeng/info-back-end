@@ -23,9 +23,9 @@
       <el-table ref="multipleTable" :data="textList" border stripe tooltip-effect="dark" style="width: 100%">
         <el-table-column label="类型ID" prop="type">
         </el-table-column>
-        <el-table-column label="名称" prop="name"></el-table-column>
-        <el-table-column label="更新时间" prop="update_time"></el-table-column>
-        <el-table-column label="操作">
+        <el-table-column label="名称" prop="title"></el-table-column>
+        <el-table-column label="更新时间" prop="updated_at"></el-table-column>
+        <el-table-column label="操作" width="100">
           <template slot-scope="scope">
             <el-button size="small" type="primary" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
           </template>
@@ -42,23 +42,23 @@ export default {
       loading: true,
       textList: [
         {
-          name: '关于',
-          update_time: '2017-10-11',
+          name: "关于",
+          update_time: "2017-10-11",
           type: 1
         },
         {
-          name: '使用条款',
-          update_time: '2017-10-11',
+          name: "使用条款",
+          update_time: "2017-10-11",
           type: 2
         },
         {
-          name: '充值协议',
-          update_time: '2017-10-11',
+          name: "充值协议",
+          update_time: "2017-10-11",
           type: 3
         },
         {
-          name: '常见骗术',
-          update_time: '2017-10-11',
+          name: "常见骗术",
+          update_time: "2017-10-11",
           type: 4
         },
         // {
@@ -67,9 +67,9 @@ export default {
         //   type: 5
         // },
         {
-          name: '申请兼职公告',
-          update_time: '2017-10-11',
-          type: 6
+          name: "申请兼职公告",
+          update_time: "2017-10-11",
+          type: 5
         },
         // {
         //   name: '会员升级说明',
@@ -77,39 +77,38 @@ export default {
         //   type: 7
         // },
         {
-          name: '发布信息图片引导',
-          update_time: '2017-10-11',
+          name: "发布信息图片引导",
+          update_time: "2017-10-11",
+          type: 6
+        },
+        {
+          name: "发布信息更多详情引导",
+          update_time: "2017-10-11",
+          type: 7
+        },
+        {
+          name: "请选择查看方式的付费温馨提示",
+          update_time: "2017-10-11",
           type: 8
-        },
-        {
-          name: '发布信息更多详情引导',
-          update_time: '2017-10-11',
-          type: 9
-        },
-        {
-          name: '请选择查看方式的付费温馨提示',
-          update_time: '2017-10-11',
-          type: 10
         }
       ]
-    }
+    };
   },
 
-  created(){
-    setTimeout(() => {
-      this.loading = false
-    }, 200)
+  created() {
+    this.$api.getTextLists(res => {
+      this.textList = res.data.data;
+      this.loading = false;
+    });
   },
 
   methods: {
-
     /*
         文本列表编辑
     */
     handleEdit(index, row) {
-      this.$router.push({ name: 'textedit', params: { text: row } })
-    },
-
+      this.$router.push({ name: "textedit", params: { text: row } });
+    }
   }
-}
+};
 </script>

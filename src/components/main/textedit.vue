@@ -34,7 +34,7 @@
 
     <el-form label-position="top" label-width="80px" :model="textForm">
       <el-form-item label="名称">
-        <el-input v-model="textForm.name"></el-input>
+        <el-input v-model="textForm.title"></el-input>
       </el-form-item>
     </el-form>
 
@@ -54,53 +54,55 @@ export default {
   data() {
     return {
       textForm: {
-        name: this.$route.params.text.name,
-        content: '',
+        title: "",
+        content: "",
+        type: 1
       },
-      name: 'base-example',
+      name: "base-example",
       editorOption: {
-        placeholder: '在这里输入，下面会同步显示...'
+        placeholder: "在这里输入，下面会同步显示..."
       }
-    }
+    };
+  },
+
+  created() {
+    const data = this.$route.params.text;
+    this.textForm.title = data.title;
+    this.textForm.type = data.type;
+    this.textForm.content = data.content;
   },
   methods: {
     onEditorReady(editor) {
-      console.log('editor ready!', editor)
+      console.log("editor ready!", editor);
     },
 
     /*
       提交
     */
     onSubmit() {
-      if (this.textForm.content && this.textForm.name) {
-        this.$message({
-          message: '提交成功',
-          showClose: true,
-          type: 'success'
-        })
-        this.$router.go(-1)
+      if (this.textForm.content && this.textForm.title) {
+        this.$api.postTextList(this.textForm, res => {
+          this.$message({
+            message: "提交成功",
+            showClose: true,
+            type: "success"
+          });
+          this.$router.go(-1);
+        });
       } else {
         this.$message({
-          message: '不能为空！',
+          message: "不能为空！",
           showClose: true,
-          type: 'warning'
-        })
+          type: "warning"
+        });
       }
     }
   },
 
   computed: {
     editor() {
-      return this.$refs.myTextEditor.quill
+      return this.$refs.myTextEditor.quill;
     }
-  },
-
-  mounted() {
-    console.log('this is my editor', this.editor)
-  },
-
-  created() {
-    console.log(this.$route)
   }
-}
+};
 </script>
