@@ -41,12 +41,14 @@
       <el-button type="danger" @click="deleteAll">删除</el-button>
     </div>
     <div class="table-list">
-      <el-table ref="multipleTable" :data="conditionList" border stripe tooltip-effect="dark" style="width: 100%" @selection-change="handleSelection">
-        <el-table-column type="selection">
-        </el-table-column>
+      <el-table ref="multipleTable" :data="conditionList" border stripe tooltip-effect="dark" style="width: 100%">
+        <!-- <el-table-column type="selection">
+        </el-table-column> -->
         <el-table-column label="ID" prop="id">
         </el-table-column>
-        <el-table-column label="名称" prop="name">
+        <el-table-column label="名称" prop="title">
+        </el-table-column>
+        <el-table-column label="详细描述" prop="content" show-overflow-tooltip>
         </el-table-column>
         <el-table-column label="操作">
           <template slot-scope="scope">
@@ -57,7 +59,7 @@
       </el-table>
     </div>
     <div class="pages">
-      <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="page" :page-size="eachPage" layout="total, prev, pager, next" :total="count">
+      <el-pagination @current-change="handleCurrentChange" :current-page.sync="page" :page-size="eachPage" layout="total, prev, pager, next" :total="count">
       </el-pagination>
     </div>
   </section>
@@ -73,28 +75,19 @@ export default {
       waittingData: [],
 
       //数据
-      conditionList: [
-        {
-          id: 1,
-          name: "条件一",
-          content: ""
-        },
-        {
-          id: 2,
-          name: "条件二",
-          content: ""
-        }
-      ],
+      conditionList: [],
       page: 1,
-      eachPage: 100,
-      count: 1000
+      eachPage: 10,
+      count: 0
     };
   },
 
   created() {
-    setTimeout(() => {
+    this.$api.getRefuse("", res => {
+      this.conditionList = res.data.data;
+      this.count = res.data.count;
       this.loading = false;
-    }, 200);
+    });
   },
 
   methods: {
@@ -111,27 +104,27 @@ export default {
     /*
       多选
     */
-    handleSelection(selection) {
-      this.waittingData = selection;
-    },
+    // handleSelection(selection) {
+    //   this.waittingData = selection;
+    // },
 
     /*
       删除所有
     */
-    deleteAll() {
-      const length = this.waittingData.length;
-      if (!length) {
-        this.$message({
-          message: "请先选择！",
-          showClose: true,
-          type: "warning"
-        });
-      }
-      let idGroup = [];
-      for (let i = 0; i < length; i++) {
-        idGroup.push(this.waittingData[i].id);
-      }
-    },
+    // deleteAll() {
+    //   const length = this.waittingData.length;
+    //   if (!length) {
+    //     this.$message({
+    //       message: "请先选择！",
+    //       showClose: true,
+    //       type: "warning"
+    //     });
+    //   }
+    //   let idGroup = [];
+    //   for (let i = 0; i < length; i++) {
+    //     idGroup.push(this.waittingData[i].id);
+    //   }
+    // },
     /*
       编辑
     */
@@ -147,10 +140,12 @@ export default {
     */
     handleDelete(index, row) {
       this.$operation.tableMessageBox("此操作将删除该审核条件", () => {
-        this.conditionList.splice(index, 1);
-        this.$message({
-          type: "success",
-          message: "删除成功!"
+        this.$api.deleteRefuse(row.id, res => {
+          this.conditionList.splice(index, 1);
+          this.$message({
+            type: "success",
+            message: "删除成功!"
+          });
         });
       });
     },
@@ -158,7 +153,11 @@ export default {
     /*
       页数改变
     */
-    handleCurrentChange() {},
+    handleCurrentChange(page) {
+      this.$api.getRefuse({ page }, res => {
+        this.conditionList = res.data.data;
+      });
+    },
 
     /*
       每页显示数量改变

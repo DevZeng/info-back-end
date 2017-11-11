@@ -20,11 +20,11 @@
     </el-breadcrumb>
 
     <el-form label-position="top" label-width="80px" :model="conditionForm" :rules="rules" ref="conditionForm">
-      <el-form-item label="名称" prop="name">
-        <el-input v-model="conditionForm.name" placeholder="输入审核条件名称"></el-input>
+      <el-form-item label="名称" prop="title">
+        <el-input v-model="conditionForm.title" placeholder="输入审核条件名称"></el-input>
       </el-form-item>
-      <el-form-item label="未通过原因" prop="content">
-        <el-input type="textarea" v-model="conditionForm.content" placeholder="这里输入审核不通过原因" :autosize="{minRows: 10}"></el-input>
+      <el-form-item label="详细描述" prop="content">
+        <el-input type="textarea" v-model="conditionForm.content" placeholder="这里输入审核条件详细描述" :autosize="{minRows: 10}"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit('conditionForm')" style="width: 200px;margin: 20px auto 0;display: block;">确定</el-button>
@@ -38,52 +38,48 @@ export default {
   data() {
     return {
       conditionForm: {
-        name: '',
-        content: '',
+        title: "",
+        content: "",
+        id: ""
       },
 
       rules: {
-        name: [
-          { required: true, message: '名称不能为空' }
-        ],
-        content: [
-          { required: true, message: '审核不通过原因不能为空' }
-        ]
-      },
+        title: [{ required: true, message: "审核条件" }]
+      }
+    };
+  },
+
+  created() {
+    const condition = this.$route.params.condition;
+    if (condition) {
+      this.conditionForm = condition;
     }
   },
   methods: {
-
     /*
       提交
     */
     onSubmit(formName) {
-      this.$refs[formName].validate((valid) => {
+      this.$refs[formName].validate(valid => {
         if (valid) {
-          this.$message({
-            type: 'success',
-            message: '提交成功',
-            showClose: true
-          })
-          this.$router.push('/auditcondition')
+          this.$api.postRefuse(this.conditionForm, res => {
+            this.$message({
+              type: "success",
+              message: "提交成功",
+              showClose: true
+            });
+            this.$router.push("/auditcondition");
+          });
         } else {
           this.$message({
-            type: 'warning',
-            message: '信息输入不正确',
+            type: "warning",
+            message: "信息输入不正确",
             showClose: true
-          })
-          return false
+          });
+          return false;
         }
       });
     }
-  },
-
-  created() {
-    const condition = this.$route.params.condition
-    if (condition) {
-      this.conditionForm.name = condition.name
-      this.conditionForm.content = condition.content
-    }
   }
-}
+};
 </script>

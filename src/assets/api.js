@@ -729,7 +729,7 @@ export default {
    * @param {function} cb 回调
    */
   postConfig(data, cb) {
-    axios.post(`${host}Config`, data)
+    axios.post(`${host}config`, data)
       .then(res => {
         if ('SUCCESS' === res.data.return_code) {
           typeof cb === 'function' && cb(res)
@@ -771,6 +771,62 @@ export default {
     axios.get(`${host}modify/user/${id}`, {
         params: data
       })
+      .then(res => {
+        if ('SUCCESS' === res.data.return_code) {
+          typeof cb === 'function' && cb(res)
+        } else {
+          this.APIError(res)
+        }
+      }).catch(error => {
+        this.APIError(error.response)
+      })
+  },
+
+  /**
+   * 获取审核条件列表
+   * @param {object} data {page, limit}
+   * @param {function} cb 回调
+   */
+  getRefuse(data, cb) {
+    axios.get(`${host}refuses`, {
+        params: data
+      })
+      .then(res => {
+        if ('SUCCESS' === res.data.return_code) {
+          typeof cb === 'function' && cb(res)
+        } else {
+          this.APIError(res)
+        }
+      }).catch(error => {
+        this.APIError(error.response)
+      })
+  },
+
+  /**
+   * 添加审核条件
+   * @param {object} data {id, title, content}
+   * @param {function} cb 回调
+   */
+  postRefuse(data, cb) {
+    axios.post(`${host}refuse`, data)
+      .then(res => {
+        if ('SUCCESS' === res.data.return_code) {
+          typeof cb === 'function' && cb(res)
+        } else {
+          this.APIError(res)
+        }
+      }).catch(error => {
+        this.APIError(error.response)
+      })
+  },
+
+  /**
+   * 删除审核条件
+   * @param {string} id 
+   * @param {function} cb 
+   */
+  deleteRefuse(id, cb) {
+    axios.get(`${host}del/refuse/${id}`)
       .then(res => {
         if ('SUCCESS' === res.data.return_code) {
           typeof cb === 'function' && cb(res)
