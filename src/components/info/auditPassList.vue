@@ -142,7 +142,7 @@
         </el-table-column>
         <el-table-column prop="title" label="信息名称" show-overflow-tooltip>
           <template slot-scope="scope">
-            <span @click="goToInfo(scope.row)">{{scope.row.title}}</span>
+            <el-button type="text" @click="goToInfo(scope.row)">{{scope.row.title}}</el-button>
           </template>
         </el-table-column>
         <el-table-column prop="price" label="价格">

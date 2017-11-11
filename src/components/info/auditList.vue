@@ -138,6 +138,9 @@
         <el-table-column label="ID" prop="id">
         </el-table-column>
         <el-table-column prop="title" label="信息名称" show-overflow-tooltip>
+          <template slot-scope="scope">
+            <el-button type="text" @click="goToInfo(scope.row)">{{scope.row.title}}</el-button>
+          </template>
         </el-table-column>
         <el-table-column prop="price" label="价格">
           <template slot-scope="scope">
@@ -264,6 +267,10 @@ export default {
   },
 
   methods: {
+    //查看单条信息
+    goToInfo(row) {
+      this.$router.push({ name: "auditsingle", params: { info: row } });
+    },
     //确认审核
     confirmRefuse() {
       this.$api.changePass(
