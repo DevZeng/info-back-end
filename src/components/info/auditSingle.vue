@@ -85,7 +85,7 @@
     </div>
 
     <el-dialog title="图片预览" :visible.sync="preImgFlag">
-        <img class="single-img-pre" :src="currentImg" alt="图片">
+        <img class="single-img-pre" :src="currentImg" :alt="currentImgName">
     </el-dialog>
 
   </section>
@@ -96,14 +96,10 @@ export default {
   data() {
     return {
       info: {},
-      pictures: [
-        "http://n.sinaimg.cn/news/20170927/x_sX-fymesmp1710897.jpg",
-        "http://img.kemeitu.com/UpImg/FengJing/2016/1115/84484150709261.jpg",
-        "https://img1.qunarzz.com/travel/poi/1501/37/3726b30a08c952e2cdb.jpg_r_480x360x95_6bdc567f.jpg"
-      ],
 
       preImgFlag: false,
-      currentImg: ""
+      currentImg: "",
+      currentImgName: ""
     };
   },
 
@@ -114,8 +110,9 @@ export default {
   methods: {
     //预览
     preImg(img) {
-      this.currentImg = img;
+      this.currentImg = img.url;
       this.preImgFlag = true;
+      this.currentImgName = img.title
     }
   }
 };
