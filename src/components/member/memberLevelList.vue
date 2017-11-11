@@ -36,10 +36,10 @@
     </el-breadcrumb>
 
     <div class="member-level-operation">
-      <el-tooltip :content="'当前状态：' + levelSwitchText[levelSwitch]" placement="top">
+      <!-- <el-tooltip :content="'当前状态：' + levelSwitchText[levelSwitch]" placement="top">
         <el-switch v-model="levelSwitch" on-color="#13ce66" off-color="#ff4949" on-value="1" off-value="0" on-text="打开" off-text="关闭" @change="memberLevelSwitchFnc">
         </el-switch>
-      </el-tooltip>
+      </el-tooltip> -->
       <el-button type="primary" @click="addLevel" style="display: block;margin-top: 20px;">新增等级</el-button>
     </div>
 
@@ -74,11 +74,11 @@
         </el-table-column>
       </el-table>
     </div>
-
+<!-- 
     <div class="pages">
       <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="page" :page-size="eachPage" layout="total, prev, pager, next" :total="count">
       </el-pagination>
-    </div>
+    </div> -->
   </section>
 </template>
 
@@ -91,9 +91,9 @@ export default {
       levelSwitch: "1",
       levelsText: this.$common.memberLevels,
 
-      page: 1,
-      eachPage: 10,
-      count: 100,
+      // page: 1,
+      // eachPage: 10,
+      // count: 100,
 
       memberLevelList: []
     };
@@ -128,12 +128,12 @@ export default {
     /*
     * 页数变化
     */
-    handleCurrentChange(currentPage) {},
+    // handleCurrentChange(currentPage) {},
 
     /*
     * 每页展示数量
     */
-    handleSizeChange() {},
+    // handleSizeChange() {},
 
     /*
     * 编辑

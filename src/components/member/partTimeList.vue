@@ -100,14 +100,14 @@
         </el-switch>
       </el-tooltip>
       <el-button type="primary" @click="chooseAll" style="display: block;margin-top: 20px;">选中</el-button> -->
-      <el-select v-model="searchForm.state" filterable placeholder="请选择当前状态" @select-change="pickerSearch">
+      <el-select v-model="searchForm.state" filterable placeholder="请选择当前状态" @change="pickerSearch">
         <el-option v-for="item in partTimeType" :key="item.id" :label="item.name" :value="item.id">
         </el-option>
       </el-select>
     </div>
 
     <div class="table-list">
-      <el-table :data="partTimeList" border style="width: 100%" @selection-change="handleSelectionChange">
+      <el-table :data="partTimeList" border style="width: 100%">
         <el-table-column type="expand">
           <template slot-scope="props">
             <el-form label-position="left" inline class="demo-table-expand">
@@ -234,6 +234,13 @@ export default {
   },
 
   methods: {
+    //筛选
+    pickerSearch() {
+      console.log(1)
+      this.$api.getPartTimes(this.searchForm, res => {
+        this.partTimeList = res.data.data;
+      });
+    },
     /*
     * 切换
     */
