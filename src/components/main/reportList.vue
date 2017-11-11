@@ -130,7 +130,7 @@ export default {
       loading: true,
       //搜索
       selectInput: "",
-      select: "1",
+      select: "username",
 
       searchFrom: {
         // city: [],
@@ -195,11 +195,11 @@ export default {
   },
 
   created() {
-    // this.$api.getReports('', res => {
-    //   this.reportList = res.data.data
-    this.loading = false;
-    //   this.count = res.data.count
-    // })
+    this.$api.getReports("", res => {
+      this.reportList = res.data.data;
+      this.loading = false;
+      this.count = res.data.count;
+    });
   },
 
   methods: {

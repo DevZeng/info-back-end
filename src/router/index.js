@@ -15,6 +15,8 @@ import guideList from '@/components/main/guideList'
 import guideEdit from '@/components/main/guideEdit'
 import payList from '@/components/main/payList'
 import reportList from '@/components/main/reportList'
+import reportTypeList from '@/components/main/reportTypeList'
+import reportTypeEdit from '@/components/main/reportTypeEdit'
 import backList from '@/components/main/backList'
 import backEdit from '@/components/main/backEdit'
 import backCharacterList from '@/components/main/backCharacterList'
@@ -111,6 +113,14 @@ export default new Router({
         path: 'reportlist',
         name: 'reportlist',
         component: reportList
+      }, {
+        path: 'report/type/list',
+        name: 'reporttypelist',
+        component: reportTypeList
+      }, {
+        path: 'report/type/edit',
+        name: 'reporttypeedit',
+        component: reportTypeEdit
       }, {
         path: 'backlist',
         name: 'backlist',

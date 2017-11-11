@@ -13,7 +13,7 @@
 <template>
   <section class="editor-wrap">
     <el-breadcrumb separator="/" class="breadcrumb">
-      <el-breadcrumb-item>首页</el-breadcrumb-item>
+      <el-breadcrumb-item>信息处理</el-breadcrumb-item>
       <el-breadcrumb-item>审核相关</el-breadcrumb-item>
       <el-breadcrumb-item :to="{'path': '/auditcondition'}">审核条件</el-breadcrumb-item>
       <el-breadcrumb-item>条件编辑</el-breadcrumb-item>
@@ -44,7 +44,7 @@ export default {
       },
 
       rules: {
-        title: [{ required: true, message: "审核条件" }]
+        title: [{ required: true, message: "审核条件名称不能为空" }]
       }
     };
   },

@@ -32,24 +32,24 @@
   </section>
   <section v-else class="banner-list">
     <el-breadcrumb separator="/" class="breadcrumb">
-      <el-breadcrumb-item>信息处理</el-breadcrumb-item>
-      <el-breadcrumb-item>审核相关</el-breadcrumb-item>
-      <el-breadcrumb-item>审核条件</el-breadcrumb-item>
+      <el-breadcrumb-item>首页</el-breadcrumb-item>
+      <el-breadcrumb-item>举报与投诉</el-breadcrumb-item>
+      <el-breadcrumb-item>举报原因列表</el-breadcrumb-item>
     </el-breadcrumb>
     <div class="banner-operation">
       <el-button type="primary" @click="addCondition">添加</el-button>
       <!-- <el-button type="danger" @click="deleteAll">删除</el-button> -->
     </div>
     <div class="table-list">
-      <el-table ref="multipleTable" :data="conditionList" border stripe tooltip-effect="dark" style="width: 100%">
+      <el-table ref="multipleTable" :data="reportTypeList" border stripe tooltip-effect="dark" style="width: 100%">
         <!-- <el-table-column type="selection">
         </el-table-column> -->
         <el-table-column label="ID" prop="id">
         </el-table-column>
-        <el-table-column label="名称" prop="title">
+        <el-table-column label="名称" prop="content">
         </el-table-column>
-        <el-table-column label="详细描述" prop="content" show-overflow-tooltip>
-        </el-table-column>
+        <!-- <el-table-column label="详细描述" prop="content" show-overflow-tooltip>
+        </el-table-column> -->
         <el-table-column label="操作">
           <template slot-scope="scope">
             <el-button size="small" type="primary" @click="handleEdit(scope.$index, scope.row)">修改</el-button>
@@ -75,7 +75,7 @@ export default {
       waittingData: [],
 
       //数据
-      conditionList: [],
+      reportTypeList: [],
       page: 1,
       eachPage: 10,
       count: 0
@@ -83,8 +83,8 @@ export default {
   },
 
   created() {
-    this.$api.getRefuse("", res => {
-      this.conditionList = res.data.data;
+    this.$api.getReportReasons("", res => {
+      this.reportTypeList = res.data.data;
       this.count = res.data.count;
       this.loading = false;
     });
@@ -96,8 +96,8 @@ export default {
     */
     addCondition() {
       this.$router.push({
-        name: "auditconditionedit",
-        params: { condition: null }
+        name: "reporttypeedit",
+        params: { report: null }
       });
     },
 
@@ -130,8 +130,8 @@ export default {
     */
     handleEdit(index, row) {
       this.$router.push({
-        name: "auditconditionedit",
-        params: { condition: row }
+        name: "reporttypeedit",
+        params: { report: row }
       });
     },
 
@@ -141,7 +141,7 @@ export default {
     handleDelete(index, row) {
       this.$operation.tableMessageBox("此操作将删除该审核条件", () => {
         this.$api.deleteRefuse(row.id, res => {
-          this.conditionList.splice(index, 1);
+          this.reportTypeList.splice(index, 1);
           this.$message({
             type: "success",
             message: "删除成功!"
@@ -154,15 +154,10 @@ export default {
       页数改变
     */
     handleCurrentChange(page) {
-      this.$api.getRefuse({ page }, res => {
-        this.conditionList = res.data.data;
+      this.$api.getReportReasons({ page }, res => {
+        this.reportTypeList = res.data.data;
       });
-    },
-
-    /*
-      每页显示数量改变
-    */
-    handleSizeChange() {}
+    }
   }
 };
 </script>

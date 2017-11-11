@@ -125,7 +125,7 @@
               <el-submenu index="1-2">
                 <template slot="title">举报与投诉</template>
                 <el-menu-item index="/reportlist">举报列表</el-menu-item>
-                <el-menu-item index="/backcharacterlist">举报原因列表</el-menu-item>
+                <el-menu-item index="/report/type/list">举报原因列表</el-menu-item>
               </el-submenu>
               <el-submenu index="1-3">
                 <template slot="title">后台管理</template>
