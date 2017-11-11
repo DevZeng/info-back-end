@@ -129,7 +129,7 @@
               </el-submenu>
               <el-submenu index="1-3">
                 <template slot="title">后台管理</template>
-                <el-menu-item index="/backlist">分工列表</el-menu-item>
+                <!-- <el-menu-item index="/backlist">分工列表</el-menu-item> -->
                 <el-menu-item index="/backcharacterlist">角色列表</el-menu-item>
               </el-submenu>
             </el-submenu>
@@ -156,8 +156,8 @@
               </template>
               <el-menu-item-group>
                 <el-menu-item index="/categorylist">种类和细节</el-menu-item>
-                <el-menu-item index="/chargemode">信息收费管理</el-menu-item>
-                <el-menu-item index="/sms">短信反馈</el-menu-item>
+                <!-- <el-menu-item index="/chargemode">信息收费管理</el-menu-item> -->
+                <!-- <el-menu-item index="/sms">短信反馈</el-menu-item> -->
                 <el-menu-item index="/startpagelist">启动页面</el-menu-item>
                 <el-menu-item index="/config">系统设置</el-menu-item>
               </el-menu-item-group>

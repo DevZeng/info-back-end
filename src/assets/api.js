@@ -711,7 +711,7 @@ export default {
    * @param {function} cb 回调
    */
   getConfig(cb) {
-    axios.get(`${host}Config`)
+    axios.get(`${host}config`)
       .then(res => {
         if ('SUCCESS' === res.data.return_code) {
           typeof cb === 'function' && cb(res)
@@ -827,6 +827,67 @@ export default {
    */
   deleteRefuse(id, cb) {
     axios.get(`${host}del/refuse/${id}`)
+      .then(res => {
+        if ('SUCCESS' === res.data.return_code) {
+          typeof cb === 'function' && cb(res)
+        } else {
+          this.APIError(res)
+        }
+      }).catch(error => {
+        this.APIError(error.response)
+      })
+  },
+
+  /**
+   * 获取审核通过列表
+   * @param {object} data {page, (limit), username, user_id, city_id, start, end}
+   * @param {function} cb 回调
+   */
+  getPassList(data, cb) {
+    axios.get(`${host}pass/commodities`, {
+        params: data
+      })
+      .then(res => {
+        if ('SUCCESS' === res.data.return_code) {
+          typeof cb === 'function' && cb(res)
+        } else {
+          this.APIError(res)
+        }
+      }).catch(error => {
+        this.APIError(error.response)
+      })
+  },
+
+  /**
+   * 获取审核未通过列表
+   * @param {object} data {page, (limit), username, user_id, city_id, start, end}
+   * @param {function} cb 回调
+   */
+  getUnPassList(data, cb) {
+    axios.get(`${host}unpass/commodities`, {
+        params: data
+      })
+      .then(res => {
+        if ('SUCCESS' === res.data.return_code) {
+          typeof cb === 'function' && cb(res)
+        } else {
+          this.APIError(res)
+        }
+      }).catch(error => {
+        this.APIError(error.response)
+      })
+  },
+
+  /**
+   * 通过、拒绝
+   * @param {object} data {pass, reason}
+   * @param {string} id 
+   * @param {function} cb 回调
+   */
+  changePass(id, data, cb) {
+    axios.get(`${host}pass/commodity/${id}`, {
+        params: data
+      })
       .then(res => {
         if ('SUCCESS' === res.data.return_code) {
           typeof cb === 'function' && cb(res)

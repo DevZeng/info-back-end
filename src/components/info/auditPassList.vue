@@ -68,27 +68,44 @@
       <el-breadcrumb-item>通过审核列表</el-breadcrumb-item>
     </el-breadcrumb>
     <div class="audit-pass-list-operation">
-      <el-input placeholder="请输入搜索内容" v-model="selectInput" style="margin-bottom: 20px;" @keyup.enter.native="selectSearch">
-        <el-select v-model="select" slot="prepend" placeholder="请选择">
-          <el-option label="用户名" value="1"></el-option>
-          <el-option label="用户编号" value="2"></el-option>
-          <el-option label="信息编号编号" value="3"></el-option>
-        </el-select>
-        <el-button slot="append" icon="search" @click="selectSearch"></el-button>
-      </el-input>
+      <div style="text-align:right;">
+        <el-input placeholder="请输入搜索内容" v-model="selectInput" style="margin-bottom: 20px; width: 900px;" @keyup.enter.native="selectSearch">
+          <el-select v-model="select" slot="prepend" placeholder="请选择">
+            <el-option label="用户名" value="username"></el-option>
+            <el-option label="用户编号" value="user_id"></el-option>
+            <!-- <el-option label="信息编号编号" value="3"></el-option> -->
+          </el-select>
+          <el-button slot="append" icon="search" @click="selectSearch"></el-button>
+        </el-input>
+      </div>
       <div class="audit-pass-list-picker">
-        <el-transfer filterable :filter-method="filterMethod" filter-placeholder="请输入城市名称" :titles="['已开放城市', '已选择城市']" :button-texts="['取消', '添加']" v-model="searchForm.city" :data="cities">
-        </el-transfer>
-        <el-date-picker v-model="searchForm.dateRange" type="daterange" align="right" placeholder="选择日期范围" :picker-options="dateOptions">
+        <!-- <el-transfer filterable :filter-method="filterMethod" filter-placeholder="请输入城市名称" :titles="['已开放城市', '已选择城市']" :button-texts="['取消', '添加']" v-model="searchForm.city" :data="cities">
+        </el-transfer> -->
+        <!-- <el-form-item label="省份："> -->
+          <el-select v-model="cityForm.sheng" placeholder="请选择省份" @change="selectSheng">
+            <el-option v-for="(item,index) in shengs" :key="item.id" :label="item.name" :value="item.id"></el-option>
+          </el-select>
+        <!-- </el-form-item> -->
+        <!-- <el-form-item label="市区："> -->
+          <el-select v-model="cityForm.shi" placeholder="请选择市区" @change="selectShi">
+            <el-option v-for="(item,index) in shis" :key="item.id" :label="item.name" :value="item.id"></el-option>
+          </el-select>
+        <!-- </el-form-item> -->
+        <!-- <el-form-item label="县区："> -->
+          <el-select v-model="cityForm.xian" placeholder="请选择县区"  @change="selectXian">
+            <el-option v-for="(item,index) in xians" :key="item.id" :label="item.name" :value="item.id"></el-option>
+          </el-select>
+        <!-- </el-form-item> -->
+        <el-date-picker v-model="dateRange" type="daterange" align="right" placeholder="选择日期范围" :picker-options="dateOptions">
         </el-date-picker>
-        <el-select v-model="searchForm.status" filterable placeholder="请选择信息种类">
+        <!-- <el-select v-model="searchForm.status" filterable placeholder="请选择信息种类">
           <el-option label="种类一" value="1"></el-option>
           <el-option label="种类二" value="0"></el-option>
-        </el-select>
-        <el-select v-model="searchForm.status" filterable placeholder="请选择信息状态">
+        </el-select> -->
+        <!-- <el-select v-model="searchForm.status" filterable placeholder="请选择信息状态">
           <el-option label="正常" value="1"></el-option>
           <el-option label="已推迟" value="0"></el-option>
-        </el-select>
+        </el-select> -->
         <el-button type="primary" icon="search" @click="pickerSearch">搜索</el-button>
       </div>
     </div>
@@ -98,13 +115,22 @@
           <template slot-scope="props">
             <el-form label-position="left" inline class="audit-pass-list-expand">
               <el-form-item label="用户名">
-                <el-button type="text" @click="handlePeople(scope.$index, scope.row)">{{ props.row.user }}</el-button>
+                <el-button type="text" @click="handlePeople(scope.$index, scope.row)">{{ props.row.username }}</el-button>
+              </el-form-item>
+              <el-form-item label="QQ">
+                <span>{{ props.row.QQ || '无' }}</span>
+              </el-form-item>
+              <el-form-item label="微信">
+                <span>{{ props.row.WeChat || '无' }}</span>
+              </el-form-item>
+              <el-form-item label="电话号码">
+                <span>{{ props.row.phone || '无' }}</span>
               </el-form-item>
               <el-form-item label="阅读数">
-                <span>{{ props.row.read }} 次</span>
+                <span>{{ props.row.read_number }} 次</span>
               </el-form-item>
               <el-form-item label="审核人">
-                <span>{{ props.row.auditPerson }}</span>
+                <span>{{ props.row.passName }}</span>
               </el-form-item>
               <el-form-item label="地址">
                 <span>{{ props.row.address }}</span>
@@ -114,19 +140,27 @@
         </el-table-column>
         <el-table-column label="ID" prop="id">
         </el-table-column>
-        <el-table-column prop="name" label="信息名称">
+        <el-table-column prop="title" label="信息名称" show-overflow-tooltip>
+        </el-table-column>
+        <el-table-column prop="price" label="价格">
+          <template slot-scope="scope">
+            <span>{{scope.row.price}} 元</span>
+          </template>
         </el-table-column>
         <el-table-column prop="type" label="种类">
         </el-table-column>
-        <el-table-column prop="create_time" label="发布时间">
+        <el-table-column prop="created_at" label="发布时间">
         </el-table-column>
-        <el-table-column prop="report" label="举报次数">
+        <el-table-column prop="report_count" label="举报次数">
           <template slot-scope="scope">
-            <el-button type="text" @click="handleReoprt(scope.$index, scope.row)">{{scope.row.report}} 次</el-button>
+            <el-button type="text" @click="handleReoprt(scope.$index, scope.row)">{{scope.row.report_count}} 次</el-button>
           </template>
         </el-table-column>
-        <el-table-column prop="edit" label="发布性质">
-          <template slot-scope="scope">{{editText[scope.row.edit]}}</template>
+        <el-table-column label="发布性质">
+          <template slot-scope="scope">
+            <span class="normal" v-if="scope.row.created_at == scope.row.updated_at">未修改</span>
+            <span v-else class="warning">修改过</span>
+          </template>
         </el-table-column>
         <el-table-column label="操作" width="150">
           <template slot-scope="scope">
@@ -136,90 +170,177 @@
       </el-table>
     </div>
     <div class="pages">
-      <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="page" :page-size="eachPage" layout="total, prev, pager, next" :total="count">
+      <el-pagination @current-change="handleCurrentChange" :current-page.sync="page" :page-size="eachPage" layout="total, prev, pager, next" :total="count">
       </el-pagination>
     </div>
+
+    <el-dialog title="拒绝原因" :visible.sync="rejectDialog" center>
+      <div style="text-alige: center;">
+        <el-select v-model="reason" multiple placeholder="请选择拒绝原因">
+          <el-option v-for="item in refuses" :key="item.id" :label="item.title" :value="item.id">
+          </el-option>
+        </el-select>
+        <el-button style="margin-left: 20px;" type="text" @click="getMoreRefuse">{{refuseFlag?'没有了更多原因':'加载更多原因'}}</el-button>
+        <el-button style="display:block; margin: 30px auto 0;width: 300px;" type="primary" @click="confirmRefuse">确定</el-button>
+      </div>
+    </el-dialog>
   </section>
 </template>
 
 <script>
 export default {
   data() {
-    const generateCities = _ => {
-      const data = [];
-      const cities = ["上海", "北京", "广州", "深圳", "南京", "西安", "成都"];
-      cities.forEach((city, index) => {
-        data.push({
-          label: city,
-          key: index,
-          cities: cities[index]
-        });
-      });
-      return data;
-    };
+    // const generateCities = _ => {
+    //   const data = [];
+    //   const cities = ["上海", "北京", "广州", "深圳", "南京", "西安", "成都"];
+    //   cities.forEach((city, index) => {
+    //     data.push({
+    //       label: city,
+    //       key: index,
+    //       cities: cities[index]
+    //     });
+    //   });
+    //   return data;
+    // };
     return {
       loading: true,
+      cityForm: {
+        sheng: "",
+        shi: "",
+        xian: ""
+      },
 
-      editText: ["原始", "已修改"],
-      statusText: ["正常", "已推迟"],
+      shengs: [],
+      shis: [],
+      xians: [],
+
+      rejectDialog: false,
+      reason: [],
+      refuses: [],
+      refusePage: 1,
+      refuseFlag: false,
+      currentRefuseId: "",
+      currentRefuseIndex: "",
+
+      //存放当前选择区域
+      currentArea: null,
+
+      // editText: ["原始", "已修改"],
+      // statusText: ["正常", "已推迟"],
 
       selectInput: "",
-      select: "1",
+      select: "username",
 
       searchForm: {
-        status: "",
-        dateRange: "",
-        city: []
+        // status: "",
+        // dateRange: ""
+        // city: []
+        city_id: ""
       },
-      cities: generateCities(),
-      filterMethod(query, item) {
-        return item.cities.indexOf(query) > -1;
-      },
+
+      dateRange: "",
+      // cities: generateCities(),
+      // filterMethod(query, item) {
+      //   return item.cities.indexOf(query) > -1;
+      // },
 
       dateOptions: this.$common.dateOptions,
 
       //页码
       page: 1,
       eachPage: 10,
-      count: 100,
+      count: 0,
 
       //数据
-      auditPassList: [
-        {
-          id: 1,
-          name: "信息一",
-          user: "小张",
-          type: "种类一",
-          create_time: "2017-10-01",
-          address: "广州市番禺市桥XX地址XX号",
-          edit: "1",
-          read: 11,
-          auditPerson: "管理员1",
-          report: 21
-        },
-        {
-          id: 2,
-          name: "信息二",
-          user: "李四端",
-          type: "种类二",
-          create_time: "2017-10-21",
-          address: "广州市番禺市桥XX地址XX号",
-          edit: "0",
-          read: 421,
-          auditPerson: "管理员4",
-          report: 2
-        }
-      ]
+      auditPassList: []
     };
   },
 
   created() {
-    setTimeout(() => {
+    this.$api.getUsDistrict("", res => {
+      this.shengs = res.data.data;
+    });
+    this.$api.getPassList("", res => {
+      this.auditPassList = res.data.data;
+      this.count = res.data.count;
       this.loading = false;
-    }, 200);
+    });
+    this.$api.getRefuse("", res => {
+      this.refuses = res.data.data;
+    });
   },
 
   methods: {
+    //确认审核
+    confirmRefuse() {
+      this.$api.changePass(
+        this.currentRefuseId,
+        { pass: 2, reason: this.reason },
+        res => {
+          this.$message({
+            type: "success",
+            message: "已拒绝"
+          });
+          this.auditList.splice(index, 1);
+          this.rejectDialog = false;
+        }
+      );
+    },
+
+    //获取审核条件
+    getMoreRefuse() {
+      this.$api.getRefuse({ page: ++this.refusePage }, res => {
+        if (res.data.data.length) {
+          this.refuses = [...this.refuses, ...res.data.data];
+        } else {
+          this.refuseFlag = true;
+        }
+      });
+    },
+    /*
+    * 省份选择
+    */
+
+    selectSheng(id) {
+      this.cityForm.shi = "";
+      this.cityForm.xian = "";
+      this.xians = [];
+      this.currentArea = this.shengs[this.cityForm.sheng];
+      this.searchForm.city_id = id;
+      this.$api.getUsDistrict({ pid: id }, res => {
+        this.shis = res.data.data;
+      });
+    },
+
+    /*
+    * 市区选择
+    */
+
+    selectShi(id) {
+      const shi = this.cityForm.shi;
+      if (!shi) {
+        return false;
+      }
+      this.currentArea = this.shis[shi];
+      this.searchForm.city_id = id;
+      this.$api.getUsDistrict({ pid: id }, res => {
+        this.xians = res.data.data;
+      });
+    },
+
+    /*
+    * 县区选择
+    */
+
+    selectXian() {
+      const xian = this.cityForm.xian;
+      if (!xian) {
+        return false;
+      }
+      this.currentArea = this.xians[xian];
+      this.searchForm.city_id = id;
+    },
+
     /*
     * 用户中心跳转
     */
@@ -235,49 +356,72 @@ export default {
     /*
     * input 搜索
     */
-    selectSearch() {},
+    selectSearch() {
+      const getData = {
+        [this.select]: this.selectInput
+      };
+      this.$api.getPassList(getData, res => {
+        this.auditPassList = res.data.data;
+        this.count = res.data.count;
+      });
+    },
 
     /*
     * form 搜索
     */
-    pickerSearch() {},
+    pickerSearch() {
+      let getData = {};
+      if (this.dateRange) {
+        getData.start = new Date(this.dateRange[0]).toLocaleDateString();
+        getData.end = new Date(this.dateRange[1]).toLocaleDateString();
+      }
+      getData.city_id = this.searchForm.city_id;
+      this.$api.getPassList(getData, res => {
+        this.auditPassList = res.data.data;
+        this.count = res.data.count;
+      });
+    },
 
     /*
     * 拒绝
     */
     handleReject(index, row) {
-      this.$prompt("请输入不通过原因", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        beforeClose: (action, instance, done) => {
-          if (action === "confirm") {
-            if (!instance.inputValue) {
-              this.$message({
-                type: "warning",
-                message: "回复不能为空",
-                showClose: true
-              });
-              return false;
-            }
-            done();
-          } else {
-            done();
-          }
-        }
-      })
-        .then(() => {
-          this.auditPassList.splice(index, 1);
-          this.$message({
-            type: "success",
-            message: "已拒绝"
-          });
-        })
-        .catch(() => {
-          this.$message({
-            type: "info",
-            message: "已取消"
-          });
-        });
+      // this.$prompt("请输入不通过原因", "提示", {
+      //   confirmButtonText: "确定",
+      //   cancelButtonText: "取消",
+      //   beforeClose: (action, instance, done) => {
+      //     if (action === "confirm") {
+      //       if (!instance.inputValue) {
+      //         this.$message({
+      //           type: "warning",
+      //           message: "回复不能为空",
+      //           showClose: true
+      //         });
+      //         return false;
+      //       }
+      //       done();
+      //     } else {
+      //       done();
+      //     }
+      //   }
+      // })
+      //   .then(() => {
+      //     this.auditPassList.splice(index, 1);
+      //     this.$message({
+      //       type: "success",
+      //       message: "已拒绝"
+      //     });
+      //   })
+      //   .catch(() => {
+      //     this.$message({
+      //       type: "info",
+      //       message: "已取消"
+      //     });
+      //   });
+      this.rejectDialog = true;
+      this.currentRefuseId = row.id;
+      this.currentRefuseIndex = index;
+      this.reason = [];
     },
 
     /*
@@ -288,7 +432,21 @@ export default {
     /*
     * 当前页数
     */
-    handleCurrentChange() {}
+    handleCurrentChange(page) {
+      let getData = {
+        page: page
+      };
+      if (this.selectInput) {
+        getData[this.select] = this.selectInput;
+      } else {
+        getData.city_id = this.searchForm.city_id;
+        getData.start = new Date(this.dateRange[0]).toLocaleDateString();
+        getData.end = new Date(this.dateRange[1]).toLocaleDateString();
+      }
+      this.$api.getPassList(getData, res => {
+        this.auditPassList = res.data.data;
+      });
+    }
   }
 };
 </script>

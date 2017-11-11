@@ -29,31 +29,31 @@
       <el-form label-position="top" label-width="80px" :model="configForm" :rules="rules" ref="configForm">
         <el-form-item label="查看购买开关" prop="need_pay">
           <el-tooltip :content="'当前状态：' + checkSwitchText[configForm.need_pay]" placement="top">
-            <el-switch v-model="configForm.need_pay" on-color="#13ce66" off-color="#ff4949" on-value="1" off-value="0" on-text="打开" off-text="关闭">
+            <el-switch v-model="configForm.need_pay" on-color="#13ce66" off-color="#ff4949" :on-value="1" :off-value="0" on-text="打开" off-text="关闭">
             </el-switch>
           </el-tooltip>
         </el-form-item>
         <el-form-item label="签到开关" prop="show_sign">
           <el-tooltip :content="'当前状态：' + checkSwitchText[configForm.show_sign]" placement="top">
-            <el-switch v-model="configForm.show_sign" on-color="#13ce66" off-color="#ff4949" on-value="1" off-value="0" on-text="打开" off-text="关闭">
+            <el-switch v-model="configForm.show_sign" on-color="#13ce66" off-color="#ff4949" :on-value="1" :off-value="0" on-text="打开" off-text="关闭">
             </el-switch>
           </el-tooltip>
         </el-form-item>
         <el-form-item label="二维码开关" prop="show_qrcode">
           <el-tooltip :content="'当前状态：' + checkSwitchText[configForm.show_qrcode]" placement="top">
-            <el-switch v-model="configForm.show_qrcode" on-color="#13ce66" off-color="#ff4949" on-value="1" off-value="0" on-text="打开" off-text="关闭">
+            <el-switch v-model="configForm.show_qrcode" on-color="#13ce66" off-color="#ff4949" :on-value="1" :off-value="0" on-text="打开" off-text="关闭">
             </el-switch>
           </el-tooltip>
         </el-form-item>
         <el-form-item label="分享开关" prop="show_share">
           <el-tooltip :content="'当前状态：' + checkSwitchText[configForm.show_share]" placement="top">
-            <el-switch v-model="configForm.show_share" on-color="#13ce66" off-color="#ff4949" on-value="1" off-value="0" on-text="打开" off-text="关闭">
+            <el-switch v-model="configForm.show_share" on-color="#13ce66" off-color="#ff4949" :on-value="1" :off-value="0" on-text="打开" off-text="关闭">
             </el-switch>
           </el-tooltip>
         </el-form-item>
-        <el-form-item label="兼职开关" prop="Apply">
-          <el-tooltip :content="'当前状态：' + checkSwitchText[configForm.Apply]" placement="top">
-            <el-switch v-model="configForm.Apply" on-color="#13ce66" off-color="#ff4949" on-value="1" off-value="0" on-text="打开" off-text="关闭">
+        <el-form-item label="兼职开关" prop="apply">
+          <el-tooltip :content="'当前状态：' + checkSwitchText[configForm.apply]" placement="top">
+            <el-switch v-model="configForm.apply" on-color="#13ce66" off-color="#ff4949" :on-value="1" :off-value="0" on-text="打开" off-text="关闭">
             </el-switch>
           </el-tooltip>
         </el-form-item>
@@ -92,11 +92,11 @@ export default {
       loading: true,
       checkSwitchText: ["关闭", "打开"],
       configForm: {
-        need_pay: "1",
-        show_sign: "1",
-        show_qrcode: "1",
-        show_share: "1",
-        Apply: "1",
+        need_pay: 1,
+        show_sign: 1,
+        show_qrcode: 1,
+        show_share: 1,
+        apply: 1,
         id: "",
         pic_score: null,
         phone_score: null,
@@ -121,10 +121,10 @@ export default {
   },
 
   created() {
-    // this.$api.getConfig(res => {
-    //   this.configForm = res.data.data;
-    this.loading = false;
-    // });
+    this.$api.getConfig(res => {
+      this.configForm = res.data.data;
+      this.loading = false;
+    });
   },
 
   methods: {
@@ -134,7 +134,7 @@ export default {
     onSubmit(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
-          this.$api.getConfig(this.configForm, res => {
+          this.$api.postConfig(this.configForm, res => {
             this.$message({
               type: "success",
               message: "提交成功",
