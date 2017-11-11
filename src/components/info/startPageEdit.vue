@@ -89,7 +89,8 @@ export default {
       },
 
       rules: {
-        title: [{ required: true, message: "启动页面名称不能为空" }]
+        title: [{ required: true, message: "启动页面名称不能为空" }],
+        link_url: [{ required: true, message: "跳转链接不能为空" }]
       }
     };
   },

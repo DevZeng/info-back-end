@@ -51,6 +51,7 @@
 
 .single-content {
   font-size: 16px;
+  word-break: break-all;
 }
 </style>
 
@@ -64,7 +65,7 @@
 
     <div class="single-content">
       <div class="single-basic">
-        <div class="single-basic-item">姓名： {{info.name}}</div>
+        <div class="single-basic-item">姓名： {{info.name || '未实名'}}</div>
         <div class="single-basic-item">昵称：  {{info.username}}</div>
         <div class="single-basic-item">电话号码： {{info.phone}}</div>
         <div class="single-basic-item">价格： {{info.price}}元</div>
@@ -77,7 +78,7 @@
         <h1 class="single-title">{{info.title}}</h1>
         <p class="single-time">发布时间： {{info.created_at}}</p>
         <div class="single-picture">
-          <img class="single-img" v-for="(img, index) in info.pictures" :key="index" :src="img" alt="图片" @click="preImg(img)">
+          <img class="single-img" v-for="(img, index) in info.pictures" :key="img.id" :src="img.url" :alt="title" @click="preImg(img)">
         </div>
         <p class="single-content">{{info.detail}}</p>
       </div>
