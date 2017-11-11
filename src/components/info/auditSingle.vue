@@ -78,7 +78,7 @@
         <h1 class="single-title">{{info.title}}</h1>
         <p class="single-time">发布时间： {{info.created_at}}</p>
         <div class="single-picture">
-          <img class="single-img" v-for="(img, index) in info.pictures" :key="img.id" :src="img.url" :alt="title" @click="preImg(img)">
+          <img class="single-img" v-for="(img, index) in info.pictures" :key="img.id" :src="img.url" :alt="title" :title="title" @click="preImg(img)">
         </div>
         <p class="single-content">{{info.detail}}</p>
       </div>

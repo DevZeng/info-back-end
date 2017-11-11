@@ -76,25 +76,29 @@
 
     <div class="table-list">
       <el-table ref="multipleTable" :data="reportList" border stripe tooltip-effect="dark" style="width: 100%">
-        <el-table-column label="信息编号" prop="textID">
+        <el-table-column label="信息编号" prop="commodity_id">
         </el-table-column>
-        <el-table-column label="信息名" prop="name"></el-table-column>
+        <el-table-column label="信息名" prop="commodity_name">
+          <template slot-scope="scope">
+            <el-button type="text" @click="goToInfo(scope.row)">{{scope.row.commodity_name}}</el-button>
+          </template>
+        </el-table-column>
         <el-table-column label="被举报次数">
-          <template slot-scope="scope">{{scope.row.times + ' 次'}}</template>
+          <template slot-scope="scope">{{scope.row.report_number + ' 次'}}</template>
         </el-table-column>
         <el-table-column label="浏览量">
-          <template slot-scope="scope">{{scope.row.read + ' 次'}}</template>
+          <template slot-scope="scope">{{scope.row.read_number + ' 次'}}</template>
         </el-table-column>
-        <el-table-column label="举报时间" prop="create_time"></el-table-column>
-        <el-table-column label="已申诉">
+        <el-table-column label="举报时间" prop="created_at"></el-table-column>
+        <!-- <el-table-column label="已申诉">
           <template slot-scope="scope">
             <span v-if="scope.row.replay === 0">暂无</span>
             <el-button v-else type="text" @click="replayReport(scope.$index, scope.row)">回复申诉</el-button>
           </template>
-        </el-table-column>
-        <el-table-column label="举报者">
+        </el-table-column> -->
+        <el-table-column label="举报者" prop="username">
           <template slot-scope="scope">
-            <el-button type="text" @click="checkReportUser(scope.$index, scope.row)">{{scope.row.report_name}}</el-button>
+            <el-button type="text" @click="checkReportUser(scope.$index, scope.row)">{{scope.row.username}}</el-button>
           </template>
         </el-table-column>
         <el-table-column label="处理情况">
@@ -107,8 +111,8 @@
         <el-table-column label="操作" width="200">
           <template slot-scope="scope">
             <!-- <el-button size="small" type="primary" @click="handleReplay(scope.$index, scope.row)">回复</el-button> -->
-            <el-button v-if="scope.row.status != 1" size="small" type="primary" @click="handle(scope.$index, scope.row)">处理</el-button>
-            <el-button v-if="scope.row.status == 0" size="small" type="warning" @click="handleDelay(scope.$index, scope.row)">延期</el-button>
+            <el-button v-if="scope.row.state != 1" size="small" type="primary" @click="handle(scope.$index, scope.row)">处理</el-button>
+            <el-button v-if="scope.row.state == 0" size="small" type="warning" @click="handleDelay(scope.$index, scope.row)">延期</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -203,6 +207,11 @@ export default {
   },
 
   methods: {
+    //查看单条信息
+    goToInfo(row) {
+      let temp = Object.assign(row, row.commodity);
+      this.$router.push({ name: "auditsingle", params: { info: temp } });
+    },
     /*
     * 第一个搜索
     */
