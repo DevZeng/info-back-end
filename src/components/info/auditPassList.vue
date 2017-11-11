@@ -47,7 +47,7 @@
 }
 
 .audit-pass-list-expand .el-form-item {
-  margin-right: 0;
+  margin-right: 0!important;
   margin-bottom: 0;
   width: 50%;
 }

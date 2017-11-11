@@ -36,6 +36,21 @@
   margin-right: 20px;
 }
 
+.audit-pass-list-expand {
+  font-size: 0;
+}
+
+.audit-pass-list-expand label {
+  width: 90px;
+  color: #99a9bf;
+}
+
+.audit-pass-list-expand .el-form-item {
+  margin-right: 0 !important;
+  margin-bottom: 0;
+  width: 50%;
+}
+
 .pages {
   text-align: right;
 }
