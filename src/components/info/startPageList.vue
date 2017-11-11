@@ -51,7 +51,7 @@
         </el-table-column>
         <el-table-column prop="state" label="状态" sortable>
           <template slot-scope="scope">
-            <span v-if="scope.row.state === 0" class="warning">关闭</span>
+            <span v-if="scope.row.state == 0" class="warning">关闭</span>
             <span v-else class="success">已启用</span>
           </template>
         </el-table-column>

@@ -226,12 +226,11 @@ export default {
   },
 
   created() {
-    // this.$api.getPartTimes("", res => {
-    //   this.partTimeList = res.data.data;
-    //   this.count = res.data.count;
-    // });
-
-    this.loading = false;
+    this.$api.getPartTimes("", res => {
+      this.partTimeList = res.data.data;
+      this.loading = false;
+      this.count = res.data.count;
+    });
   },
 
   methods: {

@@ -74,10 +74,14 @@ export default {
   },
 
   created() {
-    // this.$api.getScan(res => {
-    //   this.scanForm = res.data.data;
-    this.loading = false;
-    // });
+    this.$api.getScan(res => {
+      const data = res.data.data;
+      if (data) {
+        this.scanForm = data;
+        this.dateRange = [data.start * 1000, data.end * 1000];
+      }
+      this.loading = false;
+    });
   },
 
   methods: {
@@ -98,7 +102,7 @@ export default {
             end: new Date(this.dateRange[1]).toLocaleDateString(),
             score: this.scanForm.score
           };
-          this.$api.getScan(postData, res => {
+          this.$api.postScan(postData, res => {
             this.$message({
               type: "success",
               message: "提交成功",

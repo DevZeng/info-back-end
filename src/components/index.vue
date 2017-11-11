@@ -139,7 +139,7 @@
               </template>
               <el-menu-item-group>
                 <el-menu-item index="/memberlevellist">会员等级</el-menu-item>
-                <el-menu-item index="/qrcontrol">二维码开关</el-menu-item>
+                <!-- <el-menu-item index="/qrcontrol">二维码开关</el-menu-item> -->
                 <el-menu-item index="/parttimelist">申请兼职</el-menu-item>
                 <el-menu-item index="/userlist">用户列表</el-menu-item>
               </el-menu-item-group>

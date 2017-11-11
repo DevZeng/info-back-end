@@ -286,12 +286,12 @@ export default {
   },
 
   /**
-   * 添加新的启动页
-   * @param {object} data {title, url, link_url}
+   * 打开启动页
+   * @param {string} id 
    * @param {function} cb 回调
    */
-  postLaunchImg(data, cb) {
-    axios.post(`${host}launcher/image`, data)
+  openLaunchImg(id, cb) {
+    axios.get(`${host}enable/launcher/image/${id}`)
       .then(res => {
         if ('SUCCESS' === res.data.return_code) {
           typeof cb === 'function' && cb(res)

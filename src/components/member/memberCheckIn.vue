@@ -75,10 +75,14 @@ export default {
   },
 
   created() {
-    // this.$api.getCheckIn(res => {
-    //   this.checkInForm = res.data.data;
-    this.loading = false;
-    // });
+    this.$api.getCheckIn(res => {
+      const data = res.data.data;
+      if (data) {
+        this.checkInForm = data;
+        this.dateRange = [data.start * 1000, data.end * 1000];
+      }
+      this.loading = false;
+    });
   },
 
   methods: {

@@ -41,8 +41,8 @@
     </div>
     <div v-else class="table-list">
       <el-table ref="multipleTable" :data="categoryList" border stripe tooltip-effect="dark" style="width: 100%" @selection-change="handleSelection">
-        <el-table-column type="selection">
-        </el-table-column>
+        <!-- <el-table-column type="selection">
+        </el-table-column> -->
         <el-table-column label="ID" prop="id">
         </el-table-column>
         <el-table-column label="种类名称" prop="title">

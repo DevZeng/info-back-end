@@ -127,7 +127,7 @@ export default {
       eachPage: 10,
       count: 0,
 
-      select: "1",
+      select: "username",
       selectInput: "",
 
       searchForm: {
@@ -145,11 +145,11 @@ export default {
   },
 
   created() {
-    // this.$api.getUserList("", res => {
-    //   this.userList = res.data.data;
-    //   this.count = res.data.count;
-    this.loading = false;
-    // });
+    this.$api.getUserList("", res => {
+      this.userList = res.data.data;
+      this.count = res.data.count;
+      this.loading = false;
+    });
   },
 
   methods: {
