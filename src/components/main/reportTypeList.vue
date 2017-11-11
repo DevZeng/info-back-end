@@ -44,7 +44,7 @@
       <el-table ref="multipleTable" :data="reportTypeList" border stripe tooltip-effect="dark" style="width: 100%">
         <!-- <el-table-column type="selection">
         </el-table-column> -->
-        <el-table-column label="ID" prop="id">
+        <el-table-column label="ID" prop="commodity_id">
         </el-table-column>
         <el-table-column label="名称" prop="content">
         </el-table-column>

@@ -47,7 +47,7 @@
 }
 
 .audit-pass-list-expand .el-form-item {
-  margin-right: 0!important;
+  margin-right: 0 !important;
   margin-bottom: 0;
   width: 50%;
 }
@@ -141,6 +141,9 @@
         <el-table-column label="ID" prop="id">
         </el-table-column>
         <el-table-column prop="title" label="信息名称" show-overflow-tooltip>
+          <template slot-scope="scope">
+            <span @click="goToInfo(scope.row)">{{scope.row.title}}</span>
+          </template>
         </el-table-column>
         <el-table-column prop="price" label="价格">
           <template slot-scope="scope">
@@ -271,6 +274,10 @@ export default {
   },
 
   methods: {
+    //查看单条信息
+    goToInfo(row) {
+      this.$router.push({ name: "auditsingle", params: { info: row } });
+    },
     //确认审核
     confirmRefuse() {
       this.$api.changePass(

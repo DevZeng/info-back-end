@@ -100,7 +100,7 @@
         </el-table-column>
         <el-table-column label="操作" width="170">
           <template slot-scope="scope">
-            <el-button v-if="scope.row.state = 1" size="small" type="danger" @click="handleStop(scope.$index, scope.row)">停用</el-button>
+            <el-button v-if="scope.row.state == 1" size="small" type="danger" @click="handleStop(scope.$index, scope.row)">停用</el-button>
             <el-button v-else size="small" type="info" @click="handleNormal(scope.$index, scope.row)">取消停用</el-button>
             <!-- <el-button size="small" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button> -->
           </template>
