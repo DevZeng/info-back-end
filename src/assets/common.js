@@ -1,7 +1,9 @@
 export default {
   _data: {
 
-    host: 'http://192.168.3.22:8090/',
+    // host: 'http://192.168.3.22:8090/',
+
+    host: 'http://admin.sennkisystem.cn/',
 
     //会员等级
     memberLevels: [{
