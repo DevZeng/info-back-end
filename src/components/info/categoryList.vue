@@ -43,7 +43,9 @@
       <el-table ref="multipleTable" :data="categoryList" border stripe tooltip-effect="dark" style="width: 100%" @selection-change="handleSelection">
         <!-- <el-table-column type="selection">
         </el-table-column> -->
-        <el-table-column label="ID" prop="id">
+        <el-table-column label="ID" prop="id" sortable>
+        </el-table-column>
+        <el-table-column label="权重" prop="sort" sortable>
         </el-table-column>
         <el-table-column label="种类名称" prop="title">
         </el-table-column>
@@ -183,10 +185,10 @@ export default {
       页数改变
     */
     handleCurrentChange(current) {
-      this.loading = true
+      this.loading = true;
       this.$api.getCategories(current, res => {
         this.categoryList = res.data.data;
-      this.loading = false
+        this.loading = false;
       });
     },
 
