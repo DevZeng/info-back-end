@@ -339,7 +339,7 @@ export default {
     * 县区选择
     */
 
-    selectXian() {
+    selectXian(id) {
       const xian = this.cityForm.xian;
       if (!xian) {
         return false;

@@ -210,7 +210,10 @@ export default {
     //查看单条信息
     goToInfo(row) {
       let temp = Object.assign(row, row.commodity);
-      this.$router.push({ name: "auditsingle", params: { info: temp , state: 3} });
+      this.$router.push({
+        name: "auditsingle",
+        params: { info: temp, state: 3 }
+      });
     },
     /*
     * 第一个搜索
@@ -253,17 +256,16 @@ export default {
     * 查看举报者信息
     */
     checkReportUser(index, row) {
-      this.$message({
-        type: "success",
-        message: "test"
-      });
+      // this.$message({
+      //   type: "success",
+      //   message: "test"
+      // });
     },
 
     /*
     * 回复举报者
     */
     handleReplay(index, row) {
-      console.log(222);
     },
 
     /*
@@ -271,7 +273,7 @@ export default {
     */
     handle(index, row) {
       this.$operation.tableMessageBox("此操作将处理该举报信息", () => {
-        this.$api.changeReport(row.id, res => {
+        this.$api.changeReport(row.id, { state: 1 }, res => {
           this.reportList[index].state = 1;
           this.$message({
             type: "success",
@@ -286,7 +288,7 @@ export default {
     */
     handleDelay(index, row) {
       this.$operation.tableMessageBox("此操作将延期该举报信息", () => {
-        this.$api.changeReport(row.id, res => {
+        this.$api.changeReport(row.id, { state: 2 }, res => {
           this.reportList[index].state = 2;
           this.$message({
             type: "success",

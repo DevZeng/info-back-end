@@ -581,10 +581,11 @@ export default {
   /**
    * 改变举报状态
    * @param {string} id 
+   * @param {object} data {state}
    * @param {function} cb 回调
    */
-  changeReport(id, cb) {
-    axios.get(`${host}report/${id}`)
+  changeReport(id, data, cb) {
+    axios.post(`${host}modify/report/${id}`, data)
       .then(res => {
         if ('SUCCESS' === res.data.return_code) {
           typeof cb === 'function' && cb(res)

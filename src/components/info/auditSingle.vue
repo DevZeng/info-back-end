@@ -178,11 +178,11 @@ export default {
             type: "success",
             message: "已通过!"
           });
+          this.$router.push("/auditList");
         });
       });
     },
 
-    
     /*
     * 拒绝
     */
@@ -204,6 +204,7 @@ export default {
             message: "已拒绝"
           });
           this.rejectDialog = false;
+          this.$router.push("/auditList");
         }
       );
     },
@@ -218,6 +219,7 @@ export default {
             type: "success",
             message: "已处理"
           });
+          this.$router.push("/reportlist");
         });
       });
     },
@@ -232,6 +234,7 @@ export default {
             type: "success",
             message: "已延期"
           });
+          this.$router.push("/reportlist");
         });
       });
     },
