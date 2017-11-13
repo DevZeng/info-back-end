@@ -147,7 +147,8 @@ export default {
       state: 0,
       refuses: [],
       refusePage: 1,
-      refuseFlag: false
+      refuseFlag: false,
+      reason: []
     };
   },
 
@@ -201,10 +202,9 @@ export default {
     /*
     * 处理举报信息
     */
-    handle(index, row) {
+    handle() {
       this.$operation.tableMessageBox("此操作将处理该举报信息", () => {
-        this.$api.changeReport(row.id, res => {
-          this.reportList[index].state = 1;
+        this.$api.changeReport(this.info.id, res => {
           this.$message({
             type: "success",
             message: "已处理"
@@ -216,10 +216,9 @@ export default {
     /*
     * 延期处理
     */
-    handleDelay(index, row) {
+    handleDelay() {
       this.$operation.tableMessageBox("此操作将延期该举报信息", () => {
-        this.$api.changeReport(row.id, res => {
-          this.reportList[index].state = 2;
+        this.$api.changeReport(this.info.id, res => {
           this.$message({
             type: "success",
             message: "已延期"
