@@ -90,11 +90,22 @@
       <div class="single-article">
         <div class="single-state">
           <span class="normal" v-if="state == 0">未处理</span>
-          <span class="danger" v-else>已拒绝</span>
+          <span class="warning" v-else-if="state == 1">已拒绝</span>
+          <div v-else>
+            <h3 class="warning">这是一条举报信息</h3>
+            <p><b>举报原因</b></p>
+            <div>
+              <el-tag v-for="tag in info.reports" :key="tag" style="margin: 0 10px 10px 0;">{{tag}}</el-tag>
+            </div>
+            <p><b>举报原因补充</b></p>
+            <p>{{info.description}}</p>
+          </div>
         </div>
         <div class="single-article-btns">
             <el-button v-if="state == 0" size="small" type="primary" @click="handlePass">通过</el-button>
-            <el-button size="small" type="danger" @click="handleReject">拒绝</el-button>
+            <el-button v-else-if="state != 3" size="small" type="danger" @click="handleReject">拒绝</el-button>
+            <el-button v-if="state == 3" size="small" type="primary" @click="handle">处理</el-button>
+            <el-button v-if="state == 3" size="small" type="warning" @click="handleDelay">延期</el-button>
         </div>
         <h1 class="single-title">{{info.title}}</h1>
         <p class="single-time">发布时间： {{info.created_at}}</p>
@@ -185,6 +196,36 @@ export default {
           this.rejectDialog = false;
         }
       );
+    },
+
+    /*
+    * 处理举报信息
+    */
+    handle(index, row) {
+      this.$operation.tableMessageBox("此操作将处理该举报信息", () => {
+        this.$api.changeReport(row.id, res => {
+          this.reportList[index].state = 1;
+          this.$message({
+            type: "success",
+            message: "已处理"
+          });
+        });
+      });
+    },
+
+    /*
+    * 延期处理
+    */
+    handleDelay(index, row) {
+      this.$operation.tableMessageBox("此操作将延期该举报信息", () => {
+        this.$api.changeReport(row.id, res => {
+          this.reportList[index].state = 2;
+          this.$message({
+            type: "success",
+            message: "已延期"
+          });
+        });
+      });
     },
 
     //获取审核条件

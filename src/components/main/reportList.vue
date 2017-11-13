@@ -78,7 +78,7 @@
       <el-table ref="multipleTable" :data="reportList" border stripe tooltip-effect="dark" style="width: 100%">
         <el-table-column label="信息编号" prop="commodity_id">
         </el-table-column>
-        <el-table-column label="信息名" prop="commodity_name">
+        <el-table-column label="信息名" prop="commodity_name" show-overflow-tooltip>
           <template slot-scope="scope">
             <el-button type="text" @click="goToInfo(scope.row)">{{scope.row.commodity.title}}</el-button>
           </template>
@@ -210,7 +210,7 @@ export default {
     //查看单条信息
     goToInfo(row) {
       let temp = Object.assign(row, row.commodity);
-      this.$router.push({ name: "auditsingle", params: { info: temp } });
+      this.$router.push({ name: "auditsingle", params: { info: temp , state: 3} });
     },
     /*
     * 第一个搜索
