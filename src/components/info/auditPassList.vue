@@ -276,7 +276,7 @@ export default {
   methods: {
     //查看单条信息
     goToInfo(row) {
-      this.$router.push({ name: "auditsingle", params: { info: row } });
+      this.$router.push({ name: "auditsingle", params: { info: row, state: 1 } });
     },
     //确认审核
     confirmRefuse() {
@@ -288,7 +288,7 @@ export default {
             type: "success",
             message: "已拒绝"
           });
-          this.auditList.splice(index, 1);
+          this.auditList.splice(this.currentRefuseIndex, 1);
           this.rejectDialog = false;
         }
       );
