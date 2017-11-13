@@ -10,7 +10,7 @@
 
 .single-content {
   max-width: 900px;
-  margin: 0 auto;
+  margin: 0 auto 20px;
 }
 
 .single-basic {
@@ -103,7 +103,7 @@
         </div>
         <div class="single-article-btns">
             <el-button v-if="state == 0" size="small" type="primary" @click="handlePass">通过</el-button>
-            <el-button v-else-if="state != 3" size="small" type="danger" @click="handleReject">拒绝</el-button>
+            <el-button v-if="state != 3" size="small" type="danger" @click="handleRejectDialog">拒绝</el-button>
             <el-button v-if="state == 3" size="small" type="primary" @click="handle">处理</el-button>
             <el-button v-if="state == 3" size="small" type="warning" @click="handleDelay">延期</el-button>
         </div>
@@ -127,7 +127,7 @@
           </el-option>
         </el-select>
         <el-button style="margin-left: 20px;" type="text" @click="getMoreRefuse">{{refuseFlag?'没有了更多原因':'加载更多原因'}}</el-button>
-        <el-button style="display:block; margin: 30px auto 0;width: 300px;" type="primary" @click="confirmRefuse">确定</el-button>
+        <el-button style="display:block; margin: 30px auto 0;width: 300px;" type="primary" @click="handleReject">确定</el-button>
       </div>
     </el-dialog>
 
@@ -180,6 +180,15 @@ export default {
           });
         });
       });
+    },
+
+    
+    /*
+    * 拒绝
+    */
+    handleRejectDialog() {
+      this.rejectDialog = true;
+      this.reason = [];
     },
 
     /*

@@ -890,12 +890,14 @@ export default {
         params: data
       })
       .then(res => {
+        console.log(res, 'success')
         if ('SUCCESS' === res.data.return_code) {
           typeof cb === 'function' && cb(res)
         } else {
           this.APIError(res)
         }
       }).catch(error => {
+        console.log(res, 'error')
         this.APIError(error.response)
       })
   },

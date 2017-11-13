@@ -284,12 +284,12 @@ export default {
         this.currentRefuseId,
         { pass: 2, reason: this.reason },
         res => {
+          this.rejectDialog = false;
+          this.auditPassList.splice(this.currentRefuseIndex, 1);
           this.$message({
             type: "success",
             message: "已拒绝"
           });
-          this.auditList.splice(this.currentRefuseIndex, 1);
-          this.rejectDialog = false;
         }
       );
     },
