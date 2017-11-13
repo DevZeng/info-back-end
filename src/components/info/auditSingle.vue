@@ -43,10 +43,16 @@
   color: #666;
 }
 
-.single-img {
-  height: 200px;
+.inline-block {
+  display: inline-block;
   margin: 0 20px 20px 0;
   cursor: pointer;
+  text-align: center;
+}
+
+.single-img {
+  height: 200px;
+  margin-top: 10px;
 }
 
 .single-img-pre {
@@ -111,7 +117,10 @@
         <p class="single-time">发布时间： {{info.created_at}}</p>
         <p class="single-content">{{info.detail}}</p>
         <div class="single-picture">
-          <img class="single-img" v-for="(img, index) in info.pictures" :key="img.id" :src="img.url" :alt="title" :title="title" @click="preImg(img)">
+          <div class="inline-block" v-for="(img, index) in info.pictures" :key="img.id" @click="preImg(img)">
+            <span style="font-size: 15px;">{{img.title || '无'}}</span>
+            <img class="single-img" :src="img.url" :alt="img.title" :title="img.title">
+          </div>
         </div>
       </div>
     </div>
