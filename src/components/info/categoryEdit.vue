@@ -13,11 +13,6 @@
   height: auto;
   padding: 10px 15px;
 }
-
-.el-tag + .el-tag {
-  margin-left: 10px;
-  margin-bottom: 10px;
-}
 .button-new-tag {
   margin-left: 10px;
   height: 32px;
@@ -28,7 +23,7 @@
 .input-new-tag {
   width: 90px;
   margin-left: 10px;
-  vertical-align: bottom;
+  vertical-align: middle;
 }
 
 .form-wrap {
@@ -38,6 +33,8 @@
 
 .span {
   display: inline-block;
+  margin-left: 10px;
+  margin-bottom: 10px;
 }
 </style>
 
@@ -54,14 +51,17 @@
         <el-form-item label="种类名称" prop="title">
           <el-input v-model="categoryForm.title" placeholder="输入种类名称"></el-input>
         </el-form-item>
+        <el-form-item label="权重" prop="sort">
+          <el-input v-model.number="categoryForm.sort" placeholder="输入种类权重"></el-input>
+        </el-form-item>
         <!-- <el-form-item label="种类细节" prop="desc">
           <el-input type="textarea" v-model="categoryForm.desc" placeholder="这里输入种类细节" :autosize="{minRows: 10}"></el-input>
         </el-form-item> -->
         <el-form-item>
           <div class="span" :key="tag.title" v-for="(tag, index) in dynamicTags">
-            <el-tag type="success" closable @close="handleClose(tag)" @click.native="showInputInsert">{{tag.title}}</el-tag>
-            <el-input class="input-new-tag" v-if="inputInsertVisible" v-model="inputInsert" ref="saveInsertTagInput" @keyup.enter.native="handleInputInsert(index)" @blur="handleInputInsert(index)">
-          </el-input>
+            <el-tag type="success" closable @close.stop="handleClose(tag)" @click.native="showInputInsert(index)">{{tag.title}}</el-tag>
+            <el-input class="input-new-tag" autofocus v-if="currentIndex == index&&inputInsertVisible" v-model="inputInsert" ref="saveInsertTagInput" @keyup.enter.native="handleInputInsert(index)" @blur="handleInputInsert(index)">
+            </el-input>
           </div>
           <el-input class="input-new-tag" v-if="inputVisible" v-model="inputValue" ref="saveTagInput" @keyup.enter.native="handleInputConfirm" @blur="handleInputConfirm">
           </el-input>
@@ -82,11 +82,14 @@ export default {
     return {
       categoryForm: {
         title: "",
-        desc: []
+        desc: [],
+        sort: "",
+        id: ""
       },
 
       inputInsert: "",
       inputInsertVisible: false,
+      currentIndex: "",
 
       dynamicTags: [],
       rules: {
@@ -139,9 +142,9 @@ export default {
     },
 
     //展示 input 框
-    showInputInsert() {
+    showInputInsert(index) {
       this.inputInsertVisible = true;
-      this.$refs.saveInsertTagInput.$refs.input.focus();
+      this.currentIndex = index;
     },
 
     //处理 input 确定
@@ -159,8 +162,8 @@ export default {
     handleInputInsert(index) {
       let inputValue = this.inputInsert;
       if (inputValue) {
-        this.dynamicTags.splice(index, 0, { title: inputValue });
-        this.categoryForm.desc.splice(index, 0, inputValue);
+        this.dynamicTags.splice(index + 1, 0, { title: inputValue });
+        this.categoryForm.desc.splice(index + 1, 0, inputValue);
       }
       this.inputInsertVisible = false;
       this.inputInsert = "";
@@ -171,6 +174,8 @@ export default {
     const category = this.$route.params.category;
     if (category) {
       this.categoryForm.title = category.title;
+      this.categoryForm.sort = category.sort || "";
+      this.categoryForm.id = category.id;
       this.dynamicTags = category.descript;
       this.categoryForm.desc = category.descript.reduce((arr, it) => {
         return arr.concat(it.title);
