@@ -118,7 +118,7 @@
         <p class="single-content">{{info.detail}}</p>
         <div class="single-picture">
           <div class="inline-block" v-for="(img, index) in info.pictures" :key="img.id" @click="preImg(img)">
-            <span style="font-size: 15px;">{{img.title || '无'}}</span>
+            <p style="font-size: 15px;">{{img.title || '暂无名称'}}</p>
             <img class="single-img" :src="img.url" :alt="img.title" :title="img.title">
           </div>
         </div>
