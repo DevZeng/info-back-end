@@ -89,19 +89,19 @@
 
       <div class="single-article">
         <div class="single-state">
-          <span class="normal" v-if="state == 1">未处理</span>
+          <span class="normal" v-if="state == 0">未处理</span>
           <span class="danger" v-else>已拒绝</span>
         </div>
         <div class="single-article-btns">
-            <el-button v-if="state == 1" size="small" type="primary" @click="handlePass">通过</el-button>
+            <el-button v-if="state == 0" size="small" type="primary" @click="handlePass">通过</el-button>
             <el-button size="small" type="danger" @click="handleReject">拒绝</el-button>
         </div>
         <h1 class="single-title">{{info.title}}</h1>
         <p class="single-time">发布时间： {{info.created_at}}</p>
+        <p class="single-content">{{info.detail}}</p>
         <div class="single-picture">
           <img class="single-img" v-for="(img, index) in info.pictures" :key="img.id" :src="img.url" :alt="title" :title="title" @click="preImg(img)">
         </div>
-        <p class="single-content">{{info.detail}}</p>
       </div>
     </div>
 
