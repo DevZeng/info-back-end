@@ -16,6 +16,7 @@
 
 .el-tag + .el-tag {
   margin-left: 10px;
+  margin-bottom: 10px;
 }
 .button-new-tag {
   margin-left: 10px;
@@ -33,6 +34,10 @@
 .form-wrap {
   width: 900px;
   margin: 0 auto;
+}
+
+.span {
+  display: inline-block;
 }
 </style>
 
@@ -53,7 +58,11 @@
           <el-input type="textarea" v-model="categoryForm.desc" placeholder="这里输入种类细节" :autosize="{minRows: 10}"></el-input>
         </el-form-item> -->
         <el-form-item>
-          <el-tag type="success" :key="tag.title" v-for="tag in dynamicTags" closable @close="handleClose(tag)">{{tag.title}}</el-tag>
+          <div class="span" :key="tag.title" v-for="(tag, index) in dynamicTags">
+            <el-tag type="success" closable @close="handleClose(tag)" @click.native="showInputInsert">{{tag.title}}</el-tag>
+            <el-input class="input-new-tag" v-if="inputInsertVisible" v-model="inputInsert" ref="saveInsertTagInput" @keyup.enter.native="handleInputInsert(index)" @blur="handleInputInsert(index)">
+          </el-input>
+          </div>
           <el-input class="input-new-tag" v-if="inputVisible" v-model="inputValue" ref="saveTagInput" @keyup.enter.native="handleInputConfirm" @blur="handleInputConfirm">
           </el-input>
           <el-button v-else class="button-new-tag" @click="showInput">新标签</el-button>
@@ -75,6 +84,9 @@ export default {
         title: "",
         desc: []
       },
+
+      inputInsert: "",
+      inputInsertVisible: false,
 
       dynamicTags: [],
       rules: {
@@ -126,6 +138,12 @@ export default {
       });
     },
 
+    //展示 input 框
+    showInputInsert() {
+      this.inputInsertVisible = true;
+      this.$refs.saveInsertTagInput.$refs.input.focus();
+    },
+
     //处理 input 确定
     handleInputConfirm() {
       let inputValue = this.inputValue;
@@ -135,6 +153,17 @@ export default {
       }
       this.inputVisible = false;
       this.inputValue = "";
+    },
+
+    //处理 input 插入确定
+    handleInputInsert(index) {
+      let inputValue = this.inputInsert;
+      if (inputValue) {
+        this.dynamicTags.splice(index, 0, { title: inputValue });
+        this.categoryForm.desc.splice(index, 0, inputValue);
+      }
+      this.inputInsertVisible = false;
+      this.inputInsert = "";
     }
   },
 

@@ -85,7 +85,7 @@ export default {
       categoryList: [],
       page: 1,
       eachPage: 10,
-      count: 1000
+      count: 0
     };
   },
 
