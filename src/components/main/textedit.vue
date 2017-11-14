@@ -36,6 +36,9 @@
       <el-form-item label="名称">
         <el-input v-model="textForm.title"></el-input>
       </el-form-item>
+      <el-form-item label="文本内容">
+        <el-input type="textarea" v-model="textForm.content"></el-input>
+      </el-form-item>
     </el-form>
 
     <!-- <div class="quill-editor-example">
@@ -43,9 +46,6 @@
       </quill-editor>
       <div class="html ql-editor" v-html="textForm.content"></div>
     </div> -->
-    <el-form-item label="文本内容">
-      <el-input type="textarea" v-model="textForm.content"></el-input>
-    </el-form-item>
 
     <el-button type="primary" @click="onSubmit()" style="width: 200px;margin: 20px auto 0;display: block;">提交</el-button>
   </section>
