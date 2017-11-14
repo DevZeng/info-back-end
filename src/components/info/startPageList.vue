@@ -47,8 +47,8 @@
             <a :href="scope.row.url" target="_blank">{{scope.row.url}}</a>
           </template>
         </el-table-column>
-        <el-table-column prop="link_url" label="跳转链接" show-overflow-tooltip>
-        </el-table-column>
+        <!-- <el-table-column prop="link_url" label="跳转链接" show-overflow-tooltip>
+        </el-table-column> -->
         <el-table-column prop="state" label="状态" sortable>
           <template slot-scope="scope">
             <span v-if="scope.row.state == 0" class="warning">关闭</span>
