@@ -36,12 +36,6 @@
     </el-breadcrumb>
     <div class="check-in-form">
       <el-form label-position="top" label-width="80px" :model="shareForm" :rules="rules" ref="shareForm">
-        <el-form-item label="分享开关" prop="status">
-          <el-tooltip :content="'当前状态：' + checkSwitchText[shareForm.status]" placement="top">
-            <el-switch v-model="shareForm.status" on-color="#13ce66" off-color="#ff4949" on-value="1" off-value="0" on-text="打开" off-text="关闭" @change="sacnSwitchFnc">
-            </el-switch>
-          </el-tooltip>
-        </el-form-item>
         <el-form-item label="活动时间" prop="region">
           <el-date-picker v-model.number="shareForm.region" type="datetimerange" :picker-options="dateRangeOption" placeholder="选择活动时间" align="left" :disabled="shareForm.status == 0">
           </el-date-picker>
@@ -71,91 +65,89 @@ export default {
   data() {
     return {
       loading: true,
-      checkSwitchText: ['关闭', '打开'],
       shareForm: {
-        status: '1',
-        region: '',
+        region: "",
         point: null,
-        content: ''
+        content: ""
       },
       editorOption: {
-        placeholder: '在这里输入分享模版，下面会同步显示...'
+        placeholder: "在这里输入分享模版，下面会同步显示..."
       },
 
       rules: {
         point: [
-          { required: true, message: '分析积分不能为空' },
-          { type: 'number', message: '分析积分必须为数字' }
+          { required: true, message: "分析积分不能为空" },
+          { type: "number", message: "分析积分必须为数字" }
         ]
       },
 
       dateRangeOption: {
-        shortcuts: [{
-          text: '最近一周',
-          onClick(picker) {
-            const end = new Date();
-            const start = new Date();
-            start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
-            picker.$emit('pick', [start, end]);
+        shortcuts: [
+          {
+            text: "最近一周",
+            onClick(picker) {
+              const end = new Date();
+              const start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
+              picker.$emit("pick", [start, end]);
+            }
+          },
+          {
+            text: "最近一个月",
+            onClick(picker) {
+              const end = new Date();
+              const start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
+              picker.$emit("pick", [start, end]);
+            }
+          },
+          {
+            text: "最近三个月",
+            onClick(picker) {
+              const end = new Date();
+              const start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
+              picker.$emit("pick", [start, end]);
+            }
           }
-        }, {
-          text: '最近一个月',
-          onClick(picker) {
-            const end = new Date();
-            const start = new Date();
-            start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
-            picker.$emit('pick', [start, end]);
-          }
-        }, {
-          text: '最近三个月',
-          onClick(picker) {
-            const end = new Date();
-            const start = new Date();
-            start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
-            picker.$emit('pick', [start, end]);
-          }
-        }]
-      },
-    }
+        ]
+      }
+    };
   },
 
   created() {
     setTimeout(() => {
-      this.loading = false
-    }, 200)
+      this.loading = false;
+    }, 200);
   },
 
   methods: {
-
     /*
     * 开关切换
     */
-    sacnSwitchFnc(value) {
-
-    },
+    sacnSwitchFnc(value) {},
 
     /*
     * 提交
     */
     onSubmit(formName) {
-      this.$refs[formName].validate((valid) => {
+      this.$refs[formName].validate(valid => {
         if (valid) {
           this.$message({
-            type: 'success',
-            message: '提交成功',
+            type: "success",
+            message: "提交成功",
             showClose: true
-          })
+          });
         } else {
           this.$message({
-            type: 'warning',
-            message: '信息填写不正确',
+            type: "warning",
+            message: "信息填写不正确",
             showClose: true
-          })
-          return false
+          });
+          return false;
         }
-      })
-    },
-
-  },
-}
+      });
+    }
+  }
+};
 </script>

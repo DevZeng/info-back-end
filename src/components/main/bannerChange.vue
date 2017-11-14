@@ -108,7 +108,8 @@ export default {
         shi: "",
         xian: "",
         id: "",
-        state: 0
+        state: 0,
+        city_id: 0
       },
 
       host: this.$common.host + "upload",
@@ -116,7 +117,7 @@ export default {
       shengs: [],
       shis: [],
       xians: [],
-      noxian: false,
+      // noxian: false,
 
       //存放当前选择区域
       currentArea: null,
@@ -130,21 +131,36 @@ export default {
   created() {
     const img = this.$route.params.img;
     if (img) {
-      const cityArr = img.parents.split(",");
-      this.bannerForm.sheng = Number(cityArr[0]);
-      this.bannerForm.shi = Number(cityArr[1]);
-      if (img.city_id == cityArr[1]) {
-        this.bannerForm.xian = "";
-        this.noxian = true;
-      } else {
-        this.bannerForm.xian = img.city_id;
+      if (img.city_id != 0) {
+        const cityArr = img.parents.split(",");
+        this.bannerForm.sheng = Number(cityArr[0]);
+        if (cityArr[1]) {
+          this.bannerForm.shi = Number(cityArr[1]);
+          this.$api.getUsDistrict({ pid: cityArr[0] }, res => {
+            this.shis = res.data.data;
+          });
+        }
+        if (cityArr[2]) {
+          this.bannerForm.xian = Number(cityArr[2]);
+          this.$api.getUsDistrict({ pid: cityArr[1] }, res => {
+            this.xians = res.data.data;
+          });
+        }
       }
-      this.$api.getUsDistrict({ pid: cityArr[0] }, res => {
-        this.shis = res.data.data;
-      });
-      this.$api.getUsDistrict({ pid: cityArr[1] }, res => {
-        this.xians = res.data.data;
-      });
+      // this.bannerForm.sheng = Number(cityArr[0]);
+      // this.bannerForm.shi = Number(cityArr[1]);
+      // if (img.city_id == cityArr[1]) {
+      //   this.bannerForm.xian = "";
+      //   this.noxian = true;
+      // } else {
+      //   this.bannerForm.xian = img.city_id;
+      // }
+      // this.$api.getUsDistrict({ pid: cityArr[0] }, res => {
+      //   this.shis = res.data.data;
+      // });
+      // this.$api.getUsDistrict({ pid: cityArr[1] }, res => {
+      //   this.xians = res.data.data;
+      // });
       this.bannerForm.title = img.title;
       this.bannerForm.url = img.url;
       this.bannerForm.link_url = img.link_url;
@@ -184,6 +200,7 @@ export default {
       this.bannerForm.xian = "";
       this.xians = [];
       this.currentArea = this.shengs[this.bannerForm.sheng];
+      this.bannerForm.city_id = id;
       this.$api.getUsDistrict({ pid: id }, res => {
         this.shis = res.data.data;
       });
@@ -199,11 +216,12 @@ export default {
         return false;
       }
       this.currentArea = this.shis[shi];
+      this.bannerForm.city_id = id;
       this.$api.getUsDistrict({ pid: id }, res => {
         this.xians = res.data.data;
-        if (!this.xians.length) {
-          this.noxian = true;
-        }
+        // if (!this.xians.length) {
+        //   this.noxian = true;
+        // }
       });
     },
 
@@ -217,6 +235,7 @@ export default {
         return false;
       }
       this.currentArea = this.xians[xian];
+      this.bannerForm.city_id = id;
     },
 
     /*
@@ -229,23 +248,22 @@ export default {
           showClose: true,
           type: "warning"
         });
-      } else if (!this.bannerForm.xian && !this.noxian) {
-        this.$message({
-          message: "请选择完整的城市信息，选到县区",
-          showClose: true,
-          type: "warning"
-        });
       } else {
-        let postData = {
-          title: this.bannerForm.title,
-          city_id: this.noxian ? this.bannerForm.shi : this.bannerForm.xian,
-          type: this.bannerForm.type,
-          url: this.bannerForm.url,
-          link_url: this.bannerForm.link_url,
-          id: this.bannerForm.id,
-          state: this.bannerForm.state,
-          parents: this.bannerForm.sheng + "," + this.bannerForm.shi
-        };
+        //  else if (!this.bannerForm.xian && !this.noxian) {
+        //   this.$message({
+        //     message: "请选择完整的城市信息，选到县区",
+        //     showClose: true,
+        //     type: "warning"
+        //   });
+        // }
+        let postData = Object.assign({}, this.bannerForm, {
+          parents:
+            this.bannerForm.sheng +
+            "," +
+            this.bannerForm.shi +
+            "," +
+            this.bannerForm.xian
+        });
 
         this.$api.postAdvert(postData, res => {
           this.$message({

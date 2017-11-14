@@ -45,9 +45,9 @@
 
     <div class="table-list">
       <el-table ref="multipleTable" :data="memberLevelList" border stripe tooltip-effect="dark" style="width: 100%">
-        <el-table-column label="ID" prop="id">
+        <el-table-column label="ID" prop="id" sortable>
         </el-table-column>
-        <el-table-column label="等级" prop="level">
+        <el-table-column label="等级" prop="level" sortable>
           <template slot-scope="scope">
             <span>{{levelsText[scope.row.level].name}}</span>
           </template>
