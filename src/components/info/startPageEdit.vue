@@ -65,9 +65,9 @@
         <el-form-item label="启动页面名称" prop="title">
           <el-input v-model="startPageForm.title" placeholder="输入启动页面名称"></el-input>
         </el-form-item>        
-        <el-form-item label="启动页面跳转链接" prop="link_url">
+        <!-- <el-form-item label="启动页面跳转链接" prop="link_url">
           <el-input v-model="startPageForm.link_url" placeholder="输入启动页面跳转链接"></el-input>
-        </el-form-item>
+        </el-form-item> -->
         <el-form-item>
           <el-button type="primary" @click="onSubmit('startPageForm')" style="width: 100%;margin-top: 20px;">确定</el-button>
         </el-form-item>
@@ -85,12 +85,12 @@ export default {
       startPageForm: {
         url: "",
         title: "",
-        link_url: ""
+        // link_url: ""
       },
 
       rules: {
         title: [{ required: true, message: "启动页面名称不能为空" }],
-        link_url: [{ required: true, message: "跳转链接不能为空" }]
+        // link_url: [{ required: true, message: "跳转链接不能为空" }]
       }
     };
   },
@@ -119,7 +119,6 @@ export default {
       上传成功
     */
     handleSuccess(res, file) {
-      console.log(res);
       this.startPageForm.url = res.data.base_url;
     },
 

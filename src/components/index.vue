@@ -115,7 +115,7 @@
                 <el-menu-item index="/bannerlist">广告位</el-menu-item>
                 <el-menu-item index="/textlist">文本表</el-menu-item>
                 <el-menu-item index="/guidelist">用户指南</el-menu-item>
-                <el-menu-item index="/citylist">城市列表</el-menu-item>
+                <!-- <el-menu-item index="/citylist">城市列表</el-menu-item> -->
               </el-menu-item-group>
               <el-submenu index="1-1">
                 <template slot="title">支付</template>

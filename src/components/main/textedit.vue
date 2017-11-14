@@ -38,12 +38,14 @@
       </el-form-item>
     </el-form>
 
-    <div class="quill-editor-example">
-      <!-- quill-editor -->
+    <!-- <div class="quill-editor-example">
       <quill-editor ref="myTextEditor" v-model="textForm.content" :options="editorOption" @ready="onEditorReady($event)">
       </quill-editor>
       <div class="html ql-editor" v-html="textForm.content"></div>
-    </div>
+    </div> -->
+    <el-form-item label="文本内容">
+      <el-input type="textarea" v-model="textForm.content"></el-input>
+    </el-form-item>
 
     <el-button type="primary" @click="onSubmit()" style="width: 200px;margin: 20px auto 0;display: block;">提交</el-button>
   </section>
@@ -57,11 +59,11 @@ export default {
         title: "",
         content: "",
         type: 1
-      },
-      name: "base-example",
-      editorOption: {
-        placeholder: "在这里输入，下面会同步显示..."
       }
+
+      // editorOption: {
+      //   placeholder: "在这里输入，下面会同步显示..."
+      // }
     };
   },
 
@@ -72,9 +74,9 @@ export default {
     this.textForm.content = data.content;
   },
   methods: {
-    onEditorReady(editor) {
-      console.log("editor ready!", editor);
-    },
+    // onEditorReady(editor) {
+    //   console.log("editor ready!", editor);
+    // },
 
     /*
       提交
@@ -87,7 +89,7 @@ export default {
             showClose: true,
             type: "success"
           });
-          this.$router.go(-1);
+          this.$router.push("/textlist");
         });
       } else {
         this.$message({
@@ -97,12 +99,12 @@ export default {
         });
       }
     }
-  },
-
-  computed: {
-    editor() {
-      return this.$refs.myTextEditor.quill;
-    }
   }
+
+  // computed: {
+  //   editor() {
+  //     return this.$refs.myTextEditor.quill;
+  //   }
+  // }
 };
 </script>

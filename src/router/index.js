@@ -9,8 +9,8 @@ import BannerChange from '@/components/main/bannerChange'
 // import BannerEdit from '@/components/main/bannerEdit'
 import textList from '@/components/main/textList'
 import textEdit from '@/components/main/textEdit'
-import cityList from '@/components/main/cityList'
-import cityEdit from '@/components/main/cityEdit'
+// import cityList from '@/components/main/cityList'
+// import cityEdit from '@/components/main/cityEdit'
 import guideList from '@/components/main/guideList'
 import guideEdit from '@/components/main/guideEdit'
 import payList from '@/components/main/payList'
@@ -90,15 +90,17 @@ export default new Router({
             }
             next()
           }
-        }, {
-          path: 'citylist',
-          name: 'citylist',
-          component: cityList
-        }, {
-          path: 'cityedit',
-          name: 'cityedit',
-          component: cityEdit
-        }, {
+        }, 
+        // {
+        //   path: 'citylist',
+        //   name: 'citylist',
+        //   component: cityList
+        // }, {
+        //   path: 'cityedit',
+        //   name: 'cityedit',
+        //   component: cityEdit
+        // }, 
+        {
           path: 'guidelist',
           name: 'guidelist',
           component: guideList
