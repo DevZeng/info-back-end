@@ -59,8 +59,12 @@
         <i v-else class="el-icon-plus logo-uploader-icon"></i>
       </el-upload>
       <el-form label-position="top" label-width="80px" :model="logoForm">
-        <el-form-item label="文字描述" prop="content">
-          <el-input type="textarea" v-model="logoForm.content" placeholder="请输入文字描述"></el-input>
+        <el-form-item label="打印页文本描述" prop="content">
+          <el-input type="textarea" v-model="logoForm.content" placeholder="请输入打印页文本描述"></el-input>
+        </el-form-item>
+        <el-form-item>
+        <el-form-item label="填文本" prop="description">
+          <el-input type="textarea" v-model="logoForm.description" placeholder="请输入文本描述"></el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="onSubmit()" style="width: 100%;margin-top: 20px;">确定</el-button>
@@ -76,7 +80,8 @@ export default {
     return {
       logoForm: {
         content: "",
-        logo: ""
+        logo: "",
+        description: ""
       },
 
       host: this.$common.host + "upload"
@@ -116,7 +121,7 @@ export default {
       提交
     */
     onSubmit() {
-      const id = this.logoForm.id || '';
+      const id = this.logoForm.id || "";
       // let editData = {};
       // if (id) {
       //   editData.id = id;
