@@ -154,23 +154,7 @@ export default {
       waittingData: [],
 
       //数据
-      bannerList: [
-        {
-          id: 1,
-          name: "首页",
-          img:
-            "http://h.hiphotos.baidu.com/image/pic/item/58ee3d6d55fbb2fbecdc13d2464a20a44723dc7f.jpg",
-          link: "https://www.baidu.com",
-          status: 0
-        },
-        {
-          id: 2,
-          name: "签到页",
-          img: "",
-          link: "",
-          status: 1
-        }
-      ],
+      bannerList: [],
       page: 1,
       eachPage: 10,
       count: 0
@@ -196,9 +180,9 @@ export default {
     /*
       多选
     */
-    handleSelection(selection) {
-      this.waittingData = selection;
-    },
+    // handleSelection(selection) {
+    //   this.waittingData = selection;
+    // },
 
     /*
       广告打开
@@ -207,11 +191,13 @@ export default {
       let postData = row;
       postData.state = 1;
       this.$api.postAdvert(postData, res => {
-        this.$message({
-          type: "success",
-          message: "开启成功"
+        this.$api.getAdverts("", res => {
+          this.bannerList = res.data.data;
+          this.$message({
+            type: "success",
+            message: "开启成功"
+          });
         });
-        this.bannerList[index].state = 1;
       });
     },
 
@@ -222,11 +208,13 @@ export default {
       let postData = row;
       postData.state = 0;
       this.$api.postAdvert(postData, res => {
-        this.$message({
-          type: "success",
-          message: "关闭成功"
+        this.$api.getAdverts("", res => {
+          this.bannerList = res.data.data;
+          this.$message({
+            type: "success",
+            message: "关闭成功"
+          });
         });
-        this.bannerList[index].state = 0;
       });
     },
 
@@ -234,7 +222,6 @@ export default {
     * 图片预览
     */
     preImgFnc(img) {
-      console.log(img);
       this.isPre = true;
       this.preImg = img;
     },
