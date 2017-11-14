@@ -77,9 +77,9 @@
         </el-table-column>
         <el-table-column prop="name" label="姓名">
         </el-table-column>
-        <el-table-column label="会员等级" prop="member.level">
+        <el-table-column label="会员等级">
           <template slot-scope="scope">
-            <span>{{levels[scope.row.member.level]}}</span>
+            <span>{{scope.row.member?levels[scope.row.member.level].name: ''}}</span>
           </template>
         </el-table-column>
         <el-table-column prop="score" label="当前积分">
