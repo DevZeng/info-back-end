@@ -58,7 +58,7 @@
           <template slot-scope="scope">{{scope.row.price + ' 元'}}</template>
         </el-table-column>
         <el-table-column prop="time" label="有效期">
-          <template slot-scope="scope">{{scope.row.time + ' 天'}}</template>
+          <template slot-scope="scope">{{(scope.row.time / 3600) + ' 时'}}</template>
         </el-table-column>
         <el-table-column prop="send_daily" label="每天发布次数">
           <template slot-scope="scope">{{scope.row.send_daily + ' 条'}}</template>

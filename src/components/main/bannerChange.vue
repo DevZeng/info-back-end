@@ -54,7 +54,7 @@
       <el-breadcrumb-item>广告修改</el-breadcrumb-item>
     </el-breadcrumb>
     <div class="banner-wrap">
-      <el-upload class="banner-uploader" :action="host" :multiple="false" accept="image/jpg,image/png,image/jpeg" :show-file-list="false" :on-success="handleSuccess" :before-upload="beforeUpload">
+      <el-upload class="banner-uploader" name="image" :action="host" :multiple="false" accept="image/jpg,image/png,image/jpeg" :show-file-list="false" :on-success="handleSuccess" :before-upload="beforeUpload">
         <img v-if="bannerForm.url" :src="bannerForm.url" class="banner">
         <i v-else class="el-icon-plus banner-uploader-icon"></i>
       </el-upload>
@@ -111,7 +111,7 @@ export default {
         state: 0
       },
 
-      host: this.$common.host + 'upload',
+      host: this.$common.host + "upload",
 
       shengs: [],
       shis: [],
@@ -163,7 +163,7 @@ export default {
     beforeUpload(file) {
       const isLt2M = file.size / 1024 / 1024 < 2;
       if (!isLt2M) {
-        this.$message.error("上传 logo 图片大小不能超过 2MB!");
+        this.$message.error("上传图片大小不能超过 2MB!");
       }
       return isLt2M;
     },
@@ -172,7 +172,7 @@ export default {
       上传成功
     */
     handleSuccess(res, file) {
-      this.bannerForm.url = URL.createObjectURL(file.raw);
+      this.bannerForm.url = res.data.base_url;
     },
 
     /*

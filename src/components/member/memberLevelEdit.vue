@@ -39,8 +39,8 @@
           </el-input>
         </el-form-item>
         <el-form-item label="有效期" prop="time">
-          <el-input v-model.number="levelForm.time" placeholder="请输入会员有效期（天）">
-            <template slot="append">天</template>
+          <el-input v-model.number="levelForm.time" placeholder="请输入会员有效期（时）">
+            <template slot="append">时</template>
           </el-input>
         </el-form-item>
         <el-form-item label="每天发布信息次数" prop="send_daily">
