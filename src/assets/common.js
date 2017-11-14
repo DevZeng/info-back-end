@@ -7,6 +7,9 @@ export default {
 
     //会员等级
     memberLevels: [{
+        id: 0,
+        name: '注册会员',
+      }, {
         id: 1,
         name: '一星会员',
       },

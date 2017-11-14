@@ -52,7 +52,7 @@
             <span>{{levelsText[scope.row.level * 1 - 1].name}}</span>
           </template>
         </el-table-column>
-        <el-table-column label="名称" prop="title">
+        <el-table-column label="名称" prop="description">
         </el-table-column>
         <el-table-column prop="price" label="价格">
           <template slot-scope="scope">{{scope.row.price + ' 元'}}</template>
@@ -110,7 +110,6 @@ export default {
     * 会员开关
     */
     memberLevelSwitchFnc(value) {
-      console.log(value);
       this.$message({
         type: "info",
         message: `当前状态是：${this.levelSwitchText[value]}`,

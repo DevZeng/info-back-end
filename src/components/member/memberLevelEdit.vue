@@ -29,8 +29,8 @@
             <el-option v-for="item in levels" :key="item.id" :label="item.name" :value="item.id"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="会员名称" prop="title">
-          <el-input v-model="levelForm.title" placeholder="请输入会员显示名称">
+        <el-form-item label="会员名称" prop="description">
+          <el-input v-model="levelForm.description" placeholder="请输入会员显示名称">
           </el-input>
         </el-form-item>
         <el-form-item label="会员价格" prop="price">
@@ -71,11 +71,12 @@ export default {
         price: "",
         time: "",
         send_daily: "",
-        send_max: ""
+        send_max: "",
+        description: ""
       },
       rules: {
         level: [{ required: true, message: "请选择会员等级" }],
-        title: [{ required: true, message: "请填写会员名称" }],
+        description: [{ required: true, message: "请填写会员名称" }],
         price: [
           { required: true, message: "请填写会员价格" },
           { type: "number", message: "价格必须为数值" }
@@ -97,7 +98,7 @@ export default {
   },
 
   created() {
-    const params = this.$route.params.level
+    const params = this.$route.params.level;
     if (params) {
       this.levelForm = params;
     }
