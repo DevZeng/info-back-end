@@ -101,6 +101,7 @@ export default {
     const params = this.$route.params.level;
     if (params) {
       this.levelForm = params;
+      this.levelForm.time = params.time / 3600;
     }
   },
   methods: {
