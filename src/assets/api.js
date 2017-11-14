@@ -585,7 +585,9 @@ export default {
    * @param {function} cb 回调
    */
   changeReport(id, data, cb) {
-    axios.post(`${host}modify/report/${id}`, data)
+    axios.get(`${host}modify/report/${id}`, {
+        params: data
+      })
       .then(res => {
         if ('SUCCESS' === res.data.return_code) {
           typeof cb === 'function' && cb(res)
@@ -828,7 +830,7 @@ export default {
    * @param {function} cb 
    */
   deleteRefuse(id, cb) {
-    axios.get(`${host}del/refuse/${id}`)
+    axios.get(`${host}del/report/${id}`)
       .then(res => {
         if ('SUCCESS' === res.data.return_code) {
           typeof cb === 'function' && cb(res)

@@ -63,8 +63,8 @@
           <el-input type="textarea" v-model="logoForm.content" placeholder="请输入打印页文本描述"></el-input>
         </el-form-item>
         <el-form-item>
-        <el-form-item label="填文本" prop="description">
-          <el-input type="textarea" v-model="logoForm.description" placeholder="请输入文本描述"></el-input>
+        <el-form-item label="填文本" prop="name">
+          <el-input type="textarea" v-model="logoForm.name" placeholder="请输入LOGO文本"></el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="onSubmit()" style="width: 100%;margin-top: 20px;">确定</el-button>
@@ -81,7 +81,7 @@ export default {
       logoForm: {
         content: "",
         logo: "",
-        description: ""
+        name: ""
       },
 
       host: this.$common.host + "upload"
@@ -112,9 +112,7 @@ export default {
       上传成功
     */
     handleSuccess(res, file) {
-      console.log(res);
       this.logoForm.logo = res.data.base_url;
-      console.log(this.logoForm);
     },
 
     /*
@@ -122,10 +120,6 @@ export default {
     */
     onSubmit() {
       const id = this.logoForm.id || "";
-      // let editData = {};
-      // if (id) {
-      //   editData.id = id;
-      // }
       this.$api.postQRCode(id, this.logoForm, res => {
         this.$message({
           message: "保存成功！",
