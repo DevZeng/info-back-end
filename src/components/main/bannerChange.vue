@@ -134,17 +134,17 @@ export default {
       if (img.city_id != 0) {
         const cityArr = img.parents.split(",");
         this.bannerForm.sheng = Number(cityArr[0]);
+        this.$api.getUsDistrict({ pid: cityArr[0] }, res => {
+          this.shis = res.data.data;
+        });
         if (cityArr[1]) {
           this.bannerForm.shi = Number(cityArr[1]);
-          this.$api.getUsDistrict({ pid: cityArr[0] }, res => {
+          this.$api.getUsDistrict({ pid: cityArr[1] }, res => {
             this.shis = res.data.data;
           });
         }
         if (cityArr[2]) {
           this.bannerForm.xian = Number(cityArr[2]);
-          this.$api.getUsDistrict({ pid: cityArr[1] }, res => {
-            this.xians = res.data.data;
-          });
         }
       }
       // this.bannerForm.sheng = Number(cityArr[0]);

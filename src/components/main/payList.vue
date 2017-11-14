@@ -101,6 +101,8 @@
             <span>{{scope.row.price}} 元</span>
           </template>
         </el-table-column>
+        <el-table-column prop="updated_at" label="支付时间">
+        </el-table-column>
       </el-table>
     </div>
 
@@ -209,7 +211,8 @@ export default {
 
     //页码改变
     handleCurrentChange(page) {
-      this.$api.getPayOrders(this.searchForm, res => {
+      const getData = Object.assign({}, this.searchForm, {page})
+      this.$api.getPayOrders(getData, res => {
         this.payList = res.data.data;
       });
     }
