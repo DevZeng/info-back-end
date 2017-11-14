@@ -269,7 +269,10 @@ export default {
   methods: {
     //查看单条信息
     goToInfo(row) {
-      this.$router.push({ name: "auditsingle", params: { info: row, state: 0 } });
+      this.$router.push({
+        name: "auditsingle",
+        params: { info: row, state: 0 }
+      });
     },
     //确认审核
     confirmRefuse() {
@@ -455,8 +458,10 @@ export default {
         getData[this.select] = this.selectInput;
       } else {
         getData.city_id = this.searchForm.city_id;
-        getData.start = new Date(this.dateRange[0]).toLocaleDateString();
-        getData.end = new Date(this.dateRange[1]).toLocaleDateString();
+        if (this.dateRange) {
+          getData.start = new Date(this.dateRange[0]).toLocaleDateString();
+          getData.end = new Date(this.dateRange[1]).toLocaleDateString();
+        }
       }
       this.$api.getPassList(getData, res => {
         this.auditList = res.data.data;

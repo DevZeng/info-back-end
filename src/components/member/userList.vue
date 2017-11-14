@@ -77,7 +77,7 @@
         </el-table-column>
         <el-table-column prop="name" label="姓名">
         </el-table-column>
-        <el-table-column label="会员等级">
+        <el-table-column label="会员等级" prop="member">
           <template slot-scope="scope">
             <span>{{scope.row.member?levels[scope.row.member.level].name: ''}}</span>
           </template>

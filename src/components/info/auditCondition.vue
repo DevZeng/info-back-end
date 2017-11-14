@@ -159,10 +159,6 @@ export default {
       });
     },
 
-    /*
-      每页显示数量改变
-    */
-    handleSizeChange() {}
   }
 };
 </script>

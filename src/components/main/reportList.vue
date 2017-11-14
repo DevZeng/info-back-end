@@ -209,7 +209,7 @@ export default {
   methods: {
     //查看单条信息
     goToInfo(row) {
-      let temp = Object.assign(row, row.commodity);
+      let temp = Object.assign({}, row.commodity, row);
       this.$router.push({
         name: "auditsingle",
         params: { info: temp, state: 3 }
@@ -265,8 +265,7 @@ export default {
     /*
     * 回复举报者
     */
-    handleReplay(index, row) {
-    },
+    handleReplay(index, row) {},
 
     /*
     * 处理举报信息

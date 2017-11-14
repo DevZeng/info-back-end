@@ -91,9 +91,9 @@
             <span class="info" v-else>支付宝</span>
           </template>
         </el-table-column>
-        <!-- <el-table-column label="等级" prop="level" sortable>
-          <template slot-scope="scope">{{levels[scope.row.level].name}}</template>
-        </el-table-column> -->
+        <el-table-column label="会员等级" prop="member" sortable>
+          <template slot-scope="scope">{{scope.row.member?levels[scope.row.member.level].name:''}}</template>
+        </el-table-column>
         <el-table-column prop="title" label="使用方式" show-overflow-tooltip>
         </el-table-column>
         <el-table-column prop="price" label="金额（元）" sortable>
@@ -117,18 +117,6 @@
 <script>
 export default {
   data() {
-    // const generateCities = _ => {
-    //   const data = [];
-    // const cities = ["上海", "北京", "广州", "深圳", "南京", "西安", "成都"];
-    //   cities.forEach((city, index) => {
-    //     data.push({
-    //       label: city,
-    //       key: index,
-    //       cities: cities[index]
-    //     });
-    //   });
-    //   return data;
-    // };
     return {
       loading: true,
 
@@ -147,13 +135,7 @@ export default {
       //等级
       levels: this.$common.memberLevels,
 
-      // city: "",
-
-      // cities: generateCities(),
       city: [],
-      // filterMethod(query, item) {
-      //   return item.cities.indexOf(query) > -1;
-      // },
 
       dateOptions: this.$common.dateOptions,
 
