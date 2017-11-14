@@ -73,14 +73,20 @@
       <el-table ref="multipleTable" :data="userList" border stripe tooltip-effect="dark" style="width: 100%">
         <el-table-column label="ID" prop="id">
         </el-table-column>
-        <el-table-column label="名称" prop="name">
-        </el-table-column>
         <el-table-column prop="username" label="昵称">
         </el-table-column>
         <el-table-column prop="name" label="姓名">
         </el-table-column>
+        <el-table-column label="会员等级" prop="member.level">
+          <template slot-scope="scope">
+            <span>{{levels[scope.row.member.level]}}</span>
+          </template>
+        </el-table-column>
         <el-table-column prop="score" label="当前积分">
           <template slot-scope="scope">{{scope.row.score + ' 分'}}</template>
+        </el-table-column>
+        <el-table-column prop="commodity_count" label="发布次数">
+          <template slot-scope="scope">{{scope.row.commodity_count + ' 次'}}</template>
         </el-table-column>
         <!-- <el-table-column prop="memberLevel" label="会员等级">
           <template slot-scope="scope">{{levels[scope.row.memberLevel].name}}</template>
@@ -98,7 +104,7 @@
             <span class="warning" v-else>已停用</span>
           </template>
         </el-table-column>
-        <el-table-column label="操作" width="170">
+        <el-table-column label="操作" width="100">
           <template slot-scope="scope">
             <el-button v-if="scope.row.state == 1" size="small" type="danger" @click="handleStop(scope.$index, scope.row)">停用</el-button>
             <el-button v-else size="small" type="info" @click="handleNormal(scope.$index, scope.row)">取消停用</el-button>

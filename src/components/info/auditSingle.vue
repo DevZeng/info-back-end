@@ -110,8 +110,8 @@
         <div class="single-article-btns">
             <el-button v-if="state == 0" size="small" type="primary" @click="handlePass">通过</el-button>
             <el-button v-if="state != 3" size="small" type="danger" @click="handleRejectDialog">拒绝</el-button>
-            <el-button v-if="state == 3" size="small" type="primary" @click="handle">处理</el-button>
-            <el-button v-if="state == 3" size="small" type="warning" @click="handleDelay">延期</el-button>
+            <el-button v-if="state == 3 && info.state != 1" size="small" type="primary" @click="handle">处理</el-button>
+            <el-button v-if="state == 3 && info.state != 1" size="small" type="warning" @click="handleDelay">延期</el-button>
         </div>
         <h1 class="single-title">{{info.title}}</h1>
         <p class="single-time">发布时间： {{info.created_at}}</p>
