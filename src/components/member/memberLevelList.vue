@@ -49,7 +49,7 @@
         </el-table-column>
         <el-table-column label="等级" prop="level">
           <template slot-scope="scope">
-            <span>{{levelsText[scope.row.level * 1 - 1].name}}</span>
+            <span>{{levelsText[scope.row.level].name}}</span>
           </template>
         </el-table-column>
         <el-table-column label="名称" prop="description">
