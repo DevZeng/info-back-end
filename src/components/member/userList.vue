@@ -71,13 +71,13 @@
 
     <div class="table-list">
       <el-table ref="multipleTable" :data="userList" border stripe tooltip-effect="dark" style="width: 100%">
-        <el-table-column label="ID" prop="id">
+        <el-table-column label="ID" prop="id" sortable>
         </el-table-column>
         <el-table-column prop="username" label="昵称">
         </el-table-column>
         <el-table-column prop="name" label="姓名">
         </el-table-column>
-        <el-table-column label="会员等级" prop="member">
+        <el-table-column label="会员等级" prop="member.level" sortable>
           <template slot-scope="scope">
             <span>{{scope.row.member?levels[scope.row.member.level].name: ''}}</span>
           </template>

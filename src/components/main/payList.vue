@@ -91,7 +91,7 @@
             <span class="info" v-else>支付宝</span>
           </template>
         </el-table-column>
-        <el-table-column label="会员等级" prop="member" sortable>
+        <el-table-column label="会员等级" prop="member.level" sortable>
           <template slot-scope="scope">{{scope.row.member?levels[scope.row.member.level].name:''}}</template>
         </el-table-column>
         <el-table-column prop="title" label="使用方式" show-overflow-tooltip>
