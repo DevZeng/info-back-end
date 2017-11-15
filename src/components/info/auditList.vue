@@ -355,7 +355,7 @@ export default {
       const getData = {
         [this.select]: this.selectInput
       };
-      this.$api.getPassList(getData, res => {
+      this.$api.getUnPassList(getData, res => {
         this.auditList = res.data.data;
         this.count = res.data.count;
       });
@@ -371,7 +371,7 @@ export default {
         getData.end = new Date(this.dateRange[1]).toLocaleDateString();
       }
       getData.city_id = this.searchForm.city_id;
-      this.$api.getPassList(getData, res => {
+      this.$api.getUnPassList(getData, res => {
         this.auditList = res.data.data;
         this.count = res.data.count;
       });
@@ -396,38 +396,6 @@ export default {
     * 拒绝
     */
     handleReject(index, row) {
-      // this.$prompt("请输入不通过原因", "提示", {
-      //   confirmButtonText: "确定",
-      //   cancelButtonText: "取消",
-      //   beforeClose: (action, instance, done) => {
-      //     if (action === "confirm") {
-      //       if (!instance.inputValue) {
-      //         this.$message({
-      //           type: "warning",
-      //           message: "回复不能为空",
-      //           showClose: true
-      //         });
-      //         return false;
-      //       }
-      //       done();
-      //     } else {
-      //       done();
-      //     }
-      //   }
-      // })
-      // .then(() => {
-      //   this.auditList.splice(index, 1);
-      //   this.$message({
-      //     type: "success",
-      //     message: "已拒绝"
-      //   });
-      // })
-      // .catch(() => {
-      //   this.$message({
-      //     type: "info",
-      //     message: "已取消"
-      //   });
-      // });
       this.rejectDialog = true;
       this.currentRefuseId = row.id;
       this.currentRefuseIndex = index;
@@ -463,7 +431,7 @@ export default {
           getData.end = new Date(this.dateRange[1]).toLocaleDateString();
         }
       }
-      this.$api.getPassList(getData, res => {
+      this.$api.getUnPassList(getData, res => {
         this.auditList = res.data.data;
       });
     }
