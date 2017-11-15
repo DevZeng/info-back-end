@@ -223,7 +223,7 @@ export default {
     */
     handle() {
       this.$operation.tableMessageBox("此操作将处理该举报信息", () => {
-        this.$api.changeReport(this.info.id, res => {
+        this.$api.changeReport(this.info.id, { state: 1 }, res => {
           this.$message({
             type: "success",
             message: "已处理"
@@ -238,7 +238,7 @@ export default {
     */
     handleDelay() {
       this.$operation.tableMessageBox("此操作将延期该举报信息", () => {
-        this.$api.changeReport(this.info.id, res => {
+        this.$api.changeReport(this.info.id, { state: 2 }, res => {
           this.$message({
             type: "success",
             message: "已延期"

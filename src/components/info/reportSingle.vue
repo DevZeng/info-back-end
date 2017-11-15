@@ -172,38 +172,7 @@ export default {
 
       currentReport: this.$route.params.report,
       //数据
-      reportList: [
-        {
-          textID: 1,
-          name: '关于',
-          times: 21,
-          read: 112,
-          create_time: '2017-10-02',
-          replay: 0,
-          report_name: '张先生',
-          status: 0,
-        },
-        {
-          textID: 2,
-          name: '信息二',
-          times: 2,
-          read: 1111,
-          create_time: '2017-10-06',
-          replay: 0,
-          report_name: '关羽',
-          status: 1,
-        },
-        {
-          textID: 3,
-          name: '信息三关于',
-          times: 11,
-          read: 21,
-          create_time: '2017-10-05',
-          replay: 1,
-          report_name: '刘备',
-          status: 2,
-        },
-      ]
+      reportList: []
     }
   },
 
