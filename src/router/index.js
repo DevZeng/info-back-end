@@ -29,6 +29,9 @@ import userList from '@/components/member/userList'
 import memberCheckIn from '@/components/member/memberCheckIn'
 import memberScan from '@/components/member/memberScan'
 import memberShare from '@/components/member/memberShare'
+import memberCheckInList from '@/components/member/memberCheckInList'
+import memberScanList from '@/components/member/memberScanList'
+import memberShareList from '@/components/member/memberShareList'
 import categoryList from '@/components/info/categoryList'
 import categoryEdit from '@/components/info/categoryEdit'
 import auditList from '@/components/info/auditList'
@@ -162,17 +165,29 @@ export default new Router({
           name: 'userlist',
           component: userList
         }, {
-          path: 'membercheckin',
+          path: 'membercheckin/edit',
           name: 'membercheckin',
           component: memberCheckIn
         }, {
-          path: 'memberscan',
+          path: 'memberscan/edit',
           name: 'memberscan',
           component: memberScan
         }, {
-          path: 'membershare',
+          path: 'membershare/edit',
           name: 'membershare',
           component: memberShare
+        }, {
+          path: 'membercheckin',
+          name: 'membercheckinlist',
+          component: memberCheckInList
+        }, {
+          path: 'memberscan',
+          name: 'memberscanlist',
+          component: memberScanList
+        }, {
+          path: 'membershare',
+          name: 'membersharelist',
+          component: memberShareList
         }, {
           path: 'categorylist',
           name: 'categorylist',
