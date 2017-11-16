@@ -104,11 +104,11 @@
             <span class="warning" v-else>已停用</span>
           </template>
         </el-table-column>
-        <el-table-column label="操作" width="100">
+        <el-table-column label="操作" width="200">
           <template slot-scope="scope">
             <el-button v-if="scope.row.state == 1" size="small" type="danger" @click="handleStop(scope.$index, scope.row)">停用</el-button>
             <el-button v-else size="small" type="info" @click="handleNormal(scope.$index, scope.row)">取消停用</el-button>
-            <!-- <el-button size="small" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button> -->
+            <el-button size="small" type="danger" @click="handleChange(scope.$index, scope.row)">更改等级</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -118,6 +118,15 @@
       <el-pagination @current-change="handleCurrentChange" :current-page.sync="page" :page-size="eachPage" layout="total, prev, pager, next" :total="count">
       </el-pagination>
     </div>
+
+    <el-dialog title="会员等级提升" center :visible.sync="levelUpDialog">
+      <el-select v-model="levelUp.level" filterable placeholder="请选择会员等级" style="text-align: left;">
+        <el-option v-for="item in levels" :key="item.id" :label="item.name" :value="item.id">
+        </el-option>
+      </el-select>
+
+      <el-button type="primary" @click="changeLevel">确定</el-button>
+    </el-dialog>
   </section>
 </template>
 
@@ -138,9 +147,16 @@ export default {
 
       searchForm: {
         level: ""
-        // published: "",
-        // dateRange: ""
       },
+      levelUpDialog: false,
+
+      levelUp: {
+        level: "",
+        user_id: ""
+      },
+      currentUserIndex: 0,
+      currentUser: {},
+
       dateRange: "",
 
       dateOptions: this.$common.dateOptions,
@@ -215,17 +231,39 @@ export default {
     },
 
     /*
-    * 删除
+    * 更改等级
     */
-    // handleDelete(index, row) {
-    //   this.$operation.tableMessageBox("此操作将删除该用户", () => {
-    //     this.userList.splice(index, 1);
-    //     this.$message({
-    //       type: "success",
-    //       message: "删除成功!"
-    //     });
-    //   });
-    // },
+    handleChange(index, row) {
+      // this.$operation.tableMessageBox("此操作将删除该用户", () => {
+      //   this.userList.splice(index, 1);
+      //   this.$message({
+      //     type: "success",
+      //     message: "删除成功!"
+      //   });
+      // });
+      this.handleChange = true;
+      this.currentUser = row;
+      this.currentUserIndex = index;
+    },
+
+    changeLevel() {
+      this.levelUp.user_id = this.currentUser.id;
+      if (this.levelUp.level) {
+        this.$api.postLevelUp(this.levelUp, res => {
+          this.handleChange = false;
+          this.userList[this.currentUserIndex].level = this.levelUp.level;
+          this.$message({
+            type: "success",
+            message: "更改成功"
+          });
+        });
+      } else {
+        this.$message({
+          type: "warning",
+          message: "请选择会员等级"
+        });
+      }
+    },
 
     /*
     * 页数

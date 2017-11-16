@@ -749,6 +749,24 @@ export default {
   },
 
   /**
+   * 更改会员等级
+   * @param {object} data {user_id, level}
+   * @param {function} cb 回调
+   */
+  postLevelUp(data, cb) {
+    axios.post(`${host}user/level`, data)
+      .then(res => {
+        if ('SUCCESS' === res.data.return_code) {
+          typeof cb === 'function' && cb(res)
+        } else {
+          this.APIError(res)
+        }
+      }).catch(error => {
+        this.APIError(error.response)
+      })
+  },
+
+  /**
    * 系统设置获取
    * @param {function} cb 回调
    */
