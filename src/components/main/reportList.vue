@@ -140,17 +140,18 @@ export default {
         state: ""
       },
 
+      //这里是手动加一，以防误判
       reportTypes: [
         {
-          id: 0,
+          id: 1,
           name: "未处理"
         },
         {
-          id: 1,
+          id: 2,
           name: "已处理"
         },
         {
-          id: 2,
+          id: 3,
           name: "已延期"
         }
       ],
