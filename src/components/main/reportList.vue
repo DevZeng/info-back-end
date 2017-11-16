@@ -66,7 +66,7 @@
         </el-select>
         <el-date-picker v-model="searchFrom.dateRange" type="daterange" align="right" placeholder="选择日期范围" :picker-options="dateOptions">
         </el-date-picker> -->
-        <el-select v-model="searchFrom.state" filterable placeholder="请选择申诉情况" @select-change="pickerSearch">
+        <el-select v-model="searchFrom.state" filterable placeholder="请选择申诉情况" @change="pickerSearch">
           <el-option v-for="item in reportTypes" :key="item.id" :label="item.name" :value="item.id">
           </el-option>
         </el-select>
@@ -137,42 +137,8 @@ export default {
       select: "username",
 
       searchFrom: {
-        // city: [],
-        // category: [],
-        // dateRange: "",
         state: ""
       },
-      // cities: [
-      //   {
-      //     id: 1,
-      //     name: "广州市"
-      //   },
-      //   {
-      //     id: 2,
-      //     name: "北京市"
-      //   },
-      //   {
-      //     id: 3,
-      //     name: "上海市"
-      //   }
-      // ],
-
-      // categories: [
-      //   {
-      //     id: 1,
-      //     name: "种类一"
-      //   },
-      //   {
-      //     id: 2,
-      //     name: "种类二"
-      //   },
-      //   {
-      //     id: 3,
-      //     name: "种类三"
-      //   }
-      // ],
-
-      // dateOptions: this.$common.dateOptions,
 
       reportTypes: [
         {

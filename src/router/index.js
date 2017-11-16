@@ -42,6 +42,7 @@ import startPageList from '@/components/info/startPageList'
 import startPageEdit from '@/components/info/startPageEdit'
 import sms from '@/components/info/sms'
 import config from '@/components/info/config'
+import temp from '@/components/main/temp'
 
 Vue.use(Router)
 
@@ -90,7 +91,7 @@ export default new Router({
             }
             next()
           }
-        }, 
+        },
         // {
         //   path: 'citylist',
         //   name: 'citylist',
@@ -224,6 +225,10 @@ export default new Router({
           path: 'config',
           name: 'config',
           component: config
+        }, {
+          path: 'temp',
+          name: 'temp',
+          component: temp
         }
       ]
     }

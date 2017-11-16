@@ -34,11 +34,6 @@
         <el-form-item label="描述" prop="description">
           <el-input v-model="formCharacter.description" placeholder="请输入角色描述"></el-input>
         </el-form-item>
-        <el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">全选</el-checkbox>
-        <div style="margin: 15px 0;"></div>
-        <el-checkbox-group v-model="formCharacter.pres" @change="handleCheckedItemChange">
-          <el-checkbox v-for="authority in authorities" :label="authority.id" :key="authority.id" style="margin: 10px;">{{authority.display_name}}</el-checkbox>
-        </el-checkbox-group>
         <el-form-item>
           <el-button type="primary" @click="submitForm('formCharacter')" style="width: 100%;margin-top: 10px;">确定</el-button>
         </el-form-item>
@@ -66,69 +61,24 @@ export default {
         name: "",
         display_name: "",
         description: "",
-        pres: []
       }
     };
   },
   created() {
-    if (sessionStorage.authorities) {
-      this.authorities = JSON.parse(sessionStorage.authorities);
-    } else {
-      this.$api.getPermission(res => {
-        this.authorities = res.data.data;
-        sessionStorage.authorities = JSON.stringify(res.data.data);
-      });
-    }
-
-    //循环填充 id， 为全选做准备
-    let arr = [];
-    for (let i = 0; i < this.authorities.length; i++) {
-      arr.push(this.authorities[i].id);
-    }
-    this.authoritiesArr = arr;
-    console.log(this.authoritiesArr);
-
-    //当从编辑进去时
-    // const character = this.$route.params.character;
-    // if (character) {
-    //   this.formCharacter = character;
-    //   this.formCharacter.pres = character.perms.reduce((arr, value) => {
-    //     return arr.concat(value.id);
-    //   }, []);
-    // }
   },
   methods: {
-    /*
-    * 全选
-    */
-    handleCheckAllChange(event) {
-      this.formCharacter.pres = event.target.checked ? this.authoritiesArr : [];
-      this.isIndeterminate = false;
-    },
-
-    /*
-    * 监听多选
-    */
-    handleCheckedItemChange(value) {
-      let checkedCount = value.length;
-      this.checkAll = checkedCount === this.authorities.length;
-      this.isIndeterminate =
-        checkedCount > 0 && checkedCount < this.authorities.length;
-    },
-
     /*
     * 表单提交
     */
     submitForm(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
-          this.$api.addRole(this.formCharacter, res => {
+          this.$api.temp(this.formCharacter, res => {
             this.$message({
               type: "success",
               message: "保存成功",
               showClose: true
             });
-            this.$router.push("/backcharacterlist");
           });
         } else {
           this.$message({
