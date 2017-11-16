@@ -80,7 +80,7 @@
         </el-table-column>
         <el-table-column label="信息名" prop="commodity_name" show-overflow-tooltip>
           <template slot-scope="scope">
-            <el-button type="text" @click="goToInfo(scope.row)">{{scope.row.commodity.title}}</el-button>
+            <el-button type="text" @click="goToInfo(scope.row)">{{scope.row.commodity?scope.row.commodity.title: ''}}</el-button>
           </template>
         </el-table-column>
         <el-table-column label="被举报次数">

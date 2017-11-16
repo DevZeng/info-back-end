@@ -645,7 +645,7 @@ export default {
    * @param {function} cb 回调
    */
   getCheckIn(cb) {
-    axios.get(`${host}activity/sign`)
+    axios.get(`${host}sign/activity`)
       .then(res => {
         if ('SUCCESS' === res.data.return_code) {
           typeof cb === 'function' && cb(res)
@@ -680,7 +680,7 @@ export default {
    * @param {function} cb 回调
    */
   getScan(cb) {
-    axios.get(`${host}activity/scan`)
+    axios.get(`${host}scan/activity`)
       .then(res => {
         if ('SUCCESS' === res.data.return_code) {
           typeof cb === 'function' && cb(res)
