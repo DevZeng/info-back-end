@@ -711,6 +711,44 @@ export default {
   },
 
   /**
+   * 获取分享列表
+   * @param {*} data 
+   * @param {function} cb 回调
+   */
+  getShare(data, cb) {
+    axios.get(`${host}share/activity`, {
+        params: data
+      })
+      .then(res => {
+        if ('SUCCESS' === res.data.return_code) {
+          typeof cb === 'function' && cb(res)
+        } else {
+          this.APIError(res)
+        }
+      }).catch(error => {
+        this.APIError(error.response)
+      })
+  },
+
+  /**
+   * 提交分享结果
+   * @param {object} data 
+   * @param {function} cb 回调
+   */
+  postShare(data, cb) {
+    axios.post(`${host}share/activity`, data)
+      .then(res => {
+        if ('SUCCESS' === res.data.return_code) {
+          typeof cb === 'function' && cb(res)
+        } else {
+          this.APIError(res)
+        }
+      }).catch(error => {
+        this.APIError(error.response)
+      })
+  },
+
+  /**
    * 系统设置获取
    * @param {function} cb 回调
    */

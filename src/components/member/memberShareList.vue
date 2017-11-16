@@ -38,7 +38,7 @@
     </div>
 
     <div class="table-list">
-      <el-table :data="checkInList" border stripe style="width: 100%">
+      <el-table :data="shareList" border stripe style="width: 100%">
         <el-table-column prop="id" label="ID" sortable>
         </el-table-column>
         <el-table-column label="活动时间">
@@ -74,13 +74,13 @@ export default {
     return {
       loading: true,
 
-      checkInList: []
+      shareList: []
     };
   },
 
   created() {
-    this.$api.getLaunchImg(res => {
-      this.checkInList = res.data.data;
+    this.$api.getShare("", res => {
+      this.shareList = res.data.data;
       this.loading = false;
     });
   },
@@ -108,7 +108,7 @@ export default {
         getData = Object.assign({ page }, this.searchForm);
       }
       this.$api.getUserList(getData, res => {
-        this.checkInList = res.data.data;
+        this.shareList = res.data.data;
       });
     }
   }
