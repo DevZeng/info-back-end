@@ -83,7 +83,11 @@ export default {
               type: "success",
               message: "登录成功"
             });
-            this.$router.push("/");
+
+            this.$router.push({
+              name: "indexcontent",
+              params: { role: res.data.data }
+            });
           });
         } else {
           return false;

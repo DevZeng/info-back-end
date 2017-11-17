@@ -111,10 +111,10 @@
                 <i class="el-icon-document"></i>首页
               </template>
               <el-menu-item-group>
-                <el-menu-item index="/logoedit">LOGO</el-menu-item>
-                <el-menu-item index="/bannerlist">广告位</el-menu-item>
-                <el-menu-item index="/textlist">文本表</el-menu-item>
-                <el-menu-item index="/guidelist">用户指南</el-menu-item>
+                <el-menu-item v-if="role.logo" index="/logoedit">LOGO</el-menu-item>
+                <el-menu-item v-if="role.advert" index="/bannerlist">广告位</el-menu-item>
+                <el-menu-item v-if="role.article" index="/textlist">文本表</el-menu-item>
+                <el-menu-item v-if="role.guide" index="/guidelist">用户指南</el-menu-item>
                 <!-- <el-menu-item index="/citylist">城市列表</el-menu-item> -->
               </el-menu-item-group>
               <el-submenu index="1-1">
@@ -124,8 +124,8 @@
               </el-submenu>
               <el-submenu index="1-2">
                 <template slot="title">举报与投诉</template>
-                <el-menu-item index="/reportlist">举报列表</el-menu-item>
-                <el-menu-item index="/report/type/list">举报原因列表</el-menu-item>
+                <el-menu-item v-if="role.reportlist" index="/reportlist">举报列表</el-menu-item>
+                <el-menu-item v-if="role.reportreason" index="/report/type/list">举报原因列表</el-menu-item>
               </el-submenu>
               <el-submenu index="1-3">
                 <template slot="title">后台管理</template>
@@ -138,12 +138,12 @@
                 <i class="el-icon-star-on"></i>会员
               </template>
               <el-menu-item-group>
-                <el-menu-item index="/memberlevellist">会员等级</el-menu-item>
+                <el-menu-item v-if="role.memberlevel" index="/memberlevellist">会员等级</el-menu-item>
                 <!-- <el-menu-item index="/qrcontrol">二维码开关</el-menu-item> -->
-                <el-menu-item index="/parttimelist">申请兼职</el-menu-item>
-                <el-menu-item index="/userlist">用户列表</el-menu-item>
+                <el-menu-item v-if="role.parttimelist" index="/parttimelist">申请兼职</el-menu-item>
+                <el-menu-item v-if="role.userlist" index="/userlist">用户列表</el-menu-item>
               </el-menu-item-group>
-              <el-submenu index="2-1">
+              <el-submenu index="2-1" v-if="role.activity">
                 <template slot="title">会员功能</template>
                 <el-menu-item index="/membercheckin">签到</el-menu-item>
                 <el-menu-item index="/memberscan">扫一扫</el-menu-item>
@@ -155,17 +155,17 @@
                 <i class="el-icon-message"></i>信息处理
               </template>
               <el-menu-item-group>
-                <el-menu-item index="/categorylist">种类和细节</el-menu-item>
+                <el-menu-item v-if="role.type" index="/categorylist">种类和细节</el-menu-item>
                 <!-- <el-menu-item index="/chargemode">信息收费管理</el-menu-item> -->
                 <!-- <el-menu-item index="/sms">短信反馈</el-menu-item> -->
-                <el-menu-item index="/startpagelist">启动页面</el-menu-item>
-                <el-menu-item index="/config">系统设置</el-menu-item>
+                <el-menu-item v-if="role.luancher" index="/startpagelist">启动页面</el-menu-item>
+                <el-menu-item v-if="role.config" index="/config">系统设置</el-menu-item>
               </el-menu-item-group>
               <el-submenu index="3-1">
                 <template slot="title">审核相关</template>
-                <el-menu-item index="/auditList">未审核列表</el-menu-item>
+                <el-menu-item v-if="role.unpasslist" index="/auditList">未审核列表</el-menu-item>
                 <el-menu-item index="/auditpasslist">审核通过列表</el-menu-item>
-                <el-menu-item index="/auditcondition">审核条件</el-menu-item>
+                <el-menu-item v-if="role.rejectreason" index="/auditcondition">审核条件</el-menu-item>
               </el-submenu>
             </el-submenu>
           </el-menu>
@@ -191,11 +191,14 @@
 export default {
   data() {
     return {
-      routerActive: this.$route.path
+      routerActive: this.$route.path,
+      role: {}
     };
   },
 
-  created() {},
+  created() {
+    this.role = this.$route.params.role;
+  },
 
   methods: {
     /*
