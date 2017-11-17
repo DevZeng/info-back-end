@@ -74,7 +74,10 @@ export default {
     return {
       loading: true,
 
-      shareList: []
+      shareList: [],
+      count: 10,
+      eachPage: 10,
+      page: 1
     };
   },
 
@@ -83,6 +86,7 @@ export default {
     //   this.shareList = res.data.data;
     //   this.loading = false;
     // });
+    this.loading = false;
   },
 
   methods: {

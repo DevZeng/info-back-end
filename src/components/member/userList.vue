@@ -251,7 +251,7 @@ export default {
       if (this.levelUp.level) {
         this.$api.postLevelUp(this.levelUp, res => {
           this.levelUpDialog = false;
-          this.userList[this.currentUserIndex].level = this.levelUp.level;
+          this.userList[this.currentUserIndex].member.level = this.levelUp.level;
           this.$message({
             type: "success",
             message: "更改成功"
