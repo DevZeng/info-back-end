@@ -72,23 +72,7 @@ export default {
       dateRangeOption: this.$common.dateOptions
     };
   },
-
-  created() {
-    this.$api.getScan(res => {
-      const data = res.data.data;
-      if (data) {
-        this.scanForm = data;
-        this.dateRange = [data.start * 1000, data.end * 1000];
-      }
-      this.loading = false;
-    });
-  },
-
   methods: {
-    /*
-    * 开关切换
-    */
-    // sacnSwitchFnc(value) {},
 
     /*
     * 提交

@@ -74,13 +74,17 @@ export default {
     return {
       loading: true,
 
-      checkInList: []
+      checkInList: [],
+      count: 0,
+      page: 1,
+      eachPage: 10
     };
   },
 
   created() {
-    this.$api.getLaunchImg(res => {
+    this.$api.getCheckIn("", res => {
       this.checkInList = res.data.data;
+      this.count = res.data.count;
       this.loading = false;
     });
   },
@@ -99,15 +103,7 @@ export default {
     * 页数
     */
     handleCurrentChange(page) {
-      let getData = {
-        page: page
-      };
-      if (this.selectInput) {
-        getData[this.select] = this.selectInput;
-      } else {
-        getData = Object.assign({ page }, this.searchForm);
-      }
-      this.$api.getUserList(getData, res => {
+      this.$api.getCheckIn({ page }, res => {
         this.checkInList = res.data.data;
       });
     }

@@ -644,8 +644,10 @@ export default {
    * 签到信息获取
    * @param {function} cb 回调
    */
-  getCheckIn(cb) {
-    axios.get(`${host}sign/activity`)
+  getCheckIn(data, cb) {
+    axios.get(`${host}sign/activities`, {
+        params: data
+      })
       .then(res => {
         if ('SUCCESS' === res.data.return_code) {
           typeof cb === 'function' && cb(res)
@@ -677,10 +679,13 @@ export default {
 
   /**
    * 扫一扫获取
+   * @param {object} data
    * @param {function} cb 回调
    */
-  getScan(cb) {
-    axios.get(`${host}scan/activity`)
+  getScan(data, cb) {
+    axios.get(`${host}scan/activities`, {
+        params: data
+      })
       .then(res => {
         if ('SUCCESS' === res.data.return_code) {
           typeof cb === 'function' && cb(res)
@@ -716,7 +721,7 @@ export default {
    * @param {function} cb 回调
    */
   getShare(data, cb) {
-    axios.get(`${host}share/activity`, {
+    axios.get(`${host}share/activities`, {
         params: data
       })
       .then(res => {

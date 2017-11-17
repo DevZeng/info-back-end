@@ -54,7 +54,6 @@
 export default {
   data() {
     return {
-      loading: true,
       // checkSwitchText: ["关闭", "打开"],
       checkInForm: {
         id: "",
@@ -72,17 +71,6 @@ export default {
 
       dateRangeOption: this.$common.dateOptions
     };
-  },
-
-  created() {
-    this.$api.getCheckIn(res => {
-      const data = res.data.data;
-      if (data) {
-        this.checkInForm = data;
-        this.dateRange = [data.start * 1000, data.end * 1000];
-      }
-      this.loading = false;
-    });
   },
 
   methods: {
@@ -109,7 +97,7 @@ export default {
               message: "提交成功",
               showClose: true
             });
-            this.$router.push('/membercheckin')
+            this.$router.push("/membercheckin");
           });
         } else {
           this.$message({

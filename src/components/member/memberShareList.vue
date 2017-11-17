@@ -82,11 +82,11 @@ export default {
   },
 
   created() {
-    // this.$api.getShare("", res => {
-    //   this.shareList = res.data.data;
-    //   this.loading = false;
-    // });
-    this.loading = false;
+    this.$api.getShare("", res => {
+      this.shareList = res.data.data;
+      this.count = res.data.count;
+      this.loading = false;
+    });
   },
 
   methods: {
@@ -103,15 +103,7 @@ export default {
     * 页数
     */
     handleCurrentChange(page) {
-      let getData = {
-        page: page
-      };
-      if (this.selectInput) {
-        getData[this.select] = this.selectInput;
-      } else {
-        getData = Object.assign({ page }, this.searchForm);
-      }
-      this.$api.getUserList(getData, res => {
+      this.$api.getShare({ page }, res => {
         this.shareList = res.data.data;
       });
     }

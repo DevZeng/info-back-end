@@ -123,8 +123,6 @@ export default {
     };
   },
 
-  created() {},
-
   methods: {
     /*
       上传之前
