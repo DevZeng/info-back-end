@@ -129,7 +129,7 @@
               </el-submenu>
               <el-submenu index="1-3">
                 <template slot="title">后台管理</template>
-                <!-- <el-menu-item index="/backlist">分工列表</el-menu-item> -->
+                <el-menu-item index="/backlist">分工列表</el-menu-item>
                 <el-menu-item index="/backcharacterlist">角色列表</el-menu-item>
               </el-submenu>
             </el-submenu>

@@ -108,6 +108,7 @@ export default {
               message: "提交成功",
               showClose: true
             });
+            this.$router.push("/memberscan");
           });
         } else {
           this.$message({

@@ -72,13 +72,13 @@
             <template slot="append">分</template>
           </el-input>
         </el-form-item>
-        <el-form-item label="分享文本" prop="content">
+        <el-form-item label="H5的分享文本" prop="content">
           <el-input type="textarea" v-model="shareForm.content"></el-input>
         </el-form-item>
-        <el-form-item label="分享规则" prop="rule">
+        <el-form-item label="APP的分享规则" prop="rule">
           <el-input type="textarea" v-model="shareForm.rule"></el-input>
         </el-form-item>
-        <el-form-item>
+        <el-form-item label="H5的图片" prop="image">
           <el-upload class="start-img-uploader" :action="host" with-credentials name="image" :multiple="false" accept="image/jpg,image/png,image/jpeg" :show-file-list="false" :on-success="handleSuccess" :before-upload="beforeUpload">
             <img v-if="shareForm.image" :src="shareForm.image" class="start-img">
             <i v-else class="el-icon-plus start-img-uploader-icon"></i>

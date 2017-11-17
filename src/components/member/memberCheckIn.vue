@@ -109,6 +109,7 @@ export default {
               message: "提交成功",
               showClose: true
             });
+            this.$router.push('/membercheckin')
           });
         } else {
           this.$message({
