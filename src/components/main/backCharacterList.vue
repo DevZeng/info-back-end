@@ -38,6 +38,7 @@
     </el-breadcrumb>
 
     <div class="banner-operation">
+      <el-button type="primary" @click="addUser">新增分工用户</el-button>
       <el-button type="primary" @click="addCharacter">新增角色</el-button>
       <!-- <el-button type="danger" @click="deleteCharacter">删除</el-button> -->
     </div>
@@ -92,6 +93,12 @@ export default {
   },
 
   methods: {
+    /*
+      新增
+    */
+    addUser() {
+      this.$router.push({ name: "backedit", params: { user: null } });
+    },
     /*
     * 格式化权限输出
     */
