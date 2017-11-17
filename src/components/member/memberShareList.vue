@@ -39,7 +39,7 @@
 
     <div class="table-list">
       <el-table :data="shareList" border stripe style="width: 100%">
-        <el-table-column prop="id" label="ID" sortable>
+        <!-- <el-table-column prop="id" label="ID" sortable>
         </el-table-column>
         <el-table-column label="活动时间">
           <template slot-scope="scope">
@@ -50,7 +50,7 @@
           <template slot-scope="scope">
             <span>{{scope.row.number}} 分</span>
           </template>
-        </el-table-column>
+        </el-table-column> -->
         <!-- <el-table-column prop="link_url" label="跳转链接" show-overflow-tooltip>
         </el-table-column> -->
         <el-table-column prop="state" label="状态" sortable>
@@ -79,10 +79,10 @@ export default {
   },
 
   created() {
-    this.$api.getShare("", res => {
-      this.shareList = res.data.data;
-      this.loading = false;
-    });
+    // this.$api.getShare("", res => {
+    //   this.shareList = res.data.data;
+    //   this.loading = false;
+    // });
   },
 
   methods: {

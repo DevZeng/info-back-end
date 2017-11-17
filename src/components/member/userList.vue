@@ -241,7 +241,7 @@ export default {
       //     message: "删除成功!"
       //   });
       // });
-      this.handleChange = true;
+      this.levelUpDialog = true;
       this.currentUser = row;
       this.currentUserIndex = index;
     },
@@ -250,7 +250,7 @@ export default {
       this.levelUp.user_id = this.currentUser.id;
       if (this.levelUp.level) {
         this.$api.postLevelUp(this.levelUp, res => {
-          this.handleChange = false;
+          this.levelUpDialog = false;
           this.userList[this.currentUserIndex].level = this.levelUp.level;
           this.$message({
             type: "success",
