@@ -103,7 +103,7 @@ export default {
         content: "",
         rule: "",
         time: "",
-        image: ''
+        image: ""
       },
 
       rules: {
@@ -151,12 +151,13 @@ export default {
         if (valid) {
           this.shareForm.start = this.shareForm.time[0];
           this.shareForm.end = this.shareForm.time[1];
-          this.$postShare(this.shareForm, res => {
+          this.$api.postShare(this.shareForm, res => {
             this.$message({
               type: "success",
               message: "提交成功",
               showClose: true
             });
+            this.$router.push("/membershare");
           });
         } else {
           this.$message({
