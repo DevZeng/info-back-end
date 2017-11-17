@@ -109,7 +109,7 @@
             <el-button v-if="scope.row.state == 1" size="small" type="danger" @click="handleStop(scope.$index, scope.row)">停用</el-button>
             <el-button v-else size="small" type="info" @click="handleNormal(scope.$index, scope.row)">取消停用</el-button>
             <el-button size="small" type="danger" @click="handleChange(scope.$index, scope.row)">更改等级</el-button>
-            <el-button size="small" type="danger" @click="handleAddRole(scope.$index, scope.row)">新增权限</el-button>
+            <el-button size="small" type="warning" @click="handleAddRole(scope.$index, scope.row)">新增权限</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -136,7 +136,7 @@
       </el-select>
       <el-button type="text" @click="getMoreRole">{{roleFlag?'没有更多了':'加载更多'}}</el-button>
       <div></div>
-      <el-button type="primary" @click="changeRole">确定</el-button>
+      <el-button type="primary" @click="changeRole" style="width: 300px;margin-top: 30px;">确定</el-button>
     </el-dialog>
   </section>
 </template>
@@ -162,7 +162,7 @@ export default {
       levelUpDialog: false,
 
       levelUp: {
-        level: "0",
+        level: 1,
         user_id: ""
       },
       currentUserIndex: 0,
@@ -297,14 +297,23 @@ export default {
 
     changeLevel() {
       this.levelUp.user_id = this.currentUser.id;
-      this.$api.postLevelUp(this.levelUp, res => {
-        this.levelUpDialog = false;
-        this.userList[this.currentUserIndex].member.level = this.levelUp.level;
-        this.$message({
-          type: "success",
-          message: "更改成功"
+      if (this.levelUp) {
+        this.$api.postLevelUp(this.levelUp, res => {
+          this.levelUpDialog = false;
+          this.userList[
+            this.currentUserIndex
+          ].member.level = this.levelUp.level;
+          this.$message({
+            type: "success",
+            message: "更改成功"
+          });
         });
-      });
+      } else {
+        this.$message({
+          type: "warning",
+          message: "不能为注册会员"
+        });
+      }
     },
 
     /*

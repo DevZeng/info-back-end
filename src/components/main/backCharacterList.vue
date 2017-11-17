@@ -38,7 +38,7 @@
     </el-breadcrumb>
 
     <div class="banner-operation">
-      <el-button type="primary" @click="addUser">新增分工用户</el-button>
+      <!-- <el-button type="primary" @click="addUser">新增分工用户</el-button> -->
       <el-button type="primary" @click="addCharacter">新增角色</el-button>
       <!-- <el-button type="danger" @click="deleteCharacter">删除</el-button> -->
     </div>
@@ -55,6 +55,8 @@
           </template>
         </el-table-column>
         <el-table-column prop="perms" label="权限" show-overflow-tooltip :formatter="formatAuthority">
+        </el-table-column>
+        <el-table-column prop="description" label="描述" show-overflow-tooltip>
         </el-table-column>
         <el-table-column label="操作" width="100">
           <template slot-scope="scope">
@@ -102,9 +104,9 @@ export default {
     /*
       新增
     */
-    addUser() {
-      this.$router.push({ name: "backedit", params: { user: null } });
-    },
+    // addUser() {
+    //   this.$router.push({ name: "backedit", params: { user: null } });
+    // },
     /*
     * 格式化权限输出
     */

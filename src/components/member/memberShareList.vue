@@ -41,7 +41,7 @@
       <el-table :data="shareList" border stripe style="width: 100%">
         <el-table-column prop="id" label="ID" sortable>
         </el-table-column>
-        <el-table-column label="活动时间">
+        <el-table-column label="活动时间" show-overflow-tooltip>
           <template slot-scope="scope">
             <span>{{scope.row.start}} 至 {{scope.row.end}}</span>
           </template>
@@ -60,7 +60,7 @@
         </el-table-column>
         <el-table-column prop="image" label="H5图片链接" show-overflow-tooltip>
           <template slot-scope="scope">
-            <a href="{{scope.row.image}}" target="_blank"></a>
+            <a :href="scope.row.image" target="_blank"></a>
           </template>
         </el-table-column>
         <el-table-column prop="rule" label="APP分享规则">

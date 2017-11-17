@@ -86,25 +86,28 @@ export default {
   created() {
     const id = this.$route.params.character.id;
     this.$api.getRoleUserList(id, res => {
-      this.backList = res.data.data
+      this.backList = res.data.data;
       this.loading = false;
     });
   },
 
   methods: {
-
     /*
       删除
     */
     handleDelete(index, row) {
       this.$operation.tableMessageBox("此操作将删除该用户的权限", () => {
+        const getData = {
+          user_id: row.id
+        };
+        this.$api.delRoleUser(getData, res => {});
         this.backList.splice(index, 1);
         this.$message({
           type: "success",
           message: "删除成功!"
         });
       });
-    },
+    }
   }
 };
 </script>
