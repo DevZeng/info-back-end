@@ -161,6 +161,62 @@ export default {
   },
 
   /**
+   * 获取每个角色的具体用户
+   * @param {string} id 
+   * @param {function} cb 
+   */
+  getRoleUserList(id, cb) {
+    axios.get(`${host}role/users/${id}`)
+      .then(res => {
+        if ('SUCCESS' === res.data.return_code) {
+          typeof cb === 'function' && cb(res)
+        } else {
+          this.APIError(res)
+        }
+      }).catch(error => {
+        this.APIError(error.response)
+      })
+  },
+
+  /**
+   * 新增权限用户
+   * @param {object} data {user_id, role_id}
+   * @param {function} cb 回调
+   */
+  postNewRole(data, cb) {
+    axios.post(`${host}attach/role`, data)
+      .then(res => {
+        if ('SUCCESS' === res.data.return_code) {
+          typeof cb === 'function' && cb(res)
+        } else {
+          this.APIError(res)
+        }
+      }).catch(error => {
+        this.APIError(error.response)
+      })
+  },
+
+  /**
+   * 删除用户权限
+   * @param {object} id {user_id} 
+   * @param {function} cb 
+   */
+  delRoleUser(id, cb) {
+    axios.get(`${host}del/user/role`, {
+        params: id
+      })
+      .then(res => {
+        if ('SUCCESS' === res.data.return_code) {
+          typeof cb === 'function' && cb(res)
+        } else {
+          this.APIError(res)
+        }
+      }).catch(error => {
+        this.APIError(error.response)
+      })
+  },
+
+  /**
    * 新增角色
    * @param {object} data  角色提交参数 {name,display_name,description, pres}
    * @param {function} cb 回调

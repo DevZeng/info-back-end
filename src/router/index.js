@@ -46,6 +46,7 @@ import startPageEdit from '@/components/info/startPageEdit'
 import sms from '@/components/info/sms'
 import config from '@/components/info/config'
 import temp from '@/components/main/temp'
+import backUserList from '@/components/main/backUserList'
 
 Vue.use(Router)
 
@@ -144,6 +145,10 @@ export default new Router({
           path: 'backcharacteredit',
           name: 'backcharacteredit',
           component: backCharacterEdit
+        }, {
+          path: 'backuserlist',
+          name: 'backuserlist',
+          component: backUserList
         }, {
           path: 'memberlevellist',
           name: 'memberlevellist',

@@ -104,11 +104,12 @@
             <span class="warning" v-else>已停用</span>
           </template>
         </el-table-column>
-        <el-table-column label="操作" width="200">
+        <el-table-column label="操作" width="300">
           <template slot-scope="scope">
             <el-button v-if="scope.row.state == 1" size="small" type="danger" @click="handleStop(scope.$index, scope.row)">停用</el-button>
             <el-button v-else size="small" type="info" @click="handleNormal(scope.$index, scope.row)">取消停用</el-button>
             <el-button size="small" type="danger" @click="handleChange(scope.$index, scope.row)">更改等级</el-button>
+            <el-button size="small" type="danger" @click="handleAddRole(scope.$index, scope.row)">新增权限</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -119,13 +120,23 @@
       </el-pagination>
     </div>
 
-    <el-dialog title="会员等级提升" center :visible.sync="levelUpDialog">
+    <el-dialog title="会员等级更改" center :visible.sync="levelUpDialog">
       <el-select v-model="levelUp.level" filterable placeholder="请选择会员等级" style="text-align: left;">
         <el-option v-for="item in levels" :key="item.id" :label="item.name" :value="item.id">
         </el-option>
       </el-select>
 
       <el-button type="primary" @click="changeLevel">确定</el-button>
+    </el-dialog>
+    
+    <el-dialog title="用户新增权限" center :visible.sync="roleDialog">
+      <el-select v-model="roleId" filterable placeholder="请选择权限角色" style="text-align: left;">
+        <el-option v-for="item in roles" :key="item.id" :label="item.name" :value="item.id">
+        </el-option>
+      </el-select>
+      <el-button type="text" @click="getMoreRole">{{roleFlag?'没有更多了':'加载更多'}}</el-button>
+      <div></div>
+      <el-button type="primary" @click="changeRole">确定</el-button>
     </el-dialog>
   </section>
 </template>
@@ -151,7 +162,7 @@ export default {
       levelUpDialog: false,
 
       levelUp: {
-        level: "",
+        level: "0",
         user_id: ""
       },
       currentUserIndex: 0,
@@ -162,7 +173,12 @@ export default {
       dateOptions: this.$common.dateOptions,
 
       //数据
-      userList: []
+      userList: [],
+
+      roles: [],
+      rolePage: 1,
+      roleId: "",
+      roleDialog: false
     };
   },
 
@@ -172,9 +188,49 @@ export default {
       this.count = res.data.count;
       this.loading = false;
     });
+
+    this.$api.getRoleList("", res => {
+      this.roles = res.data.data;
+    });
   },
 
   methods: {
+    //新增角色
+    handleAddRole(index, row) {
+      this.roleDialog = true;
+      this.currentUser = row;
+      this.currentUserIndex = index;
+    },
+
+    changeRole() {
+      if (this.roleId) {
+        const postData = {
+          user_id: this.currentUser.id,
+          role_id: this.roleId
+        };
+        this.$api.postNewRole(postData, res => {
+          this.roleDialog = false;
+          // this.userList[this.currentUserIndex]
+          this.$message({
+            type: "success",
+            message: "权限角色添加成功！"
+          });
+        });
+      }
+    },
+    //获取更多角色
+    getMoreRole() {
+      this.$api.getRoleList({ page: ++this.rolePage }, res => {
+        if (this.roleFlag) {
+          return false;
+        }
+        if (res.data.data.length) {
+          this.roles = [...this.roles, ...res.data.data];
+        } else {
+          this.roleFlag = true;
+        }
+      });
+    },
     /*
     * 内容搜索
     */
@@ -234,13 +290,6 @@ export default {
     * 更改等级
     */
     handleChange(index, row) {
-      // this.$operation.tableMessageBox("此操作将删除该用户", () => {
-      //   this.userList.splice(index, 1);
-      //   this.$message({
-      //     type: "success",
-      //     message: "删除成功!"
-      //   });
-      // });
       this.levelUpDialog = true;
       this.currentUser = row;
       this.currentUserIndex = index;
@@ -248,21 +297,14 @@ export default {
 
     changeLevel() {
       this.levelUp.user_id = this.currentUser.id;
-      if (this.levelUp.level) {
-        this.$api.postLevelUp(this.levelUp, res => {
-          this.levelUpDialog = false;
-          this.userList[this.currentUserIndex].member.level = this.levelUp.level;
-          this.$message({
-            type: "success",
-            message: "更改成功"
-          });
-        });
-      } else {
+      this.$api.postLevelUp(this.levelUp, res => {
+        this.levelUpDialog = false;
+        this.userList[this.currentUserIndex].member.level = this.levelUp.level;
         this.$message({
-          type: "warning",
-          message: "请选择会员等级"
+          type: "success",
+          message: "更改成功"
         });
-      }
+      });
     },
 
     /*

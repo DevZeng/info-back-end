@@ -46,9 +46,9 @@
             <span>{{scope.row.start}} 至 {{scope.row.end}}</span>
           </template>
         </el-table-column>
-        <el-table-column prop="number" label="签到积分">
+        <el-table-column prop="score" label="签到积分">
           <template slot-scope="scope">
-            <span>{{scope.row.number}} 分</span>
+            <span>{{scope.row.score}} 分</span>
           </template>
         </el-table-column>
         <!-- <el-table-column prop="link_url" label="跳转链接" show-overflow-tooltip>

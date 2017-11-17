@@ -21,7 +21,7 @@
     <el-breadcrumb separator="/" class="breadcrumb">
       <el-breadcrumb-item>首页</el-breadcrumb-item>
       <el-breadcrumb-item>后台管理</el-breadcrumb-item>
-      <el-breadcrumb-item :to="{'path': '/backlist'}">分工列表</el-breadcrumb-item>
+      <el-breadcrumb-item :to="{'path': '/backcharacterlist'}">角色列表</el-breadcrumb-item>
       <el-breadcrumb-item>编辑</el-breadcrumb-item>
     </el-breadcrumb>
     <div class="back-edit-form">

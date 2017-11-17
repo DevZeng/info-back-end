@@ -50,6 +50,9 @@
         <el-table-column label="ID" prop="id">
         </el-table-column>
         <el-table-column label="角色名" prop="display_name">
+          <template slot-scope="scope">
+            <el-button type="text" @click="getBackList(scope.row)">{{scope.row.display_name}}</el-button>
+          </template>
         </el-table-column>
         <el-table-column prop="perms" label="权限" show-overflow-tooltip :formatter="formatAuthority">
         </el-table-column>
@@ -93,6 +96,9 @@ export default {
   },
 
   methods: {
+    getBackList(row) {
+      this.$router.push({ name: "backuserlist", params: { character: row } });
+    },
     /*
       新增
     */
