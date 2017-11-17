@@ -98,8 +98,8 @@ export default {
         if (valid) {
           const postData = {
             id: this.scanForm.id,
-            start: new Date(this.dateRange[0]).toLocaleDateString(),
-            end: new Date(this.dateRange[1]).toLocaleDateString(),
+            start: this.dateRange[0],
+            end: this.dateRange[1],
             score: this.scanForm.score
           };
           this.$api.postScan(postData, res => {

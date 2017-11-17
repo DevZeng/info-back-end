@@ -98,8 +98,8 @@ export default {
       this.$refs[formName].validate(valid => {
         if (valid) {
           const postData = {
-            start: new Date(this.dateRange[0]).toLocaleDateString(),
-            end: new Date(this.dateRange[1]).toLocaleDateString(),
+            start: this.dateRange[0],
+            end: this.dateRange[1],
             id: this.checkInForm.id,
             score: this.checkInForm.score
           };
