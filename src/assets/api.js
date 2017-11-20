@@ -197,6 +197,24 @@ export default {
   },
 
   /**
+   * 新增管理员
+   * @param {object} data {username, password, phone, role}
+   * @param {function} cb 回调
+   */
+  postNewAdmin(data, cb) {
+    axios.post(`${host}add/admin`, data)
+      .then(res => {
+        if ('SUCCESS' === res.data.return_code) {
+          typeof cb === 'function' && cb(res)
+        } else {
+          this.APIError(res)
+        }
+      }).catch(error => {
+        this.APIError(error.response)
+      })
+  },
+
+  /**
    * 删除用户权限
    * @param {object} id {user_id} 
    * @param {function} cb 

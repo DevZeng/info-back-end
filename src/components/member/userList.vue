@@ -109,7 +109,7 @@
             <el-button v-if="scope.row.state == 1" size="small" type="danger" @click="handleStop(scope.$index, scope.row)">停用</el-button>
             <el-button v-else size="small" type="info" @click="handleNormal(scope.$index, scope.row)">取消停用</el-button>
             <el-button size="small" type="danger" @click="handleChange(scope.$index, scope.row)">更改等级</el-button>
-            <el-button size="small" type="warning" @click="handleAddRole(scope.$index, scope.row)">新增权限</el-button>
+            <!-- <el-button size="small" type="warning" @click="handleAddRole(scope.$index, scope.row)">新增权限</el-button> -->
           </template>
         </el-table-column>
       </el-table>

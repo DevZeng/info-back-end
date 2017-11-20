@@ -119,11 +119,14 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
-          this.$message({
-            type: "success",
-            message: "保存成功",
-            showClose: true
-          });
+          this.$api.postNewAdmin(this.adminUser, res => {
+            this.$message({
+              type: "success",
+              message: "新建成功",
+              showClose: true
+            });
+            this.$router.push('/backcharacterlist')
+          })
         } else {
           this.$message({
             type: "warning",
