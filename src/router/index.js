@@ -175,10 +175,13 @@ export default new Router({
           name: 'usersingle',
           component: userSingle,
           beforeEnter: (to, from, next) => {
-            if (from.path) {
+            if (!from.name) {
+              next({
+                path: '/'
+              })
+            } else {
               next()
             }
-            next('/')
           }
         }, {
           path: 'membercheckin/edit',
