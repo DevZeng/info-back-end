@@ -54,7 +54,6 @@
 export default {
   data() {
     return {
-      loading: true,
       checkSwitchText: ["关闭", "打开"],
       scanForm: {
         id: "",

@@ -90,7 +90,7 @@
     <!-- 头部 -->
     <header id="header">
       <div class="header-logo">信息平台管理系统</div>
-      <el-dropdown class="header-staff">
+      <el-dropdown class="header-staff" style="color: #fff!important;">
         <span class="el-dropdown-link">
           <i class="welcome">欢迎</i> {{username}}</span>
         <el-dropdown-menu slot="dropdown">
@@ -193,13 +193,13 @@ export default {
     return {
       routerActive: this.$route.path,
       role: {},
-      username: ''
+      username: ""
     };
   },
 
   created() {
     this.role = this.$route.params.role;
-    this.username = this.$route.params.username
+    this.username = this.$route.params.username;
   },
 
   methods: {
