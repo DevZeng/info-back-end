@@ -122,7 +122,7 @@
 
     <el-dialog title="会员等级更改" center :visible.sync="levelUpDialog">
       <el-select v-model="levelUp.level" filterable placeholder="请选择会员等级" style="text-align: left;">
-        <el-option v-for="item in levels" :key="item.id" :label="item.name" :value="item.id">
+        <el-option v-if="item.id != 0" v-for="item in levels" :key="item.id" :label="item.name" :value="item.id">
         </el-option>
       </el-select>
 

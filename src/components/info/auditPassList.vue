@@ -129,9 +129,6 @@
               <el-form-item label="阅读数">
                 <span>{{ props.row.read_number }} 次</span>
               </el-form-item>
-              <el-form-item label="审核人">
-                <span>{{ props.row.passName }}</span>
-              </el-form-item>
               <el-form-item label="地址">
                 <span>{{ props.row.address }}</span>
               </el-form-item>
@@ -152,11 +149,13 @@
         </el-table-column>
         <el-table-column prop="type" label="种类">
         </el-table-column>
+        <el-table-column prop="passName" label="审核人">
+        </el-table-column>
         <el-table-column prop="created_at" label="发布时间">
         </el-table-column>
         <el-table-column prop="report_count" label="举报次数">
           <template slot-scope="scope">
-            <el-button type="text" @click="handleReoprt(scope.$index, scope.row)">{{scope.row.report_count}} 次</el-button>
+            <span>{{scope.row.report_count}} 次</span>
           </template>
         </el-table-column>
         <el-table-column label="发布性质">
@@ -193,18 +192,6 @@
 <script>
 export default {
   data() {
-    // const generateCities = _ => {
-    //   const data = [];
-    //   const cities = ["上海", "北京", "广州", "深圳", "南京", "西安", "成都"];
-    //   cities.forEach((city, index) => {
-    //     data.push({
-    //       label: city,
-    //       key: index,
-    //       cities: cities[index]
-    //     });
-    //   });
-    //   return data;
-    // };
     return {
       loading: true,
       cityForm: {
@@ -228,24 +215,14 @@ export default {
       //存放当前选择区域
       currentArea: null,
 
-      // editText: ["原始", "已修改"],
-      // statusText: ["正常", "已推迟"],
-
       selectInput: "",
       select: "username",
 
       searchForm: {
-        // status: "",
-        // dateRange: ""
-        // city: []
         city_id: ""
       },
 
       dateRange: "",
-      // cities: generateCities(),
-      // filterMethod(query, item) {
-      //   return item.cities.indexOf(query) > -1;
-      // },
 
       dateOptions: this.$common.dateOptions,
 
@@ -357,13 +334,6 @@ export default {
     handlePeople(index, row) {},
 
     /*
-    * 举报列表跳转
-    */
-    handleReoprt(index, row) {
-      this.$router.push({ name: "reportsingle", params: { report: row } });
-    },
-
-    /*
     * input 搜索
     */
     selectSearch() {
@@ -396,38 +366,6 @@ export default {
     * 拒绝
     */
     handleReject(index, row) {
-      // this.$prompt("请输入不通过原因", "提示", {
-      //   confirmButtonText: "确定",
-      //   cancelButtonText: "取消",
-      //   beforeClose: (action, instance, done) => {
-      //     if (action === "confirm") {
-      //       if (!instance.inputValue) {
-      //         this.$message({
-      //           type: "warning",
-      //           message: "回复不能为空",
-      //           showClose: true
-      //         });
-      //         return false;
-      //       }
-      //       done();
-      //     } else {
-      //       done();
-      //     }
-      //   }
-      // })
-      //   .then(() => {
-      //     this.auditPassList.splice(index, 1);
-      //     this.$message({
-      //       type: "success",
-      //       message: "已拒绝"
-      //     });
-      //   })
-      //   .catch(() => {
-      //     this.$message({
-      //       type: "info",
-      //       message: "已取消"
-      //     });
-      //   });
       this.rejectDialog = true;
       this.currentRefuseId = row.id;
       this.currentRefuseIndex = index;

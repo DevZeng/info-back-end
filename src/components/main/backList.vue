@@ -42,7 +42,7 @@
     <el-breadcrumb separator="/" class="breadcrumb">
       <el-breadcrumb-item>首页</el-breadcrumb-item>
       <el-breadcrumb-item>后台管理</el-breadcrumb-item>
-      <el-breadcrumb-item>分工列表</el-breadcrumb-item>
+      <el-breadcrumb-item>角色列表</el-breadcrumb-item>
     </el-breadcrumb>
     <div class="banner-operation">
       <el-button type="primary" @click="addUser">新增分工用户</el-button>
@@ -113,22 +113,7 @@ export default {
       ],
 
       //数据
-      backList: [
-        {
-          id: 1,
-          name: "用户一",
-          character: "角色一",
-          password: "123421",
-          authority: [1, 2, 3]
-        },
-        {
-          id: 2,
-          name: "用户二",
-          character: "角色一",
-          password: "as1231",
-          authority: [1, 2, 6]
-        }
-      ],
+      backList: [],
       page: 1,
       eachPage: 100,
       count: 1000

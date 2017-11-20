@@ -42,7 +42,7 @@
     <el-breadcrumb separator="/" class="breadcrumb">
       <el-breadcrumb-item>首页</el-breadcrumb-item>
       <el-breadcrumb-item>后台管理</el-breadcrumb-item>
-      <el-breadcrumb-item>分工列表</el-breadcrumb-item>
+      <el-breadcrumb-item :to="{path: 'backcharacterlist'}">角色列表</el-breadcrumb-item>
       <el-breadcrumb-item>具体权限用户</el-breadcrumb-item>
     </el-breadcrumb>
     <div class="table-list">

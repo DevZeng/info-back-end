@@ -126,9 +126,6 @@
               <el-form-item label="阅读数">
                 <span>{{ props.row.read_number }} 次</span>
               </el-form-item>
-              <el-form-item label="审核人">
-                <span>{{ props.row.passName }}</span>
-              </el-form-item>
               <el-form-item label="地址">
                 <span>{{ props.row.address }}</span>
               </el-form-item>
@@ -157,14 +154,10 @@
             <span v-else class="warning">修改过</span>
           </template>
         </el-table-column>
-        <!-- <el-table-column prop="status" label="状态">
-          <template slot-scope="scope">{{statusText[scope.row.status]}}</template>
-        </el-table-column> -->
         <el-table-column label="操作" width="200">
           <template slot-scope="scope">
             <el-button size="small" type="primary" @click="handlePass(scope.$index, scope.row)">通过</el-button>
             <el-button size="small" type="danger" @click="handleReject(scope.$index, scope.row)">拒绝</el-button>
-            <!-- <el-button size="small" type="warning" @click="handleDelay(scope.$index, scope.row)">推迟</el-button> -->
           </template>
         </el-table-column>
       </el-table>
@@ -190,18 +183,6 @@
 <script>
 export default {
   data() {
-    // const generateCities = _ => {
-    //   const data = [];
-    //   const cities = ["上海", "北京", "广州", "深圳", "南京", "西安", "成都"];
-    //   cities.forEach((city, index) => {
-    //     data.push({
-    //       label: city,
-    //       key: index,
-    //       cities: cities[index]
-    //     });
-    //   });
-    //   return data;
-    // };
     return {
       loading: true,
       rejectDialog: false,
@@ -223,22 +204,13 @@ export default {
       shis: [],
       xians: [],
 
-      // editText: ["原始", "已修改"],
-      // statusText: ["正常", "已推迟"],
-
       selectInput: "",
       select: "username",
 
       searchForm: {
-        // status: "",
-        // dateRange: "",
         city_id: ""
       },
       dateRange: "",
-      // cities: generateCities(),
-      // filterMethod(query, item) {
-      //   return item.cities.indexOf(query) > -1;
-      // },
 
       dateOptions: this.$common.dateOptions,
 
@@ -401,19 +373,6 @@ export default {
       this.currentRefuseIndex = index;
       this.reason = [];
     },
-
-    /*
-    * 推迟
-    */
-    // handleDelay(index, row) {
-    //   this.$operation.tableMessageBox("此操作将推迟该条信息", () => {
-    //     this.$message({
-    //       type: "success",
-    //       message: "已推迟!"
-    //     });
-    //     this.auditList[index].status = 1;
-    //   });
-    // },
 
     /*
     * 当前页数

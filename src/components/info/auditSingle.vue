@@ -96,7 +96,7 @@
       <div class="single-article">
         <div class="single-state">
           <span class="normal" v-if="state == 0">未处理</span>
-          <span class="warning" v-else-if="state == 1">已拒绝</span>
+          <span class="success" v-else-if="state == 1">已通过</span>
           <div v-else>
             <h3 class="warning">这是一条举报信息</h3>
             <p><b>举报原因</b></p>

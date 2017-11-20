@@ -92,7 +92,7 @@
       <div class="header-logo">Logo</div>
       <el-dropdown class="header-staff">
         <span class="el-dropdown-link">
-          <i class="welcome">欢迎</i> SHINING</span>
+          <i class="welcome">欢迎</i> {{username}}</span>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item @click.native="logout">退出</el-dropdown-item>
         </el-dropdown-menu>
@@ -192,12 +192,14 @@ export default {
   data() {
     return {
       routerActive: this.$route.path,
-      role: {}
+      role: {},
+      username: ''
     };
   },
 
   created() {
     this.role = this.$route.params.role;
+    this.username = this.$route.params.username
   },
 
   methods: {

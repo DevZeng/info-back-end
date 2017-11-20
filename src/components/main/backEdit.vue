@@ -25,24 +25,21 @@
       <el-breadcrumb-item>编辑</el-breadcrumb-item>
     </el-breadcrumb>
     <div class="back-edit-form">
-      <el-form label-position="top" label-width="80px" :model="adminUser" :rules="rules" ref="adminUser">
-        <el-form-item label="姓名" prop="name">
-          <el-input v-model="adminUser.name" placeholder="请输入分工姓名"></el-input>
-        </el-form-item>        
+      <el-form label-position="top" label-width="80px" :model="adminUser" :rules="rules" ref="adminUser">      
         <el-form-item label="用户名" prop="username">
           <el-input v-model="adminUser.username" placeholder="请输入分工用户名"></el-input>
+        </el-form-item>
+        <el-form-item label="密码" prop="password">
+          <el-input v-model="adminUser.password" placeholder="请输入密码（不能短于6位）"></el-input>
         </el-form-item>        
         <el-form-item label="电话" prop="phone">
           <el-input v-model.number="adminUser.phone" placeholder="请输入电话号码"></el-input>
         </el-form-item>
-        <el-form-item label="密码" prop="password">
-          <el-input v-model="adminUser.password" placeholder="请输入密码（不能短于6位）"></el-input>
-        </el-form-item>
-        <el-form-item label="权限角色" prop="character">
-            <el-select v-model="adminUser.character" placeholder="请选择权限角色">
-              <el-option label="角色一" value="1"></el-option>
-              <el-option label="角色二" value="2"></el-option>
+        <el-form-item label="权限角色" prop="role">
+            <el-select v-model="adminUser.role" placeholder="请选择权限角色">
+              <el-option v-for="role in roles" :key="role.id" :label="role.display_name" :value="role.id"></el-option>
             </el-select>
+          <el-button type="text" @click="moreRole" style="margin-top: 10px;">{{roleFlag?'没有了':'加载更多角色'}}</el-button>
           </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="submitForm('adminUser')" style="width: 100%;margin-top: 10px;">确定</el-button>
@@ -57,25 +54,13 @@ export default {
   data() {
     return {
       adminUser: {
-        name: "",
         username: "",
         phone: null,
         password: "",
-        authorities: [],
-        character: ""
+        role: ""
       },
 
-      //多选框
-      checkAll: true,
-      authorities: this.$common.authorities,
-      authoritiesArr: [],
-      isIndeterminate: true,
-
       rules: {
-        name: [
-          { required: true, message: "分工姓名不能为空" },
-          { min: 0, max: 10, message: "长度在 10 个字符内" }
-        ],
         username: [{ required: true, message: "分工用户名不能为空" }],
         phone: [
           { required: true, message: "分工电话不能为空" },
@@ -85,27 +70,48 @@ export default {
           { required: true, message: "密码不能为空" },
           { min: 6, message: "长度在 6 个字符以上" }
         ],
-        character: [{ required: true, message: "请选择权限角色", trigger: "change" }]
-      }
+        role: [{ required: true, message: "请选择权限角色", trigger: "change" }]
+      },
+
+      roles:[],
+      page: 1,
+      roleFlag: false
     };
   },
 
   created() {
-    const user = this.$route.params.user;
-    if (user) {
-      this.adminUser.name = user.name;
-      this.adminUser.password = user.password;
-      this.adminUser.authorities = user.authority;
-    }
+    // const user = this.$route.params.user;
+    // if (user) {
+    //   this.adminUser.name = user.name;
+    //   this.adminUser.password = user.password;
+    //   this.adminUser.authorities = user.authority;
+    // }
 
-    let arr = [];
-    for (let i = 0; i < this.$common.authorities.length; i++) {
-      arr.push(i);
-    }
-    this.authoritiesArr = arr;
+    // let arr = [];
+    // for (let i = 0; i < this.$common.authorities.length; i++) {
+    //   arr.push(i);
+    // }
+    // this.authoritiesArr = arr;
+    this.$api.getRoleList("", res => {
+      this.roles = res.data.data;
+    });
   },
 
   methods: {
+
+    moreRole(){
+      if(this.roleFlag){
+        return false
+      }
+      this.$api.getRoleList({page: ++this.page}, res => {
+        const data = res.data.data
+        if(data.length){
+          this.roles = [...this.roles, ...data];
+        }else {
+          this.roleFlag = true
+        }
+      });
+    },
 
     /*
     * 表单提交
