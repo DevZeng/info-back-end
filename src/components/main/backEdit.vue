@@ -69,11 +69,10 @@ export default {
         password: [
           { required: true, message: "密码不能为空" },
           { min: 6, message: "长度在 6 个字符以上" }
-        ],
-        role: [{ required: true, message: "请选择权限角色", trigger: "change" }]
+        ]
       },
 
-      roles:[],
+      roles: [],
       page: 1,
       roleFlag: false
     };
@@ -98,17 +97,16 @@ export default {
   },
 
   methods: {
-
-    moreRole(){
-      if(this.roleFlag){
-        return false
+    moreRole() {
+      if (this.roleFlag) {
+        return false;
       }
-      this.$api.getRoleList({page: ++this.page}, res => {
-        const data = res.data.data
-        if(data.length){
+      this.$api.getRoleList({ page: ++this.page }, res => {
+        const data = res.data.data;
+        if (data.length) {
           this.roles = [...this.roles, ...data];
-        }else {
-          this.roleFlag = true
+        } else {
+          this.roleFlag = true;
         }
       });
     },
@@ -117,6 +115,13 @@ export default {
     * 表单提交
     */
     submitForm(formName) {
+      if (!this.adminUser.role) {
+        this.$message({
+          type: "warning",
+          message: "请选择角色"
+        });
+        return false;
+      }
       this.$refs[formName].validate(valid => {
         if (valid) {
           this.$api.postNewAdmin(this.adminUser, res => {
@@ -125,8 +130,8 @@ export default {
               message: "新建成功",
               showClose: true
             });
-            this.$router.push('/backcharacterlist')
-          })
+            this.$router.push("/backcharacterlist");
+          });
         } else {
           this.$message({
             type: "warning",

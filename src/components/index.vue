@@ -89,7 +89,7 @@
 
     <!-- 头部 -->
     <header id="header">
-      <div class="header-logo">Logo</div>
+      <div class="header-logo">信息平台管理系统</div>
       <el-dropdown class="header-staff">
         <span class="el-dropdown-link">
           <i class="welcome">欢迎</i> {{username}}</span>
