@@ -3,6 +3,8 @@
   height: 100%;
   padding: 15px;
   overflow: auto;
+  display: flex;
+  flex-direction: column;
 }
 .breadcrumb {
   margin-bottom: 20px;
@@ -71,6 +73,8 @@
 
 .single-list {
   margin-top: 30px;
+  margin-bottom: 20px;
+  flex: 1;
 }
 </style>
 
@@ -87,15 +91,22 @@
         <div class="single-basic-item">姓名： {{info.name || '未实名'}}</div>
         <div class="single-basic-item">昵称：  {{info.username}}</div>
         <div class="single-basic-item">电话号码： {{info.phone}}</div>
-        <div class="single-basic-item">会员等级： {{info.level?levels[info.level].name: ''}}</div>
+        <div class="single-basic-item">会员等级： {{info.member?levels[info.member.level].name: ''}}</div>
         <div class="single-basic-item">当前积分： {{info.score || 0}}</div>
         <div class="single-basic-item">发布次数： {{info.commodity_count || 0}}</div>
         <div class="single-basic-item">上架次数： {{info.enable_count || 0}}</div>
         <div class="single-basic-item">下架次数： {{info.disable_count || 0}}</div>
-        <div class="single-basic-item">地址： {{info.address}}</div>
       </div>
     </div>
     <div class="single-list">
+      <div class="single-operation">
+        <el-select v-model="pay_type" placeholder="请选择类型" @change="selectChange">
+          <el-option label="全部" value=""></el-option>
+          <el-option label="积分" value="1"></el-option>
+          <el-option label="支付宝" value="2"></el-option>
+          <el-option label="微信" value="3"></el-option>
+        </el-select>
+      </div>
       <el-table :data="payList" border style="width: 100%; margin-top: 20px">
         <el-table-column prop="id" label="ID" sortable>
         </el-table-column>
@@ -144,7 +155,8 @@ export default {
 
       page: 1,
       count: 0,
-      eachPage: 10
+      eachPage: 10,
+      pay_type: ""
     };
   },
 
@@ -162,10 +174,21 @@ export default {
   },
 
   methods: {
+    selectChange() {
+      this.$api.getPayOrders(
+        { user_id: this.user_id, pay_type: this.pay_type },
+        res => {
+          this.payList = res.data.data;
+        }
+      );
+    },
     handleCurrentChange(page) {
-      this.$api.getPayOrders({ user_id: this.user_id, page: page }, res => {
-        this.payList = res.data.data;
-      });
+      this.$api.getPayOrders(
+        { user_id: this.user_id, page: page, pay_type: this.pay_type },
+        res => {
+          this.payList = res.data.data;
+        }
+      );
     }
   }
 };
