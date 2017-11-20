@@ -117,7 +117,8 @@
         <el-table-column prop="pay_type" label="支付类型" sortable>
           <template slot-scope="scope">
             <span class="success" v-if="scope.row.pay_type == 3">微信</span>
-            <span class="info" v-else>支付宝</span>
+            <span class="info" v-else-if="scope.row.pay_type == 2">支付宝</span>
+            <span class="normal" v-else>积分</span>
           </template>
         </el-table-column>
         <el-table-column label="会员等级" prop="member.level" sortable>
@@ -179,6 +180,7 @@ export default {
         { user_id: this.user_id, pay_type: this.pay_type },
         res => {
           this.payList = res.data.data;
+          this.count = res.data.count;
         }
       );
     },

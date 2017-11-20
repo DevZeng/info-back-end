@@ -83,6 +83,9 @@
         <el-table-column prop="id" label="ID" sortable>
         </el-table-column>
         <el-table-column prop="username" label="用户">
+          <template slot-scope="scope">
+            <el-button type="text" @click="goToUser(scope.row.user_id)">{{scope.row.username}}</el-button>
+          </template>
         </el-table-column>
         <el-table-column prop="number" label="订单号">
         </el-table-column>
@@ -154,6 +157,10 @@ export default {
   },
 
   methods: {
+    //用户跳转
+    goToUser(id) {
+      this.$router.push({ name: "usersingle", params: { id: id } });
+    },
     /*
     * 金额统计
     */
@@ -190,6 +197,7 @@ export default {
       }
       this.$api.getPayOrders(this.searchForm, res => {
         this.payList = res.data.data;
+        this.count = res.data.count;
       });
     },
 
