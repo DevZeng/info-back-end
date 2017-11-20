@@ -51,8 +51,8 @@
         </el-table-column>
         <el-table-column label="昵称" prop="username">
         </el-table-column>
-        <el-table-column label="名称" prop="name">
-        </el-table-column>
+        <!-- <el-table-column label="名称" prop="name">
+        </el-table-column> -->
         <el-table-column prop="phone" label="手机号">
         </el-table-column>
         <el-table-column label="操作" width="150">
