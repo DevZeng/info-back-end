@@ -94,7 +94,7 @@
         <div class="single-basic-item">下架次数： {{info.disable_count || 0}}</div>
         <div class="single-basic-item">地址： {{info.address}}</div>
       </div>
-
+    </div>
     <div class="single-list">
       <el-table :data="payList" border style="width: 100%; margin-top: 20px">
         <el-table-column prop="id" label="ID" sortable>
