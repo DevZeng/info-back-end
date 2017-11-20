@@ -922,6 +922,24 @@ export default {
   },
 
   /**
+   * 获取单个用户的信息
+   * @param {string} id 
+   * @param {function} cb 回调
+   */
+  getSingleUser(id, cb) {
+    axios.get(`${host}user/${id}`)
+      .then(res => {
+        if ('SUCCESS' === res.data.return_code) {
+          typeof cb === 'function' && cb(res)
+        } else {
+          this.APIError(res)
+        }
+      }).catch(error => {
+        this.APIError(error.response)
+      })
+  },
+
+  /**
    * 获取审核条件列表
    * @param {object} data {page, limit}
    * @param {function} cb 回调

@@ -74,6 +74,9 @@
         <el-table-column label="ID" prop="id" sortable>
         </el-table-column>
         <el-table-column prop="username" label="昵称">
+          <template slot-scope="scope">
+            <el-button type="text" @click="goToUser(scope.row.id)">{{scope.row.username}}</el-button>
+          </template>
         </el-table-column>
         <el-table-column prop="name" label="姓名">
         </el-table-column>
@@ -87,6 +90,12 @@
         </el-table-column>
         <el-table-column prop="commodity_count" label="发布次数">
           <template slot-scope="scope">{{scope.row.commodity_count + ' 次'}}</template>
+        </el-table-column>
+        <el-table-column prop="enable_count" label="上架次数">
+          <template slot-scope="scope">{{scope.row.enable_count + ' 次'}}</template>
+        </el-table-column>
+        <el-table-column prop="disable_count" label="下架次数">
+          <template slot-scope="scope">{{scope.row.disable_count + ' 次'}}</template>
         </el-table-column>
         <!-- <el-table-column prop="memberLevel" label="会员等级">
           <template slot-scope="scope">{{levels[scope.row.memberLevel].name}}</template>
@@ -104,7 +113,7 @@
             <span class="warning" v-else>已停用</span>
           </template>
         </el-table-column>
-        <el-table-column label="操作" width="300">
+        <el-table-column label="操作" width="200">
           <template slot-scope="scope">
             <el-button v-if="scope.row.state == 1" size="small" type="danger" @click="handleStop(scope.$index, scope.row)">停用</el-button>
             <el-button v-else size="small" type="info" @click="handleNormal(scope.$index, scope.row)">取消停用</el-button>
@@ -195,6 +204,11 @@ export default {
   },
 
   methods: {
+
+    //用户跳转
+    goToUser(id){
+      this.$router.push({name: 'usersingle', params: {id: id}})
+    },
     //新增角色
     handleAddRole(index, row) {
       this.roleDialog = true;

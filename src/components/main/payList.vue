@@ -62,6 +62,7 @@
       <div class="pay-picker">
         <el-select v-model="searchForm.pay_type" placeholder="请选择类型">
           <el-option label="全部" value=""></el-option>
+          <el-option label="积分" value="1"></el-option>
           <el-option label="支付宝" value="2"></el-option>
           <el-option label="微信" value="3"></el-option>
         </el-select>
@@ -88,7 +89,8 @@
         <el-table-column prop="pay_type" label="支付类型" sortable>
           <template slot-scope="scope">
             <span class="success" v-if="scope.row.pay_type == 3">微信</span>
-            <span class="info" v-else>支付宝</span>
+            <span class="info" v-else-if="scope.row.pay_type == 2">支付宝</span>
+            <span class="normal" v-else>积分</span>
           </template>
         </el-table-column>
         <el-table-column label="会员等级" prop="member.level" sortable>
@@ -193,7 +195,7 @@ export default {
 
     //页码改变
     handleCurrentChange(page) {
-      const getData = Object.assign({}, this.searchForm, {page})
+      const getData = Object.assign({}, this.searchForm, { page });
       this.$api.getPayOrders(getData, res => {
         this.payList = res.data.data;
       });

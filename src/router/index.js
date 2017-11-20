@@ -26,6 +26,7 @@ import memberLevelEdit from '@/components/member/memberLevelEdit'
 import QRControl from '@/components/member/QRControl'
 import partTimeList from '@/components/member/partTimeList'
 import userList from '@/components/member/userList'
+import userSingle from '@/components/member/userSingle'
 import memberCheckIn from '@/components/member/memberCheckIn'
 import memberScan from '@/components/member/memberScan'
 import memberShare from '@/components/member/memberShare'
@@ -169,6 +170,16 @@ export default new Router({
           path: 'userlist',
           name: 'userlist',
           component: userList
+        }, {
+          path: 'usersingle',
+          name: 'usersingle',
+          component: userSingle,
+          beforeEnter: (to, from, next) => {
+            if (from.path) {
+              next()
+            }
+            next('/')
+          }
         }, {
           path: 'membercheckin/edit',
           name: 'membercheckin',

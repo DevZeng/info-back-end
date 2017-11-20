@@ -114,9 +114,6 @@
         <el-table-column type="expand">
           <template slot-scope="props">
             <el-form label-position="left" inline class="audit-pass-list-expand">
-              <el-form-item label="用户名">
-                <el-button type="text" @click="handlePeople(scope.$index, scope.row)">{{ props.row.username }}</el-button>
-              </el-form-item>
               <el-form-item label="QQ">
                 <span>{{ props.row.QQ || '无' }}</span>
               </el-form-item>
@@ -148,6 +145,11 @@
           </template>
         </el-table-column>
         <el-table-column prop="type" label="种类">
+        </el-table-column>        
+        <el-table-column prop="username" label="用户名">
+          <template slot-scope="scope">
+            <el-button type="text" @click="goToUser(scope.row.user_id)">{{scope.row.username}}</el-button>
+          </template>
         </el-table-column>
         <el-table-column prop="passName" label="审核人">
         </el-table-column>
@@ -251,6 +253,10 @@ export default {
   },
 
   methods: {
+    //用户跳转
+    goToUser(id) {
+      this.$router.push({ name: "usersingle", params: { id: id } });
+    },
     //查看单条信息
     goToInfo(row) {
       this.$router.push({

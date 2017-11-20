@@ -111,9 +111,6 @@
         <el-table-column type="expand">
           <template slot-scope="props">
             <el-form label-position="left" inline class="demo-table-expand">
-              <el-form-item label="昵称">
-                <span>{{ props.row.nickname }}</span>
-              </el-form-item>
               <el-form-item label="性别">
                 <span>{{ props.row.sex }}</span>
               </el-form-item>
@@ -132,8 +129,11 @@
         <!-- <el-table-column type="selection" width="55">
         </el-table-column> -->
         <el-table-column label="用户编号" prop="id" sortable>
-        </el-table-column>
-        <el-table-column label="姓名" prop="name">
+        </el-table-column>       
+        <el-table-column prop="name" label="姓名">
+          <template slot-scope="scope">
+            <el-button type="text" @click="goToUser(scope.row.id)">{{scope.row.name}}</el-button>
+          </template>
         </el-table-column>
         <el-table-column label="电话" prop="number">
         </el-table-column>
@@ -234,6 +234,14 @@ export default {
   },
 
   methods: {
+
+    
+    //用户跳转
+    goToUser(id){
+      this.$router.push({name: 'usersingle', params: {id: id}})
+    },
+
+
     //筛选
     pickerSearch() {
       console.log(1)
@@ -241,45 +249,6 @@ export default {
         this.partTimeList = res.data.data;
       });
     },
-    /*
-    * 切换
-    */
-    // SwitchFnc() {},
-
-    /*
-    * 选中
-    */
-    // handleSelectionChange(selection) {
-    //   this.waittingData = selection;
-    // },
-
-    /*
-    * 选中全部
-    */
-    // chooseAll() {
-    //   const length = this.waittingData.length;
-    //   if (!length) {
-    //     this.$message({
-    //       type: "warning",
-    //       message: "请先选择目标",
-    //       showClose: true
-    //     });
-    //   }
-
-    //   this.$message({
-    //     type: "success",
-    //     message: "已全部选中",
-    //     showClose: true
-    //   });
-    // },
-
-    /*
-    * 单个选中
-    */
-    // handleChoose(index, row) {
-    //   this.partTimeList[index].status =
-    //     this.partTimeList[index].status == 1 ? 0 : 1;
-    // },
 
     /*
     * 图片预览
@@ -295,44 +264,6 @@ export default {
     closePreImg() {
       this.isPre = false;
     },
-
-    /*
-    * 回复
-    */
-    // handleReplay(index, row) {
-    //   this.$prompt("请输入回复", "提示", {
-    //     confirmButtonText: "确定",
-    //     cancelButtonText: "取消",
-    //     beforeClose: (action, instance, done) => {
-    //       if (action === "confirm") {
-    //         if (!instance.inputValue) {
-    //           this.$message({
-    //             type: "warning",
-    //             message: "回复不能为空",
-    //             showClose: true
-    //           });
-    //           return false;
-    //         }
-    //         this.partTimeList[index].replay_content = instance.inputValue;
-    //         done();
-    //       } else {
-    //         done();
-    //       }
-    //     }
-    //   })
-    //     .then(() => {
-    //       this.$message({
-    //         type: "success",
-    //         message: "回复成功"
-    //       });
-    //     })
-    //     .catch(() => {
-    //       this.$message({
-    //         type: "info",
-    //         message: "取消输入"
-    //       });
-    //     });
-    // },
 
     //取消选中
     handleCancel(index, row) {

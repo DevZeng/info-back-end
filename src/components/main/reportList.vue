@@ -96,9 +96,9 @@
             <el-button v-else type="text" @click="replayReport(scope.$index, scope.row)">回复申诉</el-button>
           </template>
         </el-table-column> -->
-        <el-table-column label="举报者" prop="username">
+        <el-table-column prop="username" label="举报者">
           <template slot-scope="scope">
-            <el-button type="text" @click="checkReportUser(scope.$index, scope.row)">{{scope.row.username}}</el-button>
+            <el-button type="text" @click="goToUser(scope.row.user_id)">{{scope.row.username}}</el-button>
           </template>
         </el-table-column>
         <el-table-column label="处理情况">
@@ -174,6 +174,11 @@ export default {
   },
 
   methods: {
+    //用户跳转
+    goToUser(id) {
+      this.$router.push({ name: "usersingle", params: { id: id } });
+    },
+
     //查看单条信息
     goToInfo(row) {
       let temp = Object.assign({}, row.commodity, row);
@@ -217,16 +222,6 @@ export default {
     */
     replayReport(index, row) {
       // console.log()
-    },
-
-    /*
-    * 查看举报者信息
-    */
-    checkReportUser(index, row) {
-      // this.$message({
-      //   type: "success",
-      //   message: "test"
-      // });
     },
 
     /*
