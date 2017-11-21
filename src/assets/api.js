@@ -9,7 +9,7 @@ const TXWebService = 'http://apis.map.qq.com/ws/district/v1/'
 const TXKey = 'FF2BZ-H34WP-GQPDC-VFKIS-P7DDH-BCFNG'
 // const host = 'http://192.168.3.22:8090/'
 // const host = 'http://admin.sennkisystem.cn/'
-const host = 'http://app.ankekan.com'
+const host = 'http://app.ankekan.com/'
 /*
   配置 axios
 */

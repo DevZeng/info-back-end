@@ -4,7 +4,7 @@ export default {
     // host: 'http://192.168.3.22:8090/',
 
     // host: 'http://admin.sennkisystem.cn/',
-    host: 'http://app.ankekan.com',
+    host: 'http://app.ankekan.com/',
 
     //会员等级
     memberLevels: [{
