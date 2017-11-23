@@ -140,7 +140,7 @@ export default {
     */
     handleDelete(index, row) {
       this.$operation.tableMessageBox("此操作将删除该审核条件", () => {
-        this.$api.deleteRefuse(row.id, res => {
+        this.$api.deleteReport(row.id, res => {
           this.reportTypeList.splice(index, 1);
           this.$message({
             type: "success",

@@ -984,6 +984,23 @@ export default {
    * @param {function} cb 
    */
   deleteRefuse(id, cb) {
+    axios.get(`${host}del/refuse/${id}`)
+      .then(res => {
+        if ('SUCCESS' === res.data.return_code) {
+          typeof cb === 'function' && cb(res)
+        } else {
+          this.APIError(res)
+        }
+      }).catch(error => {
+        this.APIError(error.response)
+      })
+  },
+  /**
+   * 删除审核条件
+   * @param {string} id 
+   * @param {function} cb 
+   */
+  deleteReport(id, cb) {
     axios.get(`${host}del/report/${id}`)
       .then(res => {
         if ('SUCCESS' === res.data.return_code) {
