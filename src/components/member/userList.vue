@@ -197,10 +197,6 @@ export default {
       this.count = res.data.count;
       this.loading = false;
     });
-
-    this.$api.getRoleList("", res => {
-      this.roles = res.data.data;
-    });
   },
 
   methods: {
