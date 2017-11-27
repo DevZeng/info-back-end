@@ -140,7 +140,7 @@ export default {
         if (cityArr[1]) {
           this.bannerForm.shi = Number(cityArr[1]);
           this.$api.getUsDistrict({ pid: cityArr[1] }, res => {
-            this.shis = res.data.data;
+            this.xians = res.data.data;
           });
         }
         if (cityArr[2]) {
