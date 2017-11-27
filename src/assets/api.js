@@ -928,9 +928,7 @@ export default {
    * @param {Function} cb 
    */
   deleteUser(id, cb) {
-    axios.get(`${host}del/user/${id}`, {
-        params: data
-      })
+    axios.get(`${host}del/user/${id}`)
       .then(res => {
         if ('SUCCESS' === res.data.return_code) {
           typeof cb === 'function' && cb(res)
