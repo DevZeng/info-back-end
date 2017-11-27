@@ -60,7 +60,7 @@
         </el-table-column>
         <el-table-column prop="image" label="H5图片链接" show-overflow-tooltip>
           <template slot-scope="scope">
-            <a :href="scope.row.image" target="_blank"></a>
+            <a :href="scope.row.image" target="_blank">{{scope.row.image}}</a>
           </template>
         </el-table-column>
         <el-table-column prop="rule" label="APP分享规则">
