@@ -113,11 +113,12 @@
             <span class="warning" v-else>已停用</span>
           </template>
         </el-table-column>
-        <el-table-column label="操作" width="200">
+        <el-table-column label="操作" width="250">
           <template slot-scope="scope">
             <el-button v-if="scope.row.state == 1" size="small" type="danger" @click="handleStop(scope.$index, scope.row)">停用</el-button>
             <el-button v-else size="small" type="info" @click="handleNormal(scope.$index, scope.row)">取消停用</el-button>
             <el-button size="small" type="danger" @click="handleChange(scope.$index, scope.row)">更改等级</el-button>
+            <el-button size="small" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
             <!-- <el-button size="small" type="warning" @click="handleAddRole(scope.$index, scope.row)">新增权限</el-button> -->
           </template>
         </el-table-column>
@@ -200,10 +201,9 @@ export default {
   },
 
   methods: {
-
     //用户跳转
-    goToUser(id){
-      this.$router.push({name: 'usersingle', params: {id: id}})
+    goToUser(id) {
+      this.$router.push({ name: "usersingle", params: { id: id } });
     },
     //新增角色
     handleAddRole(index, row) {
@@ -291,6 +291,19 @@ export default {
           this.$message({
             type: "success",
             message: "已恢复!"
+          });
+        });
+      });
+    },
+
+    //删除用户
+    handleDelete(index, row) {
+      this.$operation.tableMessageBox("此操作将取消删除该用户账号", () => {
+        this.$api.deleteUser(row.id, res => {
+          this.userList.splice(index, 1);
+          this.$message({
+            type: "success",
+            message: "已删除!"
           });
         });
       });

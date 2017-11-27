@@ -57,6 +57,12 @@
             </el-switch>
           </el-tooltip>
         </el-form-item>
+        <el-form-item label="登录短信开关" prop="need_msg">
+          <el-tooltip :content="'当前状态：' + checkSwitchText[configForm.need_msg]" placement="top">
+            <el-switch v-model="configForm.need_msg" on-color="#13ce66" off-color="#ff4949" :on-value="1" :off-value="0" on-text="打开" off-text="关闭">
+            </el-switch>
+          </el-tooltip>
+        </el-form-item>
         <el-form-item label="图片积分" prop="pic_score">
           <el-input v-model.number="configForm.pic_score" placeholder="请输入图片积分（整数）">
             <template slot="append">分</template>
@@ -97,6 +103,7 @@ export default {
         show_qrcode: 1,
         show_share: 1,
         apply: 1,
+        need_msg: 1,
         id: "",
         pic_score: null,
         phone_score: null,

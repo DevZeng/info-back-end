@@ -923,6 +923,26 @@ export default {
   },
 
   /**
+   * 删除用户
+   * @param {String} id 
+   * @param {Function} cb 
+   */
+  deleteUser(id, cb) {
+    axios.get(`${host}del/user/${id}`, {
+        params: data
+      })
+      .then(res => {
+        if ('SUCCESS' === res.data.return_code) {
+          typeof cb === 'function' && cb(res)
+        } else {
+          this.APIError(res)
+        }
+      }).catch(error => {
+        this.APIError(error.response)
+      })
+  },
+
+  /**
    * 获取单个用户的信息
    * @param {string} id 
    * @param {function} cb 回调
