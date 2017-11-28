@@ -79,11 +79,11 @@
             <el-option v-for="(item,index) in shis" :key="item.id" :label="item.name" :value="item.id"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="县区：">
+        <!-- <el-form-item label="县区：">
           <el-select v-model="bannerForm.xian" placeholder="请选择县区"  @change="selectXian">
             <el-option v-for="(item,index) in xians" :key="item.id" :label="item.name" :value="item.id"></el-option>
           </el-select>
-        </el-form-item>
+        </el-form-item> -->
         <el-form-item label="跳转链接" prop="link_url">
           <el-input v-model="bannerForm.link_url"></el-input>
         </el-form-item>
@@ -147,20 +147,6 @@ export default {
           this.bannerForm.xian = Number(cityArr[2]);
         }
       }
-      // this.bannerForm.sheng = Number(cityArr[0]);
-      // this.bannerForm.shi = Number(cityArr[1]);
-      // if (img.city_id == cityArr[1]) {
-      //   this.bannerForm.xian = "";
-      //   this.noxian = true;
-      // } else {
-      //   this.bannerForm.xian = img.city_id;
-      // }
-      // this.$api.getUsDistrict({ pid: cityArr[0] }, res => {
-      //   this.shis = res.data.data;
-      // });
-      // this.$api.getUsDistrict({ pid: cityArr[1] }, res => {
-      //   this.xians = res.data.data;
-      // });
       this.bannerForm.title = img.title;
       this.bannerForm.url = img.url;
       this.bannerForm.link_url = img.link_url;
