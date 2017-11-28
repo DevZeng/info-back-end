@@ -229,7 +229,7 @@ export default {
     * 县区选择
     */
 
-    selectXian() {
+    selectXian(id) {
       const xian = this.bannerForm.xian;
       if (!xian) {
         return false;
