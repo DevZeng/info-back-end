@@ -68,12 +68,20 @@
       <el-breadcrumb-item>通过审核列表</el-breadcrumb-item>
     </el-breadcrumb>
     <div class="audit-pass-list-operation">
+      <div style="text-align:right;margin-bottom:10px;">
+        <el-select v-model="singleSearchForm.report" placeholder="举报查询" @change="reportChange">
+          <el-option label="全部" value=""></el-option>
+          <el-option label="未举报" value="0"></el-option>
+          <el-option label="已举报" value="1"></el-option>
+        </el-select>
+      </div>
       <div style="text-align:right;">
         <el-input placeholder="请输入搜索内容" v-model="selectInput" style="margin-bottom: 20px; width: 900px;" @keyup.enter.native="selectSearch">
           <el-select v-model="select" slot="prepend" placeholder="请选择">
             <el-option label="用户名" value="username"></el-option>
             <el-option label="用户编号" value="user_id"></el-option>
-            <!-- <el-option label="信息编号编号" value="3"></el-option> -->
+            <el-option label="审核人" value="person"></el-option>
+            <el-option label="种类" value="type"></el-option>
           </el-select>
           <el-button slot="append" icon="search" @click="selectSearch"></el-button>
         </el-input>
@@ -129,6 +137,9 @@
               <el-form-item label="地址">
                 <span>{{ props.row.address }}</span>
               </el-form-item>
+              <el-form-item label="更新时间">
+                <span>{{ props.row.update_at }}</span>
+              </el-form-item>
             </el-form>
           </template>
         </el-table-column>
@@ -137,6 +148,12 @@
         <el-table-column prop="title" label="信息名称" show-overflow-tooltip>
           <template slot-scope="scope">
             <el-button type="text" @click="goToInfo(scope.row)">{{scope.row.title}}</el-button>
+          </template>
+        </el-table-column>
+        <el-table-column prop="is_publish" label="初始发布">
+          <template slot-scope="scope">
+            <span v-if="scope.row.is_publish == 0">是</span>
+            <span v-else>否</span>
           </template>
         </el-table-column>
         <el-table-column prop="price" label="价格">
@@ -153,7 +170,7 @@
         </el-table-column>
         <el-table-column prop="passName" label="审核人">
         </el-table-column>
-        <el-table-column prop="created_at" label="发布时间">
+        <el-table-column prop="first_publish" label="发布时间">
         </el-table-column>
         <el-table-column prop="report_count" label="举报次数">
           <template slot-scope="scope">
@@ -234,7 +251,11 @@ export default {
       count: 0,
 
       //数据
-      auditPassList: []
+      auditPassList: [],
+
+      singleSearchForm: {
+        report: ""
+      }
     };
   },
 
@@ -401,6 +422,25 @@ export default {
       }
       this.$api.getPassList(getData, res => {
         this.auditPassList = res.data.data;
+      });
+    },
+
+    reportChange(value) {
+      let getData = {
+        report: value
+      };
+      if (this.selectInput) {
+        getData[this.select] = this.selectInput;
+      } else {
+        getData.city_id = this.searchForm.city_id;
+        if (this.dateRange) {
+          getData.start = new Date(this.dateRange[0]).toLocaleDateString();
+          getData.end = new Date(this.dateRange[1]).toLocaleDateString();
+        }
+      }
+      this.$api.getPassList(getData, res => {
+        this.auditPassList = res.data.data;
+        this.count = res.data.count;
       });
     }
   }
