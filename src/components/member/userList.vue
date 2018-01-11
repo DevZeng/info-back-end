@@ -170,7 +170,11 @@ export default {
 
       searchForm: {
         level: "",
-        is_publish: ""
+        is_publish: "",
+        publish_start: "",
+        publish_end: "",
+        start: "",
+        end: ""
       },
       levelUpDialog: false,
 
@@ -267,8 +271,8 @@ export default {
         this.searchForm.end = new Date(this.dateRange[1]);
       }
       if (this.dateRange2) {
-        this.searchForm.publish_start = new Date(this.dateRange[0]);
-        this.searchForm.publish_end = new Date(this.dateRange[1]);
+        this.searchForm.publish_start = new Date(this.dateRange2[0]);
+        this.searchForm.publish_end = new Date(this.dateRange2[1]);
       }
       this.$api.getUserList(this.searchForm, res => {
         this.userList = res.data.data;
