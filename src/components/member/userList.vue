@@ -170,7 +170,7 @@ export default {
 
       searchForm: {
         level: "",
-        is_publish: "",
+        publish: "",
         publish_start: "",
         publish_end: "",
         start: "",
