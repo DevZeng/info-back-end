@@ -60,8 +60,8 @@
           </el-option>
         </el-select>
         <el-select v-model="searchForm.publish" placeholder="是否发布">
-          <el-option label="是" value="1"></el-option>
-          <el-option label="否" value="0"></el-option>
+          <el-option label="是" value="2"></el-option>
+          <el-option label="否" value="1"></el-option>
         </el-select>
         <el-date-picker v-model="dateRange2" type="daterange" align="right" placeholder="选择发布日期范围" :picker-options="dateOptions">
         </el-date-picker>
@@ -265,6 +265,10 @@ export default {
       if (this.dateRange) {
         this.searchForm.start = new Date(this.dateRange[0]);
         this.searchForm.end = new Date(this.dateRange[1]);
+      }
+      if (this.dateRange2) {
+        this.searchForm.publish_start = new Date(this.dateRange[0]);
+        this.searchForm.publish_end = new Date(this.dateRange[1]);
       }
       this.$api.getUserList(this.searchForm, res => {
         this.userList = res.data.data;

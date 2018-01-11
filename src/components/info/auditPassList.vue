@@ -71,8 +71,8 @@
       <div style="text-align:right;margin-bottom:10px;">
         <el-select v-model="singleSearchForm.report" placeholder="举报查询" @change="reportChange">
           <el-option label="全部" value=""></el-option>
-          <el-option label="未举报" value="0"></el-option>
-          <el-option label="已举报" value="1"></el-option>
+          <el-option label="未举报" value="1"></el-option>
+          <el-option label="已举报" value="2"></el-option>
         </el-select>
       </div>
       <div style="text-align:right;">
