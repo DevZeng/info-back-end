@@ -137,9 +137,6 @@
               <el-form-item label="地址">
                 <span>{{ props.row.address }}</span>
               </el-form-item>
-              <el-form-item label="更新时间">
-                <span>{{ props.row.update_at }}</span>
-              </el-form-item>
             </el-form>
           </template>
         </el-table-column>
@@ -148,12 +145,6 @@
         <el-table-column prop="title" label="信息名称" show-overflow-tooltip>
           <template slot-scope="scope">
             <el-button type="text" @click="goToInfo(scope.row)">{{scope.row.title}}</el-button>
-          </template>
-        </el-table-column>
-        <el-table-column prop="is_publish" label="初始发布">
-          <template slot-scope="scope">
-            <span v-if="scope.row.is_publish == 0">是</span>
-            <span v-else>否</span>
           </template>
         </el-table-column>
         <el-table-column prop="price" label="价格">
@@ -170,7 +161,7 @@
         </el-table-column>
         <el-table-column prop="passName" label="审核人">
         </el-table-column>
-        <el-table-column prop="first_publish" label="发布时间">
+        <el-table-column prop="created_at" label="发布时间">
         </el-table-column>
         <el-table-column prop="report_count" label="举报次数">
           <template slot-scope="scope">
@@ -365,7 +356,7 @@ export default {
     */
     selectSearch() {
       const getData = {
-        [this.select]: this.selectInput
+        [this.select]: this.selectInput.trim()
       };
       this.$api.getPassList(getData, res => {
         this.auditPassList = res.data.data;
@@ -409,7 +400,8 @@ export default {
     */
     handleCurrentChange(page) {
       let getData = {
-        page: page
+        page: page,
+        report: this.singleSearchForm.report
       };
       if (this.selectInput) {
         getData[this.select] = this.selectInput;

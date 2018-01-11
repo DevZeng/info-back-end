@@ -59,11 +59,13 @@
           <el-option v-for="item in levels" :key="item.id" :label="item.name" :value="item.id">
           </el-option>
         </el-select>
-        <!-- <el-select v-model="searchForm.published" filterable placeholder="是否发布过消息">
+        <el-select v-model="searchForm.publish" placeholder="是否发布">
           <el-option label="是" value="1"></el-option>
           <el-option label="否" value="0"></el-option>
-        </el-select> -->
-        <el-date-picker v-model="dateRange" type="daterange" align="right" placeholder="选择日期范围" :picker-options="dateOptions">
+        </el-select>
+        <el-date-picker v-model="dateRange2" type="daterange" align="right" placeholder="选择发布日期范围" :picker-options="dateOptions">
+        </el-date-picker>
+        <el-date-picker v-model="dateRange" type="daterange" align="right" placeholder="选择会员日期范围" :picker-options="dateOptions">
         </el-date-picker>
         <el-button type="primary" icon="search" @click="pickerSearch">搜索</el-button>
       </div>
@@ -167,7 +169,8 @@ export default {
       selectInput: "",
 
       searchForm: {
-        level: ""
+        level: "",
+        is_publish: ""
       },
       levelUpDialog: false,
 
@@ -179,6 +182,7 @@ export default {
       currentUser: {},
 
       dateRange: "",
+      dateRange2: "",
 
       dateOptions: this.$common.dateOptions,
 
