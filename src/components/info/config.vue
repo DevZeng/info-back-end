@@ -83,6 +83,14 @@
             <template slot="append">元</template>
           </el-input>
         </el-form-item>
+        <el-form-item label="安卓下载链接" prop="android_url">
+          <el-input v-model="configForm.android_url" placeholder="请输入安卓下载链接">
+          </el-input>
+        </el-form-item>
+        <el-form-item label="IOS 下载链接" prop="ios_url">
+          <el-input v-model="configForm.ios_url" placeholder="请输入IOS 下载链接">
+          </el-input>
+        </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="onSubmit('configForm')" style="width: 100%;margin-top: 20px;">确定</el-button>
         </el-form-item>
@@ -108,7 +116,9 @@ export default {
         pic_score: null,
         phone_score: null,
         pic_price: "",
-        phone_price: null
+        phone_price: null,
+        android_url: '',
+        ios_url: ''
       },
       dateRange: "",
 
@@ -122,7 +132,9 @@ export default {
           { type: "number", message: "查看电话积分必须为数字" }
         ],
         pic_price: [{ required: true, message: "查看图片价格不能为空" }],
-        phone_price: [{ required: true, message: "查看电话价格不能为空" }]
+        phone_price: [{ required: true, message: "查看电话价格不能为空" }],
+        android_url: [{ required: true, message: "安卓下载链接不能为空" }],
+        ios_url: [{ required: true, message: "IOS 下载链接不能为空" }]
       }
     };
   },
