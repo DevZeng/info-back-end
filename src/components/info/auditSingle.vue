@@ -119,7 +119,7 @@
         <div class="single-picture">
           <div class="inline-block" v-for="(img, index) in info.pictures" :key="img.id" @click="preImg(img)">
             <p style="font-size: 15px;">{{img.title || '暂无名称'}}</p>
-            <img class="single-img" :src="img.url" :alt="img.title" :title="img.title">
+            <img class="single-img" :src="img.thumb_url" :alt="img.title" :title="img.title">
           </div>
         </div>
       </div>
