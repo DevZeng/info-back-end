@@ -91,6 +91,14 @@
           <el-input v-model="configForm.ios_url" placeholder="请输入IOS 下载链接">
           </el-input>
         </el-form-item>
+        <el-form-item label="分享标题" prop="share_title">
+          <el-input v-model="configForm.share_title" placeholder="请输入分享标题">
+          </el-input>
+        </el-form-item>
+        <el-form-item label="分享内容" prop="share_content">
+          <el-input v-model="configForm.share_content" placeholder="请输入分享内容">
+          </el-input>
+        </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="onSubmit('configForm')" style="width: 100%;margin-top: 20px;">确定</el-button>
         </el-form-item>
@@ -118,7 +126,9 @@ export default {
         pic_price: "",
         phone_price: null,
         android_url: '',
-        ios_url: ''
+        ios_url: '',
+        share_title:'',
+        share_content:''
       },
       dateRange: "",
 
@@ -134,7 +144,9 @@ export default {
         pic_price: [{ required: true, message: "查看图片价格不能为空" }],
         phone_price: [{ required: true, message: "查看电话价格不能为空" }],
         android_url: [{ required: true, message: "安卓下载链接不能为空" }],
-        ios_url: [{ required: true, message: "IOS 下载链接不能为空" }]
+        ios_url: [{ required: true, message: "IOS 下载链接不能为空" }],
+        share_title: [{ required: true, message: "分享标题不能为空" }],
+        share_content: [{ required: true, message: "分享内容不能为空" }],
       }
     };
   },
