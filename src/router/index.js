@@ -48,7 +48,7 @@ import sms from '@/components/info/sms'
 import config from '@/components/info/config'
 import temp from '@/components/main/temp'
 import backUserList from '@/components/main/backUserList'
-
+import waitList from '@/components/redpacket/waitList'
 Vue.use(Router)
 
 export default new Router({
@@ -263,6 +263,10 @@ export default new Router({
           path: 'temp',
           name: 'temp',
           component: temp
+        }, {
+          path: 'waitList',
+          name: 'waitList',
+          component: waitList
         }
       ]
     }

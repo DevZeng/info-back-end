@@ -168,6 +168,24 @@
                 <el-menu-item v-if="role.rejectreason" index="/auditcondition">审核条件</el-menu-item>
               </el-submenu>
             </el-submenu>
+            <el-submenu index="4">
+              <template slot="title">
+                <i class="el-icon-message"></i>红包管理
+              </template>
+              <el-menu-item-group>
+                <el-menu-item  index="/categorylist">种类和细节</el-menu-item>
+                <!-- <el-menu-item index="/chargemode">信息收费管理</el-menu-item> -->
+                <!-- <el-menu-item index="/sms">短信反馈</el-menu-item> -->
+                <el-menu-item  index="/startpagelist">启动页面</el-menu-item>
+                <el-menu-item  index="/config">系统设置</el-menu-item>
+              </el-menu-item-group>
+              <el-submenu index="4-1">
+                <template slot="title">审核相关</template>
+                <el-menu-item  index="/waitList">未审核列表</el-menu-item>
+                <el-menu-item index="/auditpasslist">审核通过列表</el-menu-item>
+                <el-menu-item  index="/auditcondition">审核条件</el-menu-item>
+              </el-submenu>
+            </el-submenu>
           </el-menu>
         </nav>
         <!-- /导航 -->

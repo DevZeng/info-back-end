@@ -62,7 +62,7 @@
   </section>
   <section v-else class="audit-list-wrap">
     <el-breadcrumb separator="/" class="breadcrumb">
-      <el-breadcrumb-item>信息处理</el-breadcrumb-item>
+      <el-breadcrumb-item>红包管理</el-breadcrumb-item>
       <el-breadcrumb-item>审核相关</el-breadcrumb-item>
       <el-breadcrumb-item>未审核列表</el-breadcrumb-item>
     </el-breadcrumb>
@@ -133,15 +133,18 @@
         </el-table-column>
         <el-table-column prop="title" label="信息名称" show-overflow-tooltip>
           <template slot-scope="scope">
-            <el-button type="text" @click="goToInfo(scope.row)">{{scope.row.title}}</el-button>
+            <el-button type="text" @click="goToInfo(scope.row)">{{scope.row.commodity_title}}</el-button>
           </template>
         </el-table-column>
-        <el-table-column prop="price" label="价格">
+        <el-table-column prop="price" label="开始时间">
           <template slot-scope="scope">
-            <span>{{scope.row.price}} 元</span>
+            <span>{{scope.row.start}} </span>
           </template>
         </el-table-column>
-        <el-table-column prop="type" label="种类">
+        <el-table-column prop="type" label="结束时间">
+          <template slot-scope="scope">
+            <span>{{scope.row.end}} </span>
+          </template>
         </el-table-column>        
         <el-table-column prop="username" label="用户名">
           <template slot-scope="scope">
