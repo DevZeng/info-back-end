@@ -49,6 +49,8 @@ import config from '@/components/info/config'
 import temp from '@/components/main/temp'
 import backUserList from '@/components/main/backUserList'
 import waitList from '@/components/redpacket/waitList'
+import packetPassList from '@/components/redpacket/packetPassList'
+import packetConfig from '@/components/redpacket/packetConfig'
 Vue.use(Router)
 
 export default new Router({
@@ -267,7 +269,16 @@ export default new Router({
           path: 'waitList',
           name: 'waitList',
           component: waitList
-        }
+        }, {
+          path: 'packetPassList',
+          name: 'packetPassList',
+          component: packetPassList
+        }, {
+          path: 'packetConfig',
+          name: 'packetConfig',
+          component: packetConfig
+        },
+
       ]
     }
   ]

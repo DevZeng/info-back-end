@@ -111,20 +111,41 @@
         <el-table-column type="expand">
           <template slot-scope="props">
             <el-form label-position="left" inline class="audit-pass-list-expand">
-              <el-form-item label="QQ">
-                <span>{{ props.row.QQ || '无' }}</span>
+              <el-form-item label="可抢范围">
+                <span>{{ props.row.distance }}公里</span>
               </el-form-item>
-              <el-form-item label="微信">
-                <span>{{ props.row.WeChat || '无' }}</span>
+              <el-form-item label="红包总个数">
+                <span>{{ props.row.cash_number || '无' }}</span>
               </el-form-item>
-              <el-form-item label="电话号码">
-                <span>{{ props.row.phone || '无' }}</span>
+              <el-form-item label="红包总额">
+                <span>{{ props.row.cash_all || '无' }}</span>
               </el-form-item>
-              <el-form-item label="阅读数">
-                <span>{{ props.row.read_number }} 次</span>
+              <el-form-item label="单个红包最高">
+                <span>{{ props.row.cash_max || '无' }}元</span>
               </el-form-item>
-              <el-form-item label="地址">
-                <span>{{ props.row.address }}</span>
+              <el-form-item label="单个红包最低">
+                <span>{{ props.row.cash_min }} 元</span>
+              </el-form-item>
+              <el-form-item label="红包提示">
+                <span>{{ props.row.title }}</span>
+              </el-form-item>
+              <el-form-item label="优惠券总额">
+                <span>{{ props.row.coupon_all }}</span>
+              </el-form-item>
+              <el-form-item label="单个优惠券最高">
+                <span>{{ props.row.coupon_max }}</span>
+              </el-form-item>
+              <el-form-item label="单个优惠券最低">
+                <span>{{ props.row.coupon_min }}</span>
+              </el-form-item>
+              <el-form-item label="口令">
+                <span>{{ props.row.code }}</span>
+              </el-form-item>
+              <el-form-item label="优惠券标题">
+                <span>{{ props.row.coupon_title }}</span>
+              </el-form-item>
+              <el-form-item label="优惠券有效期">
+                <span>{{ props.row.end }}过期</span>
               </el-form-item>
             </el-form>
           </template>
@@ -163,7 +184,7 @@
           <template slot-scope="scope">
             <el-button size="small" type="primary" @click="handlePass(scope.$index, scope.row)">通过</el-button>
             <el-button size="small" type="danger" @click="handleReject(scope.$index, scope.row)">拒绝</el-button>
-          </template>
+            </template>
         </el-table-column>
       </el-table>
     </div>
@@ -233,7 +254,7 @@ export default {
     this.$api.getUsDistrict("", res => {
       this.shengs = res.data.data;
     });
-    this.$api.getPacketsList("", res => {
+    this.$api.getunPassPacketsList("", res => {
       this.auditList = res.data.data;
       this.count = res.data.count;
       this.loading = false;
@@ -336,7 +357,7 @@ export default {
       const getData = {
         [this.select]: this.selectInput
       };
-      this.$api.getPacketsList(getData, res => {
+      this.$api.getunPassPacketsList(getData, res => {
         this.auditList = res.data.data;
         this.count = res.data.count;
       });
@@ -352,7 +373,7 @@ export default {
         getData.end = new Date(this.dateRange[1]).toLocaleDateString();
       }
       getData.city_id = this.searchForm.city_id;
-      this.$api.getPacketsList(getData, res => {
+      this.$api.getunPassPacketsList(getData, res => {
         this.auditList = res.data.data;
         this.count = res.data.count;
       });
@@ -362,8 +383,9 @@ export default {
     * 通过
     */
     handlePass(index, row) {
-      this.$operation.tableMessageBox("此操作将通过该条信息", () => {
-        this.$api.changePass(row.id, { pass: 1 }, res => {
+      this.$operation.tableMessageBox("此操作将通过该条红包", () => {
+        console.log(row)
+        this.$api.passPacket(row.id, { pass: 1 }, res => {
           this.$message({
             type: "success",
             message: "已通过!"
@@ -377,10 +399,16 @@ export default {
     * 拒绝
     */
     handleReject(index, row) {
-      this.rejectDialog = true;
-      this.currentRefuseId = row.id;
-      this.currentRefuseIndex = index;
-      this.reason = [];
+      this.$operation.tableMessageBox("此操作将拒绝该条红包", () => {
+        console.log(row)
+        this.$api.passPacket(row.id, { pass: 2 }, res => {
+          this.$message({
+            type: "success",
+            message: "已拒绝!"
+          });
+          this.auditList.splice(index, 1);
+        });
+      });
     },
 
     /*
@@ -399,7 +427,7 @@ export default {
           getData.end = new Date(this.dateRange[1]).toLocaleDateString();
         }
       }
-      this.$api.getPacketsList(getData, res => {
+      this.$api.getunPassPacketsList(getData, res => {
         this.auditList = res.data.data;
       });
     }

@@ -230,7 +230,7 @@ export default {
     this.$api.getUsDistrict("", res => {
       this.shengs = res.data.data;
     });
-    this.$api.getPacketsList("", res => {
+    this.$api.getUnPassList("", res => {
       this.auditList = res.data.data;
       this.count = res.data.count;
       this.loading = false;
@@ -333,7 +333,7 @@ export default {
       const getData = {
         [this.select]: this.selectInput
       };
-      this.$api.getPacketsList(getData, res => {
+      this.$api.getUnPassList(getData, res => {
         this.auditList = res.data.data;
         this.count = res.data.count;
       });
@@ -349,7 +349,7 @@ export default {
         getData.end = new Date(this.dateRange[1]).toLocaleDateString();
       }
       getData.city_id = this.searchForm.city_id;
-      this.$api.getPacketsList(getData, res => {
+      this.$api.getUnPassList(getData, res => {
         this.auditList = res.data.data;
         this.count = res.data.count;
       });
@@ -396,7 +396,7 @@ export default {
           getData.end = new Date(this.dateRange[1]).toLocaleDateString();
         }
       }
-      this.$api.getPacketsList(getData, res => {
+      this.$api.getUnPassList(getData, res => {
         this.auditList = res.data.data;
       });
     }

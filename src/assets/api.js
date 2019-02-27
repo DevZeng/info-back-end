@@ -1161,8 +1161,8 @@ export default {
    * @param {object} data {page, (limit), username, user_id, city_id, start, end}
    * @param {function} cb 回调
    */
-  getPacketsList(data, cb) {
-    axios.get(`${host}redpackets`, {
+  getunPassPacketsList(data, cb) {
+    axios.get(`${host}/unpass/redpackets`, {
         params: data
       })
       .then(res => {
@@ -1175,5 +1175,59 @@ export default {
         this.APIError(error.response)
       })
   },
-
+  passPacket(id, data, cb) {
+    axios.get(`${host}pass/redpacket/${id}`, {
+        params: data
+      })
+      .then(res => {
+        console.log(res, 'success')
+        if ('SUCCESS' === res.data.return_code) {
+          typeof cb === 'function' && cb(res)
+        } else {
+          this.APIError(res)
+        }
+      }).catch(error => {
+        console.log(res, 'error')
+        this.APIError(error.response)
+      })
+  },
+  getPassPacketsList(data, cb) {
+    axios.get(`${host}pass/redpackets`, {
+        params: data
+      })
+      .then(res => {
+        if ('SUCCESS' === res.data.return_code) {
+          typeof cb === 'function' && cb(res)
+        } else {
+          this.APIError(res)
+        }
+      }).catch(error => {
+        this.APIError(error.response)
+      })
+  },
+  getredpacketConfig(cb) {
+    axios.get(`${host}redpacket/config`)
+      .then(res => {
+        if ('SUCCESS' === res.data.return_code) {
+          typeof cb === 'function' && cb(res)
+        } else {
+          this.APIError(res)
+        }
+      }).catch(error => {
+        this.APIError(error.response)
+      })
+  },
+  postredpacketConfig(data, cb) {
+    axios.post(`${host}redpacket/config`, data)
+      .then(res => {
+        if ('SUCCESS' === res.data.return_code) {
+          typeof cb === 'function' && cb(res)
+        } else {
+          this.APIError(res)
+        }
+      }).catch(error => {
+        this.APIError(error.response)
+      })
+  },
+  
 }
