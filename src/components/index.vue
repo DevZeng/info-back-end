@@ -166,6 +166,7 @@
                 <el-menu-item v-if="role.unpasslist" index="/auditList">未审核列表</el-menu-item>
                 <el-menu-item index="/auditpasslist">审核通过列表</el-menu-item>
                 <el-menu-item v-if="role.rejectreason" index="/auditcondition">审核条件</el-menu-item>
+                <el-menu-item index="/unpasswithdraw">提现审核</el-menu-item>
               </el-submenu>
             </el-submenu>
             <el-submenu index="4">

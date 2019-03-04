@@ -62,9 +62,9 @@
   </section>
   <section v-else class="audit-list-wrap">
     <el-breadcrumb separator="/" class="breadcrumb">
-      <el-breadcrumb-item>红包管理</el-breadcrumb-item>
+      <el-breadcrumb-item>信息处理</el-breadcrumb-item>
       <el-breadcrumb-item>审核相关</el-breadcrumb-item>
-      <el-breadcrumb-item>未审核列表</el-breadcrumb-item>
+      <el-breadcrumb-item>提现审核</el-breadcrumb-item>
     </el-breadcrumb>
     <div class="audit-list-operation">
       <div style="text-align:right;">
@@ -77,6 +77,8 @@
         </el-input>
       </div>
       <div class="audit-list-picker">
+        <!-- <el-transfer filterable :filter-method="filterMethod" filter-placeholder="请输入城市名称" :titles="['已开放城市', '已选择城市']" :button-texts="['取消', '添加']" v-model="searchForm.city" :data="cities">
+        </el-transfer> -->
         <el-date-picker v-model="dateRange" type="daterange" align="right" placeholder="选择日期范围" :picker-options="dateOptions">
         </el-date-picker>
         <!-- <el-select v-model="searchForm.status" filterable placeholder="请选择信息种类">
@@ -93,79 +95,35 @@
     <div class="table-list">
       <el-table ref="multipleTable" :data="auditList" border stripe tooltip-effect="dark" style="width: 100%">
         <el-table-column type="expand">
-          <template slot-scope="props">
-            <el-form label-position="left" inline class="audit-pass-list-expand">
-              <el-form-item label="可抢范围">
-                <span>{{ props.row.distance }}公里</span>
-              </el-form-item>
-              <el-form-item label="红包总个数">
-                <span>{{ props.row.cash_number || '无' }}</span>
-              </el-form-item>
-              <el-form-item label="红包总额">
-                <span>{{ props.row.cash_all || '无' }}</span>
-              </el-form-item>
-              <el-form-item label="单个红包最高">
-                <span>{{ props.row.cash_max || '无' }}元</span>
-              </el-form-item>
-              <el-form-item label="单个红包最低">
-                <span>{{ props.row.cash_min }} 元</span>
-              </el-form-item>
-              <el-form-item label="红包提示">
-                <span>{{ props.row.title }}</span>
-              </el-form-item>
-              <el-form-item label="优惠券总额">
-                <span>{{ props.row.coupon_all }}</span>
-              </el-form-item>
-              <el-form-item label="单个优惠券最高">
-                <span>{{ props.row.coupon_max }}</span>
-              </el-form-item>
-              <el-form-item label="单个优惠券最低">
-                <span>{{ props.row.coupon_min }}</span>
-              </el-form-item>
-              <el-form-item label="口令">
-                <span>{{ props.row.code }}</span>
-              </el-form-item>
-              <el-form-item label="优惠券标题">
-                <span>{{ props.row.coupon_title }}</span>
-              </el-form-item>
-              <el-form-item label="优惠券有效期">
-                <span>{{ props.row.end }}过期</span>
-              </el-form-item>
-            </el-form>
-          </template>
+          
         </el-table-column>
         <el-table-column label="ID" prop="id">
         </el-table-column>
-        <el-table-column prop="title" label="信息名称" show-overflow-tooltip>
+        <el-table-column prop="title" label="用户名" show-overflow-tooltip>
           <template slot-scope="scope">
-            <el-button type="text" @click="goToInfo(scope.row)">{{scope.row.commodity_title}}</el-button>
+            <el-button type="text" @click="goToInfo(scope.row)">{{scope.row.user.username}}</el-button>
           </template>
         </el-table-column>
-        <el-table-column prop="price" label="开始时间">
+        <el-table-column prop="price" label="提现金额">
           <template slot-scope="scope">
-            <span>{{scope.row.start}} </span>
+            <span>{{scope.row.amount}} </span>
           </template>
         </el-table-column>
-        <el-table-column prop="type" label="结束时间">
+        <el-table-column prop="type" label="审核人">
           <template slot-scope="scope">
-            <span>{{scope.row.end}} </span>
+            <span>{{scope.row.checker}} </span>
           </template>
         </el-table-column>        
-        <el-table-column prop="username" label="用户名">
+        <el-table-column prop="username" label="提现时间">
           <template slot-scope="scope">
-            <el-button type="text" @click="goToUser(scope.row.user_id)">{{scope.row.username}}</el-button>
+            <span>{{scope.row.created_at}} </span>
+            <!-- <el-button type="text" >{{scope.row.created_at}}</el-button> -->
           </template>
         </el-table-column>
-        <el-table-column prop="created_at" label="发布时间">
-        </el-table-column>
-        <el-table-column label="发布性质">
-          <template slot-scope="scope">
-            <span class="normal" v-if="scope.row.created_at == scope.row.updated_at">未修改</span>
-            <span v-else class="warning">修改过</span>
-          </template>
+        <el-table-column prop="count" label="提现次数">
         </el-table-column>
         <el-table-column label="操作" width="200">
-          <template slot-scope="scope">
+          <template slot-scope="scope" v-if="scope.row.pass==0">
             <el-button size="small" type="primary" @click="handlePass(scope.$index, scope.row)">通过</el-button>
             <el-button size="small" type="danger" @click="handleReject(scope.$index, scope.row)">拒绝</el-button>
             </template>
@@ -238,7 +196,7 @@ export default {
     this.$api.getUsDistrict("", res => {
       this.shengs = res.data.data;
     });
-    this.$api.getPassPacketsList("", res => {
+    this.$api.getUnpassWithdrawList("", res => {
       this.auditList = res.data.data;
       this.count = res.data.count;
       this.loading = false;
@@ -341,7 +299,7 @@ export default {
       const getData = {
         [this.select]: this.selectInput
       };
-      this.$api.getPassPacketsList(getData, res => {
+      this.$api.getUnpassWithdrawList(getData, res => {
         this.auditList = res.data.data;
         this.count = res.data.count;
       });
@@ -357,7 +315,7 @@ export default {
         getData.end = new Date(this.dateRange[1]).toLocaleDateString();
       }
       getData.city_id = this.searchForm.city_id;
-      this.$api.getPassPacketsList(getData, res => {
+      this.$api.getUnpassWithdrawList(getData, res => {
         this.auditList = res.data.data;
         this.count = res.data.count;
       });
@@ -367,9 +325,9 @@ export default {
     * 通过
     */
     handlePass(index, row) {
-      this.$operation.tableMessageBox("此操作将通过该条红包", () => {
+      this.$operation.tableMessageBox("此操作将通过该条提现", () => {
         console.log(row)
-        this.$api.passPacket(row.id, { pass: 1 }, res => {
+        this.$api.passWithdraw(row.id, { pass: 1 }, res => {
           this.$message({
             type: "success",
             message: "已通过!"
@@ -383,9 +341,9 @@ export default {
     * 拒绝
     */
     handleReject(index, row) {
-      this.$operation.tableMessageBox("此操作将拒绝该条红包", () => {
+      this.$operation.tableMessageBox("此操作将拒绝该条提现", () => {
         console.log(row)
-        this.$api.passPacket(row.id, { pass: 2 }, res => {
+        this.$api.passWithdraw(row.id, { pass: 2 }, res => {
           this.$message({
             type: "success",
             message: "已拒绝!"
@@ -411,7 +369,7 @@ export default {
           getData.end = new Date(this.dateRange[1]).toLocaleDateString();
         }
       }
-      this.$api.getPassPacketsList(getData, res => {
+      this.$api.getUnpassWithdrawList(getData, res => {
         this.auditList = res.data.data;
       });
     }

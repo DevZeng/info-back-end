@@ -1229,5 +1229,40 @@ export default {
         this.APIError(error.response)
       })
   },
-  
+  /**
+   * 获取提现列表
+   **/
+  getUnpassWithdrawList(data, cb) {
+    axios.get(`${host}unpass/records`, {
+        params: data
+      })
+      .then(res => {
+        if ('SUCCESS' === res.data.return_code) {
+          typeof cb === 'function' && cb(res)
+        } else {
+          this.APIError(res)
+        }
+      }).catch(error => {
+        this.APIError(error.response)
+      })
+  },
+  /**
+   * 通过提现
+   */
+  passWithdraw(id, data, cb) {
+    axios.get(`${host}pass/record/${id}`, {
+        params: data
+      })
+      .then(res => {
+        console.log(res, 'success')
+        if ('SUCCESS' === res.data.return_code) {
+          typeof cb === 'function' && cb(res)
+        } else {
+          this.APIError(res)
+        }
+      }).catch(error => {
+        console.log(res, 'error')
+        this.APIError(error.response)
+      })
+  },
 }
