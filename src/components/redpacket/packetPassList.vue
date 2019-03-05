@@ -77,6 +77,19 @@
         </el-input>
       </div>
       <div class="audit-list-picker">
+        <el-select v-model="cityForm.sheng" placeholder="请选择省份" @change="selectSheng">
+            <el-option v-for="(item,index) in shengs" :key="item.id" :label="item.name" :value="item.id"></el-option>
+          </el-select>
+        <!-- </el-form-item> -->
+        <!-- <el-form-item label="市区："> -->
+          <el-select v-model="cityForm.shi" placeholder="请选择市区" @change="selectShi">
+            <el-option v-for="(item,index) in shis" :key="item.id" :label="item.name" :value="item.id"></el-option>
+          </el-select>
+        <!-- </el-form-item> -->
+        <!-- <el-form-item label="县区："> -->
+          <el-select v-model="cityForm.xian" placeholder="请选择县区"  @change="selectXian">
+            <el-option v-for="(item,index) in xians" :key="item.id" :label="item.name" :value="item.id"></el-option>
+          </el-select>
         <el-date-picker v-model="dateRange" type="daterange" align="right" placeholder="选择日期范围" :picker-options="dateOptions">
         </el-date-picker>
         <!-- <el-select v-model="searchForm.status" filterable placeholder="请选择信息种类">

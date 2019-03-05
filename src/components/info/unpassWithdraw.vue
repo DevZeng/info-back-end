@@ -76,11 +76,11 @@
           <el-button slot="append" icon="search" @click="selectSearch"></el-button>
         </el-input>
       </div>
-      <div class="audit-list-picker">
-        <!-- <el-transfer filterable :filter-method="filterMethod" filter-placeholder="请输入城市名称" :titles="['已开放城市', '已选择城市']" :button-texts="['取消', '添加']" v-model="searchForm.city" :data="cities">
+      <!-- <div class="audit-list-picker">
+         <el-transfer filterable :filter-method="filterMethod" filter-placeholder="请输入城市名称" :titles="['已开放城市', '已选择城市']" :button-texts="['取消', '添加']" v-model="searchForm.city" :data="cities">
         </el-transfer> -->
-        <el-date-picker v-model="dateRange" type="daterange" align="right" placeholder="选择日期范围" :picker-options="dateOptions">
-        </el-date-picker>
+        <!-- <el-date-picker v-model="dateRange" type="daterange" align="right" placeholder="选择日期范围" :picker-options="dateOptions"> -->
+        <!-- </el-date-picker> -->
         <!-- <el-select v-model="searchForm.status" filterable placeholder="请选择信息种类">
           <el-option label="种类一" value="1"></el-option>
           <el-option label="种类二" value="0"></el-option>
@@ -89,8 +89,8 @@
           <el-option label="正常" value="1"></el-option>
           <el-option label="已推迟" value="0"></el-option>
         </el-select> -->
-        <el-button type="primary" icon="search" @click="pickerSearch">搜索</el-button>
-      </div>
+        <!-- <el-button type="primary" icon="search" @click="pickerSearch">搜索</el-button> -->
+      <!-- </div> --> 
     </div>
     <div class="table-list">
       <el-table ref="multipleTable" :data="auditList" border stripe tooltip-effect="dark" style="width: 100%">
