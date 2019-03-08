@@ -101,7 +101,7 @@
         </el-table-column>
         <el-table-column prop="title" label="用户名" show-overflow-tooltip>
           <template slot-scope="scope">
-            <el-button type="text" @click="goToInfo(scope.row)">{{scope.row.user.username}}</el-button>
+            <el-button type="text" @click="goToList(scope.row.user_id)">{{scope.row.user.username}}</el-button>
           </template>
         </el-table-column>
         <el-table-column prop="price" label="提现金额">
@@ -216,6 +216,12 @@ export default {
       this.$router.push({
         name: "auditsingle",
         params: { info: row, state: 0 }
+      });
+    },
+    goToList(id){
+      this.$router.push({
+        name: "amountList",
+        params: { id: id }
       });
     },
     //确认审核

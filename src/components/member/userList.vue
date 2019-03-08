@@ -93,6 +93,12 @@
         <el-table-column prop="commodity_count" label="发布次数">
           <template slot-scope="scope">{{scope.row.commodity_count + ' 次'}}</template>
         </el-table-column>
+        <el-table-column prop="amount" label="钱包总数">
+          <template slot-scope="scope">{{scope.row.amount }}</template>
+        </el-table-column>
+        <el-table-column prop="redpacket" label="红包总数">
+          <template slot-scope="scope">{{scope.row.redpacket}}</template>
+        </el-table-column>
         <el-table-column prop="enable_count" label="上架次数">
           <template slot-scope="scope">{{scope.row.enable_count + ' 次'}}</template>
         </el-table-column>
