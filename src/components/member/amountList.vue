@@ -98,62 +98,21 @@
 
     <div class="table-list">
       <el-table :data="partTimeList" border style="width: 100%">
-        <el-table-column type="expand">
-          <template slot-scope="props">
-            <el-form label-position="left" inline class="demo-table-expand">
-              <el-form-item label="性别">
-                <span>{{ props.row.sex }}</span>
-              </el-form-item>
-              <el-form-item label="兼职片区">
-                <span>{{ props.row.area }}</span>
-              </el-form-item>
-              <el-form-item label="兼职时间">
-                <span>{{ props.row.time }}</span>
-              </el-form-item>
-              <!-- <el-form-item label="回复内容">
-                <span>{{ props.row.replay_content || '暂无' }}</span>
-              </el-form-item> -->
-            </el-form>
-          </template>
-        </el-table-column>
+        
         <!-- <el-table-column type="selection" width="55">
         </el-table-column> -->
-        <el-table-column label="用户编号" prop="id" sortable>
-        </el-table-column>       
-        <el-table-column prop="name" label="姓名">
-          <template slot-scope="scope">
-            <el-button type="text" @click="goToUser(scope.row.id)">{{scope.row.name}}</el-button>
-          </template>
+        <!-- <el-table-column label="用户编号" prop="id" sortable> -->
+        <!-- </el-table-column>        -->
+        <el-table-column prop="created_at" label="时间">
         </el-table-column>
-        <el-table-column label="电话" prop="number">
+        <el-table-column label="金额" prop="price">
         </el-table-column>
-        <el-table-column label="身份证正面" prop="front">
-          <template slot-scope="scope">
-            <el-button type="text" @click="preImgFnc(scope.row.front)" class="part-time-btn">点击预览</el-button>
-          </template>
+        <el-table-column label="类型" prop="type">
         </el-table-column>
-        <el-table-column label="身份证背面" prop="back">
-          <template slot-scope="scope">
-            <el-button type="text" @click="preImgFnc(scope.row.back)" class="part-time-btn">点击预览</el-button>
-          </template>
+        <el-table-column label="备注" prop="title">
         </el-table-column>
-        <el-table-column label="申请时间" prop="created_at" sortable>
-        </el-table-column>
-        <el-table-column label="状态" prop="state" sortable>
-          <template slot-scope="scope">
-            <span class="normal" v-if="scope.row.state == 0">未处理</span>
-            <span class="info" v-else-if="scope.row.state == 1">已选中</span>
-            <span class="warning" v-else>已延期</span>
-          </template>
-        </el-table-column>
-        <el-table-column label="操作" width="200">
-          <template slot-scope="scope">
-            <!-- <el-button size="small" type="primary" @click="handleReplay(scope.$index, scope.row)">回复</el-button> -->
-            <el-button v-if="scope.row.state == 1" size="small" type="warning" @click="handleCancel(scope.$index, scope.row)">取消选中</el-button>
-            <el-button v-if="scope.row.state != 1" size="small" type="primary" @click="handleChoose(scope.$index, scope.row)">选中</el-button>
-            <el-button v-if="scope.row.state != 2" size="small" type="warning" @click="handleDelay(scope.$index, scope.row)">延期</el-button>
-          </template>
-        </el-table-column>
+        
+  
       </el-table>
     </div>
 
