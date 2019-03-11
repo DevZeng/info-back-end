@@ -108,14 +108,17 @@
         <el-table-column type="expand">
           <template slot-scope="props">
             <el-form label-position="left" inline class="audit-pass-list-expand">
-              <el-form-item label="可抢范围">
-                <span>{{ props.row.distance }}公里</span>
-              </el-form-item>
               <el-form-item label="红包总个数">
-                <span>{{ props.row.cash_number || '无' }}</span>
+                <span>{{ props.row.cash_number  || '无' }}</span>
+              </el-form-item>
+              <el-form-item label="红包实时个数">
+                <span>{{ props.row.useCount || '无' }}</span>
               </el-form-item>
               <el-form-item label="红包总额">
                 <span>{{ props.row.cash_all || '无' }}</span>
+              </el-form-item>
+              <el-form-item label="红包实时金额">
+                <span>{{ props.row.usePrice || '无' }}</span>
               </el-form-item>
               <el-form-item label="单个红包最高">
                 <span>{{ props.row.cash_max || '无' }}元</span>
@@ -152,6 +155,11 @@
         <el-table-column prop="title" label="信息名称" show-overflow-tooltip>
           <template slot-scope="scope">
             <el-button type="text" @click="goToInfo(scope.row)">{{scope.row.commodity_title}}</el-button>
+          </template>
+        </el-table-column>
+        <el-table-column prop="distance" label="可抢范围">
+          <template slot-scope="scope">
+            <span>{{scope.row.distance}}公里 </span>
           </template>
         </el-table-column>
         <el-table-column prop="price" label="开始时间">

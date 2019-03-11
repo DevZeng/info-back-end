@@ -79,20 +79,6 @@
       <div class="audit-list-picker">
         <!-- <el-transfer filterable :filter-method="filterMethod" filter-placeholder="请输入城市名称" :titles="['已开放城市', '已选择城市']" :button-texts="['取消', '添加']" v-model="searchForm.city" :data="cities">
         </el-transfer> -->
-
-          <el-select v-model="cityForm.sheng" placeholder="请选择省份" @change="selectSheng">
-            <el-option v-for="(item,index) in shengs" :key="item.id" :label="item.name" :value="item.id"></el-option>
-          </el-select>
-        <!-- </el-form-item> -->
-        <!-- <el-form-item label="市区："> -->
-          <el-select v-model="cityForm.shi" placeholder="请选择市区" @change="selectShi">
-            <el-option v-for="(item,index) in shis" :key="item.id" :label="item.name" :value="item.id"></el-option>
-          </el-select>
-        <!-- </el-form-item> -->
-        <!-- <el-form-item label="县区："> -->
-          <el-select v-model="cityForm.xian" placeholder="请选择县区"  @change="selectXian">
-            <el-option v-for="(item,index) in xians" :key="item.id" :label="item.name" :value="item.id"></el-option>
-          </el-select>
         <el-date-picker v-model="dateRange" type="daterange" align="right" placeholder="选择日期范围" :picker-options="dateOptions">
         </el-date-picker>
         <!-- <el-select v-model="searchForm.status" filterable placeholder="请选择信息种类">
@@ -111,14 +97,17 @@
         <el-table-column type="expand">
           <template slot-scope="props">
             <el-form label-position="left" inline class="audit-pass-list-expand">
-              <el-form-item label="可抢范围">
-                <span>{{ props.row.distance }}公里</span>
-              </el-form-item>
               <el-form-item label="红包总个数">
-                <span>{{ props.row.cash_number || '无' }}</span>
+                <span>{{ props.row.cash_number  || '无' }}</span>
+              </el-form-item>
+              <el-form-item label="红包实时个数">
+                <span>{{ props.row.useCount || '无' }}</span>
               </el-form-item>
               <el-form-item label="红包总额">
                 <span>{{ props.row.cash_all || '无' }}</span>
+              </el-form-item>
+              <el-form-item label="红包实时金额">
+                <span>{{ props.row.usePrice || '无' }}</span>
               </el-form-item>
               <el-form-item label="单个红包最高">
                 <span>{{ props.row.cash_max || '无' }}元</span>
@@ -155,6 +144,11 @@
         <el-table-column prop="title" label="信息名称" show-overflow-tooltip>
           <template slot-scope="scope">
             <el-button type="text" @click="goToInfo(scope.row)">{{scope.row.commodity_title}}</el-button>
+          </template>
+        </el-table-column>
+        <el-table-column prop="distance" label="可抢范围">
+          <template slot-scope="scope">
+            <span>{{scope.row.distance}}公里 </span>
           </template>
         </el-table-column>
         <el-table-column prop="price" label="开始时间">
