@@ -66,6 +66,11 @@
       <el-breadcrumb-item>审核相关</el-breadcrumb-item>
       <el-breadcrumb-item>提现审核</el-breadcrumb-item>
     </el-breadcrumb>
+    <div class="banner-operation">
+      <el-button type="primary" @click="addConfig">提现设置</el-button>
+      <!-- <el-button type="primary" @click="openAD">开启</el-button>
+      <el-button type="warning" @click="closeAD">关闭</el-button> -->
+    </div>
     <div class="audit-list-operation">
       <div style="text-align:right;">
         <el-input placeholder="请输入搜索内容" v-model="selectInput" style="margin-bottom: 20px;width: 900px;" @keyup.enter.native="selectSearch">
@@ -212,10 +217,9 @@ export default {
       this.$router.push({ name: "usersingle", params: { id: id } });
     },
     //查看单条信息
-    goToInfo(row) {
+    addConfig(row) {
       this.$router.push({
-        name: "auditsingle",
-        params: { info: row, state: 0 }
+        name: "withdrawConfig",
       });
     },
     goToList(id){

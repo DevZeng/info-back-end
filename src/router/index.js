@@ -53,6 +53,7 @@ import packetPassList from '@/components/redpacket/packetPassList'
 import packetConfig from '@/components/redpacket/packetConfig'
 import unpasswithdraw from '@/components/info/unpasswithdraw'
 import amountList from '@/components/member/amountList'
+import withdrawConfig from '@/components/info/withdrawConfig'
 Vue.use(Router)
 
 export default new Router({
@@ -289,6 +290,11 @@ export default new Router({
           component: amountList
         },
 
+        {
+          path: 'withdrawConfig',
+          name: 'withdrawConfig',
+          component: withdrawConfig
+        },
       ]
     }
   ]
