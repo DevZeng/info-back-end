@@ -1305,4 +1305,20 @@ export default {
         this.APIError(error.response)
       })
   },
+  handlePacket(id, data, cb) {
+    axios.get(`${host}handle/redpacket/${id}`, {
+        params: data
+      })
+      .then(res => {
+        console.log(res, 'success')
+        if ('SUCCESS' === res.data.return_code) {
+          typeof cb === 'function' && cb(res)
+        } else {
+          this.APIError(res)
+        }
+      }).catch(error => {
+        console.log(res, 'error')
+        this.APIError(error.response)
+      })
+  }
 }

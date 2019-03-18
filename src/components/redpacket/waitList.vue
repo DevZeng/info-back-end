@@ -174,6 +174,14 @@
             <span v-else class="warning">修改过</span>
           </template>
         </el-table-column>
+        <el-table-column label="状态" width="200">
+          <template slot-scope="scope">
+            <span class="normal" v-if="scope.row.state == 1">启用</span>
+            <span v-else class="warning">暂停</span>
+            <el-button size="small" type="primary" @click="handleUse(scope.$index, scope.row)">恢复</el-button>
+            <el-button size="small" type="danger" @click="handlePause(scope.$index, scope.row)">暂停</el-button>
+            </template>
+        </el-table-column>
         <el-table-column label="操作" width="200">
           <template slot-scope="scope">
             <el-button size="small" type="primary" @click="handlePass(scope.$index, scope.row)">通过</el-button>
@@ -424,7 +432,38 @@ export default {
       this.$api.getunPassPacketsList(getData, res => {
         this.auditList = res.data.data;
       });
-    }
+    },
+     /*
+    * 通过
+    */
+    handleUse(index, row) {
+      this.$operation.tableMessageBox("此操作将启用该条红包", () => {
+        console.log(row)
+        this.$api.handlePacket(row.id, { state: 1 }, res => {
+          this.$message({
+            type: "success",
+            message: "已启用!"
+          });
+          row.state = 1;
+        });
+      });
+    },
+
+    /*
+    * 拒绝
+    */
+    handlePause(index, row) {
+      this.$operation.tableMessageBox("此操作将停用该条红包", () => {
+        console.log(row)
+        this.$api.handlePacket(row.id, { state: 2 }, res => {
+          this.$message({
+            type: "success",
+            message: "已停用!"
+          });
+          row.state = 2;
+        });
+      });
+    },
   }
 };
 </script>
