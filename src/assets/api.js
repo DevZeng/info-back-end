@@ -10,7 +10,7 @@ const TXKey = 'FF2BZ-H34WP-GQPDC-VFKIS-P7DDH-BCFNG'
 // const host = 'http://192.168.3.22:8090/'
 // const host = 'http://admin.sennkisystem.cn/'
 // const host = 'http://app.ankekan.com/'
-const host = 'http://193.112.181.116:8099/'
+const host = 'http://203.195.129.30:83/'
 
 /*
   配置 axios
