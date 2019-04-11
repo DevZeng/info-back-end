@@ -122,6 +122,16 @@
             <template slot="append">个</template>
           </el-input>
         </el-form-item>
+        <el-form-item label="提交活动审核的时间距活动开启的时间最短要大于几小时" prop="coupon_number_max">
+          <el-input v-model="configForm.pass_time" placeholder="">
+            <template slot="append">小时</template>
+          </el-input>
+        </el-form-item>
+        <el-form-item label="距活动开启时间少于几小时活动不能再取消" prop="coupon_number_min">
+          <el-input v-model="configForm.cancel_time" placeholder="">
+            <template slot="append">小时</template>
+          </el-input>
+        </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="onSubmit('configForm')" style="width: 100%;margin-top: 20px;">确定</el-button>
         </el-form-item>
@@ -155,6 +165,8 @@ export default {
         coupon_ratio: 0,
         coupon_total_max: 0,
         coupon_total_min: 0,
+        pass_time: 0,
+        cancel_time: 0,
         state: 1
       },
       dateRange: "",
@@ -177,6 +189,8 @@ export default {
         coupon_ratio: [{ required: true, message: "" }],
         coupon_total_max: [{ required: true, message: "" }],
         coupon_total_min: [{ required: true, message: "" }],
+        pass_time: [{ required: true, message: "" }],
+        cancel_time: [{ required: true, message: "" }],
         state: [{ required: true, message: "" }]
       }
       
