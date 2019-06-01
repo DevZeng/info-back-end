@@ -182,15 +182,15 @@
         <el-table-column label="状态" width="200">
           <template slot-scope="scope">
             <span class="normal" v-if="scope.row.state == 1">启用</span>
-            <span v-else class="warning">暂停</span>
-            <el-button size="small" type="primary" @click="handleUse(scope.$index, scope.row)">恢复</el-button>
-            <el-button size="small" type="danger" @click="handlePause(scope.$index, scope.row)">暂停</el-button>
+            <span v-else class="warning">停用</span>
+            <el-button v-if="scope.row.state!=4" size="small" type="primary" @click="handleUse(scope.$index, scope.row)">恢复</el-button>
+            <el-button v-if="scope.row.state!=4" size="small" type="danger" @click="handlePause(scope.$index, scope.row)">暂停</el-button>
             </template>
         </el-table-column>
         <el-table-column label="操作" width="400">
           <template slot-scope="scope">
-            <el-button size="small" type="primary" @click="handlePass(scope.$index, scope.row)">通过</el-button>
-            <el-button size="small" type="danger" @click="handleReject(scope.$index, scope.row)">拒绝</el-button>
+            <el-button v-if="scope.row.state!=4" size="small" type="primary" @click="handlePass(scope.$index, scope.row)">通过</el-button>
+            <el-button v-if="scope.row.state!=4" size="small" type="danger" @click="handleReject(scope.$index, scope.row)">拒绝</el-button>
             <el-button size="small" type="primary" @click="handleList(scope.$index, scope.row)">查看流水</el-button>
             </template>
         </el-table-column>
