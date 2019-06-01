@@ -179,12 +179,6 @@
         </el-table-column>
         <el-table-column prop="created_at" label="发布时间">
         </el-table-column>
-        <el-table-column label="发布性质">
-          <template slot-scope="scope">
-            <span class="normal" v-if="scope.row.created_at == scope.row.updated_at">未修改</span>
-            <span v-else class="warning">修改过</span>
-          </template>
-        </el-table-column>
         <el-table-column label="状态" width="200">
           <template slot-scope="scope">
             <span class="normal" v-if="scope.row.state == 1">启用</span>
@@ -193,10 +187,11 @@
             <el-button size="small" type="danger" @click="handlePause(scope.$index, scope.row)">暂停</el-button>
             </template>
         </el-table-column>
-        <el-table-column label="操作" width="200">
+        <el-table-column label="操作" width="400">
           <template slot-scope="scope">
             <el-button size="small" type="primary" @click="handlePass(scope.$index, scope.row)">通过</el-button>
             <el-button size="small" type="danger" @click="handleReject(scope.$index, scope.row)">拒绝</el-button>
+            <el-button size="small" type="primary" @click="handleList(scope.$index, scope.row)">查看流水</el-button>
             </template>
         </el-table-column>
       </el-table>
@@ -475,6 +470,10 @@ export default {
         });
       });
     },
+    handleList(index,row) {
+      console.log(row.id);
+      this.$router.push({ name: "packetList", params: { id: row.id } });
+    }
   }
 };
 </script>

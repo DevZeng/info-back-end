@@ -50,6 +50,7 @@ import temp from '@/components/main/temp'
 import backUserList from '@/components/main/backUserList'
 import waitList from '@/components/redpacket/waitList'
 import packetPassList from '@/components/redpacket/packetPassList'
+import packetList from '@/components/redpacket/packetList'
 import packetConfig from '@/components/redpacket/packetConfig'
 import unpasswithdraw from '@/components/info/unpasswithdraw'
 import amountList from '@/components/member/amountList'
@@ -294,6 +295,11 @@ export default new Router({
           path: 'withdrawConfig',
           name: 'withdrawConfig',
           component: withdrawConfig
+        },
+        {
+          path: 'packetList',
+          name: 'packetList',
+          component: packetList
         },
       ]
     }

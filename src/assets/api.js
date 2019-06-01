@@ -1320,5 +1320,17 @@ export default {
         console.log(res, 'error')
         this.APIError(error.response)
       })
-  }
+  },
+  getRedpacketList(id, cb) {
+    axios.get(`${host}redpack/list/${id}`)
+      .then(res => {
+        if ('SUCCESS' === res.data.return_code) {
+          typeof cb === 'function' && cb(res)
+        } else {
+          this.APIError(res)
+        }
+      }).catch(error => {
+        this.APIError(error.response)
+      })
+  },
 }

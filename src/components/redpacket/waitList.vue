@@ -168,11 +168,14 @@
         </el-table-column>
         <el-table-column prop="created_at" label="发布时间">
         </el-table-column>
-        <el-table-column label="发布性质">
+        <el-table-column label="城市">
           <template slot-scope="scope">
+            <span>{{scope.row.city}} </span>
+          </template>
+          <!-- <template slot-scope="scope">
             <span class="normal" v-if="scope.row.created_at == scope.row.updated_at">未修改</span>
             <span v-else class="warning">修改过</span>
-          </template>
+          </template> -->
         </el-table-column>
         <el-table-column label="状态" width="200">
           <template slot-scope="scope">
