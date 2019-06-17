@@ -111,6 +111,7 @@ export default {
       count: 0,
       page: 1,
       eachPage: 10,
+      id:0,
 
       //等级
       levels: this.$common.memberLevels,
@@ -125,6 +126,7 @@ export default {
 
   created() {
     const id = this.$route.params.id;
+    this.id = id;
     this.$api.getRedpacketList(id, res => {
       this.payList = res.data.data;
 
@@ -181,10 +183,10 @@ export default {
 
     //页码改变
     handleCurrentChange(page) {
-      const getData = Object.assign({}, this.searchForm, { page });
-      this.$api.getPayOrders(getData, res => {
-        this.payList = res.data.data;
-      });
+      const getData = this.id+'/page='+page;
+      this.$api.getRedpacketList(getData, res => {
+      this.payList = res.data.data;
+    });
     }
   }
 };
