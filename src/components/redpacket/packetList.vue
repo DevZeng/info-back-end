@@ -183,7 +183,7 @@ export default {
 
     //页码改变
     handleCurrentChange(page) {
-      const getData = this.id+'/page='+page;
+      const getData = this.id+'?page='+page;
       this.$api.getRedpacketList(getData, res => {
       this.payList = res.data.data;
     });
