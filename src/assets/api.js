@@ -1345,4 +1345,18 @@ export default {
         this.APIError(error.response)
       })
   },
+  getLogs(data, cb) {
+      axios.get(`${host}userlogs`, {
+        params: data
+      })
+      .then(res => {
+        if ('SUCCESS' === res.data.return_code) {
+          typeof cb === 'function' && cb(res)
+        } else {
+          this.APIError(res)
+        }
+      }).catch(error => {
+        this.APIError(error.response)
+      })
+  },
 }

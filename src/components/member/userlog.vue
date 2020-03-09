@@ -91,7 +91,7 @@
     <div class="table-list">
       <el-table ref="multipleTable" :data="auditPassList" border stripe tooltip-effect="dark" style="width: 100%">
         <el-table-column type="expand">
-          <template slot-scope="props">
+          <!-- <template slot-scope="props">
             <el-form label-position="left" inline class="audit-pass-list-expand">
               <el-form-item label="QQ">
                 <span>{{ props.row.QQ || '无' }}</span>
@@ -109,35 +109,33 @@
                 <span>{{ props.row.address }}</span>
               </el-form-item>
             </el-form>
-          </template>
+          </template> -->
         </el-table-column>
         <el-table-column label="ID" prop="id">
         </el-table-column>
-        <el-table-column prop="title" label="用户名" show-overflow-tooltip>
-          <template slot-scope="scope">
-            <el-button type="text" @click="goToInfo(scope.row)">{{scope.row.title}}</el-button>
-          </template>
-        </el-table-column>
-        <el-table-column prop="price" label="类型">
-          <template slot-scope="scope">
-            <span>{{scope.row.price}} 元</span>
-          </template>
-        </el-table-column>
-        <el-table-column prop="type" label="IP">
-        </el-table-column>        
-        <el-table-column prop="username" label="端口">
+        <el-table-column prop="username" label="用户名" show-overflow-tooltip>
           <template slot-scope="scope">
             <el-button type="text" @click="goToUser(scope.row.user_id)">{{scope.row.username}}</el-button>
           </template>
         </el-table-column>
-        <el-table-column prop="passName" label="访问目标">
-        </el-table-column>
-        <el-table-column prop="created_at" label="设备特征">
-        </el-table-column>
-        <el-table-column prop="report_count" label="设备编码">
+        <el-table-column prop="type" label="类型">
           <template slot-scope="scope">
-            <span>{{scope.row.report_count}} 次</span>
+            <span>{{scope.row.type}} </span>
           </template>
+        </el-table-column>
+        <el-table-column prop="source" label="IP">
+        </el-table-column>        
+        <el-table-column prop="port" label="端口">
+        </el-table-column>
+        <el-table-column prop="target" label="访问目标">
+        </el-table-column>
+        <el-table-column prop="vendor" label="设备特征">
+        </el-table-column>
+        <el-table-column prop="device_id" label="设备编码">
+          
+        </el-table-column>
+        <el-table-column prop="created_at" label="操作时间">
+          
         </el-table-column>
         <!-- <el-table-column label="发布性质">
           <template slot-scope="scope">
@@ -222,16 +220,10 @@ export default {
   },
 
   created() {
-    this.$api.getUsDistrict("", res => {
-      this.shengs = res.data.data;
-    });
-    this.$api.getPassList("", res => {
+    this.$api.getLogs("", res => {
       this.auditPassList = res.data.data;
       this.count = res.data.count;
       this.loading = false;
-    });
-    this.$api.getRefuse("", res => {
-      this.refuses = res.data.data;
     });
   },
 
@@ -329,7 +321,7 @@ export default {
       const getData = {
         [this.select]: this.selectInput.trim()
       };
-      this.$api.getPassList(getData, res => {
+      this.$api.getLogs(getData, res => {
         this.auditPassList = res.data.data;
         this.count = res.data.count;
       });
@@ -345,7 +337,7 @@ export default {
         getData.end = new Date(this.dateRange[1]).toLocaleDateString();
       }
       getData.city_id = this.searchForm.city_id;
-      this.$api.getPassList(getData, res => {
+      this.$api.getLogs(getData, res => {
         this.auditPassList = res.data.data;
         this.count = res.data.count;
       });
@@ -383,7 +375,7 @@ export default {
           getData.end = new Date(this.dateRange[1]).toLocaleDateString();
         }
       }
-      this.$api.getPassList(getData, res => {
+      this.$api.getLogs(getData, res => {
         this.auditPassList = res.data.data;
       });
     },
@@ -401,7 +393,7 @@ export default {
           getData.end = new Date(this.dateRange[1]).toLocaleDateString();
         }
       }
-      this.$api.getPassList(getData, res => {
+      this.$api.getLogs(getData, res => {
         this.auditPassList = res.data.data;
         this.count = res.data.count;
       });
