@@ -90,7 +90,11 @@
       <div class="single-basic">
         <div class="single-basic-item">姓名： {{info.name || '未实名'}}</div>
         <div class="single-basic-item">昵称：  {{info.username}}</div>
-        <div class="single-basic-item">电话号码： {{info.phone}}</div>
+        <div class="single-basic-item">注册ip：  {{info.ip}}</div>
+        <div class="single-basic-item">注册端口：  {{info.port}}</div>
+        <div class="single-basic-item">访问地址：  {{info.url}}</div>
+        <div class="single-basic-item">设备特征：  {{info.mac}}</div>
+        <!-- <div class="single-basic-item">电话号码： {{info.phone}}</div> -->
         <div class="single-basic-item">会员等级： {{info.member?levels[info.member.level].name: ''}}</div>
         <div class="single-basic-item">当前积分： {{info.score || 0}}</div>
         <div class="single-basic-item">发布次数： {{info.commodity_count || 0}}</div>

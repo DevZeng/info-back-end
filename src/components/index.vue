@@ -142,6 +142,7 @@
                 <!-- <el-menu-item index="/qrcontrol">二维码开关</el-menu-item> -->
                 <el-menu-item v-if="role.parttimelist" index="/parttimelist">申请兼职</el-menu-item>
                 <el-menu-item v-if="role.userlist" index="/userlist">用户列表</el-menu-item>
+                <el-menu-item index="/userlog">访问记录</el-menu-item>
               </el-menu-item-group>
               <el-submenu index="2-1" v-if="role.activity">
                 <template slot="title">会员功能</template>

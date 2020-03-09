@@ -55,6 +55,7 @@ import packetConfig from '@/components/redpacket/packetConfig'
 import unpasswithdraw from '@/components/info/unpasswithdraw'
 import amountList from '@/components/member/amountList'
 import withdrawConfig from '@/components/info/withdrawConfig'
+import userlog from '@/components/member/userlog'
 Vue.use(Router)
 
 export default new Router({
@@ -300,6 +301,11 @@ export default new Router({
           path: 'packetList',
           name: 'packetList',
           component: packetList
+        },
+        {
+          path: 'userlog',
+          name: 'userlog',
+          component: userlog
         },
       ]
     }
