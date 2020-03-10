@@ -1359,4 +1359,18 @@ export default {
         this.APIError(error.response)
       })
   },
+  getHistorys(data, cb) {
+    axios.get(`${host}commodity/records`, {
+      params: data
+    })
+    .then(res => {
+      if ('SUCCESS' === res.data.return_code) {
+        typeof cb === 'function' && cb(res)
+      } else {
+        this.APIError(res)
+      }
+    }).catch(error => {
+      this.APIError(error.response)
+    })
+},
 }

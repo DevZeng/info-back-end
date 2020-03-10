@@ -56,6 +56,8 @@ import unpasswithdraw from '@/components/info/unpasswithdraw'
 import amountList from '@/components/member/amountList'
 import withdrawConfig from '@/components/info/withdrawConfig'
 import userlog from '@/components/member/userlog'
+import historys from '@/components/info/historys'
+import history from '@/components/info/history'
 Vue.use(Router)
 
 export default new Router({
@@ -306,6 +308,16 @@ export default new Router({
           path: 'userlog',
           name: 'userlog',
           component: userlog
+        },
+        {
+          path: 'history',
+          name: 'history',
+          component: history
+        },
+        {
+          path: 'historys',
+          name: 'historys',
+          component: historys
         },
       ]
     }
