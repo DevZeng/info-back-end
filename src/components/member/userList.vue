@@ -76,9 +76,9 @@
         <el-table-column type="expand">
           <template slot-scope="props">
             <el-form label-position="left" inline class="demo-table-expand">
-              <el-form-item label="性别">
+              <!-- <el-form-item label="性别">
                 <span>da</span>
-              </el-form-item>
+              </el-form-item> -->
               <!-- <el-form-item label="兼职片区">
                 <span>{{ props.row.area }}</span>
               </el-form-item>
@@ -279,12 +279,7 @@ dialogFormVisible: false,
           });       
         });
     },
-    getPhone(){
-      console.log(this.form);
-     
-    // this.userList = user.id;
-    }
-  },
+    
     //新增角色
     handleAddRole(index, row) {
       this.roleDialog = true;
@@ -440,6 +435,6 @@ dialogFormVisible: false,
       });
     },
     
-  
+  }
 };
 </script>

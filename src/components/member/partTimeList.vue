@@ -301,7 +301,7 @@ export default {
     /*页数*/
     handleCurrentChange(page) {
       const getData = {
-        paeg: page,
+        page: page,
         state: this.searchForm.state
       };
       this.$api.getPartTimes(getData, res => {

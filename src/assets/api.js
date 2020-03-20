@@ -1206,7 +1206,7 @@ export default {
       })
   },
   getredpacketConfig(cb) {
-    axios.get(`${host}redpacket/config`)
+    axios.get(`${host}red/packet/config`)
       .then(res => {
         if ('SUCCESS' === res.data.return_code) {
           typeof cb === 'function' && cb(res)
